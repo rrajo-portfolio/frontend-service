@@ -1,0 +1,29 @@
+<section class="dashboard-container">
+  <h2>Resumen operativo</h2>
+
+  <div class="metrics" *ngIf="metrics$ | async as metrics">
+    <mat-card>
+      <mat-card-title>{{ metrics.products }}</mat-card-title>
+      <mat-card-subtitle>Productos activos</mat-card-subtitle>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>{{ metrics.users }}</mat-card-title>
+      <mat-card-subtitle>Usuarios registrados</mat-card-subtitle>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>{{ metrics.pendingOrders }}</mat-card-title>
+      <mat-card-subtitle>Pedidos pendientes</mat-card-subtitle>
+    </mat-card>
+  </div>
+
+  <h3>Productos destacados</h3>
+  <div class="highlighted">
+    <mat-card *ngFor="let product of highlightedProducts$ | async">
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      <mat-card-content>
+        <p>{{ product.description }}</p>
+        <span>{{ product.price | currency : product.currency }}</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+@use 'styles/variables' as *;
+
+.search-panel {
+  width: 100%;
+  border: 1px solid $gray-200;
+  border-radius: $radius-lg;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  box-shadow: $shadow-sm;
+
+  input {
+    flex: 1;
+    border: none;
+    font-size: $text-base;
+    font-family: $font-primary;
+    outline: none;
+    color: $gray-700;
+  }
+}

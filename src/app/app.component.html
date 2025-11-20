@@ -1,0 +1,6 @@
+<app-loading-spinner [visible]="(loading$ | async) ?? false"></app-loading-spinner>
+<app-header (logout)="logout()"></app-header>
+<main class="app-shell">
+  <router-outlet></router-outlet>
+</main>
+<app-footer></app-footer>

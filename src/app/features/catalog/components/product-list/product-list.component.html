@@ -1,0 +1,73 @@
+﻿<section class="catalog-container">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Inventario activo</p>
+      <h2>Catálogo de productos</h2>
+      <p>Consulta el inventario publicado por catalog-service y verifica precios, estado y etiquetas.</p>
+    </div>
+    <button class="btn btn-primary" type="button" (click)="loadProducts()">
+      <lucide-icon name="RefreshCw" size="18"></lucide-icon>
+      Refrescar
+    </button>
+  </div>
+
+  <app-product-search (search)="loadProducts($event)"></app-product-search>
+
+  <div class="products-grid" *ngIf="products$ | async as products; else empty">
+    <article
+      *ngFor="let product of products"
+      class="product-card"
+      (click)="onProductSelected(product)"
+      [class.selected]="product.id === selectedProduct?.id"
+    >
+      <div class="card-head">
+        <div>
+          <p class="sku">SKU {{ product.sku }}</p>
+          <h3>{{ product.name }}</h3>
+        </div>
+        <span class="badge badge-status" [class.active]="product.status === 'ACTIVE'">
+          {{ product.status }}
+        </span>
+      </div>
+      <p class="description">
+        {{ product.description || 'Sin descripciÃ³n proporcionada.' }}
+      </p>
+      <div class="meta">
+        <span>{{ product.price | currency: (product.currency || 'USD') }}</span>
+        <span *ngIf="product.tags?.length">
+          {{ product.tags.slice(0, 2).join(', ') }}
+          <ng-container *ngIf="product.tags.length > 2">
+            +{{ product.tags.length - 2 }}
+          </ng-container>
+        </span>
+      </div>
+      <button
+        class="btn btn-secondary"
+        type="button"
+        *ngIf="canUseCart"
+        (click)="addToCart(product, $event)"
+      >
+        <lucide-icon name="ShoppingCart" size="16"></lucide-icon>
+        Añadir al carrito
+      </button>
+      <button class="btn btn-text" type="button">
+        Ver detalles
+        <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+      </button>
+    </article>
+  </div>
+
+  <ng-template #empty>
+    <div class="empty-state">
+      <p>No se encontraron productos con ese criterio.</p>
+      <button class="btn btn-secondary" type="button" (click)="loadProducts()">
+        Limpiar bÃºsqueda
+      </button>
+    </div>
+  </ng-template>
+
+  <app-product-detail
+    *ngIf="selectedProduct"
+    [product]="selectedProduct"
+  ></app-product-detail>
+</section>

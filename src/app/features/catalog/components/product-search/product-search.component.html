@@ -1,0 +1,8 @@
+<div class="search-panel">
+  <lucide-icon name="Search" size="18"></lucide-icon>
+  <input
+    type="search"
+    placeholder="Buscar por nombre, SKU o tag..."
+    (input)="onSearch($any($event.target).value)"
+  />
+</div>

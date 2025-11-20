@@ -1,0 +1,299 @@
+﻿<ng-container *ngIf="user as currentUser; else loading">
+  <div class="profile-container">
+    <header class="profile-header">
+      <div class="breadcrumb">
+        <a routerLink="/catalog">CatÃ¡logo</a>
+        <lucide-icon name="ChevronRight" size="14"></lucide-icon>
+        <span>Perfil</span>
+      </div>
+      <h1 class="page-title">Mi Perfil</h1>
+      <p class="page-description">
+        Gestiona tus datos personales, seguridad y preferencias de notificaciÃ³n.
+      </p>
+    </header>
+
+    <div class="profile-content">
+      <aside class="profile-sidebar">
+        <section class="avatar-card">
+          <div class="avatar-wrapper">
+            <img
+              *ngIf="currentUser.avatar; else initials"
+              [src]="currentUser.avatar"
+              [alt]="currentUser.name"
+              class="avatar-lg"
+            />
+            <ng-template #initials>
+              <div class="avatar-placeholder">
+                {{ currentUser.name.slice(0, 2).toUpperCase() }}
+              </div>
+            </ng-template>
+            <button
+              class="avatar-edit"
+              type="button"
+              aria-label="Cambiar avatar"
+              (click)="changeAvatar()"
+            >
+              <lucide-icon name="Camera" size="16"></lucide-icon>
+            </button>
+          </div>
+          <h2 class="user-name">{{ currentUser.name }}</h2>
+          <p class="user-email">{{ currentUser.email }}</p>
+          <div class="user-status">
+            <span class="status-badge active">
+              <span class="status-dot"></span>
+              Cuenta activa
+            </span>
+          </div>
+          <div class="user-stats">
+            <div class="stat-item">
+              <div class="stat-value">{{ userStats?.orderCount ?? 0 }}</div>
+              <div class="stat-label">Pedidos</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-value">
+                {{ userStats?.memberSince | date: 'yyyy' }}
+              </div>
+              <div class="stat-label">Miembro desde</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="quick-actions-card">
+          <h3 class="card-title">Acciones rÃ¡pidas</h3>
+          <button class="action-button" type="button" (click)="changePassword()">
+            <lucide-icon name="Lock" size="16"></lucide-icon>
+            <span>Cambiar contraseÃ±a</span>
+            <lucide-icon class="arrow" name="ChevronRight" size="16"></lucide-icon>
+          </button>
+          <button class="action-button" type="button" (click)="downloadData()">
+            <lucide-icon name="Download" size="16"></lucide-icon>
+            <span>Descargar mis datos</span>
+            <lucide-icon class="arrow" name="ChevronRight" size="16"></lucide-icon>
+          </button>
+          <button class="action-button" type="button" (click)="viewActivity()">
+            <lucide-icon name="Activity" size="16"></lucide-icon>
+            <span>Actividad reciente</span>
+            <lucide-icon class="arrow" name="ChevronRight" size="16"></lucide-icon>
+          </button>
+          <button class="action-button danger" type="button" (click)="deleteAccount()">
+            <lucide-icon name="Trash2" size="16"></lucide-icon>
+            <span>Eliminar cuenta</span>
+            <lucide-icon class="arrow" name="ChevronRight" size="16"></lucide-icon>
+          </button>
+        </section>
+
+        <section class="preferences-card">
+          <h3 class="card-title">Preferencias</h3>
+          <div class="preference-row">
+            <div>
+              <div class="preference-title">Emails transaccionales</div>
+              <div class="preference-description">
+                Confirmaciones, facturas y actualizaciones importantes.
+              </div>
+            </div>
+            <label class="toggle-switch">
+              <input
+                type="checkbox"
+                [(ngModel)]="preferences.emailNotifications"
+                (change)="savePreferences()"
+              />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="preference-row">
+            <div>
+              <div class="preference-title">Notificaciones push</div>
+              <div class="preference-description">
+                Recordatorios sobre pedidos y seguridad.
+              </div>
+            </div>
+            <label class="toggle-switch">
+              <input
+                type="checkbox"
+                [(ngModel)]="preferences.pushNotifications"
+                (change)="savePreferences()"
+              />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          <div class="preference-row">
+            <div>
+              <div class="preference-title">Emails de marketing</div>
+              <div class="preference-description">
+                Novedades y contenido exclusivo del portfolio.
+              </div>
+            </div>
+            <label class="toggle-switch">
+              <input
+                type="checkbox"
+                [(ngModel)]="preferences.marketingEmails"
+                (change)="savePreferences()"
+              />
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </section>
+      </aside>
+
+      <main class="profile-main">
+        <section class="info-card">
+          <div class="card-header">
+            <h3 class="card-title">InformaciÃ³n personal</h3>
+            <button
+              class="btn btn-secondary"
+              type="button"
+              *ngIf="!editingPersonal"
+              (click)="toggleEditPersonal()"
+            >
+              <lucide-icon name="Edit" size="16"></lucide-icon>
+              Editar
+            </button>
+          </div>
+
+          <form
+            *ngIf="editingPersonal; else personalView"
+            [formGroup]="personalForm"
+            class="form-grid"
+          >
+            <label class="form-group">
+              <span>Nombre</span>
+              <input type="text" formControlName="firstName" />
+            </label>
+            <label class="form-group">
+              <span>Apellidos</span>
+              <input type="text" formControlName="lastName" />
+            </label>
+            <label class="form-group full-width">
+              <span>Email</span>
+              <input type="email" formControlName="email" [disabled]="true" />
+            </label>
+            <label class="form-group">
+              <span>TelÃ©fono</span>
+              <input type="tel" formControlName="phone" />
+            </label>
+            <label class="form-group">
+              <span>Usuario</span>
+              <input type="text" formControlName="username" />
+            </label>
+            <div class="form-actions full-width">
+              <button
+                class="btn btn-secondary"
+                type="button"
+                (click)="cancelEditPersonal()"
+              >
+                Cancelar
+              </button>
+              <button
+                class="btn btn-primary"
+                type="button"
+                (click)="savePersonal()"
+                [disabled]="personalForm.invalid || savingPersonal"
+              >
+                {{ savingPersonal ? 'Guardando...' : 'Guardar cambios' }}
+              </button>
+            </div>
+          </form>
+          <ng-template #personalView>
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Nombre completo</span>
+                <span class="info-value">{{ currentUser.name }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Email</span>
+                <span class="info-value">{{ currentUser.email }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">TelÃ©fono</span>
+                <span class="info-value">
+                  {{ currentUser.phone || 'No especificado' }}
+                </span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Usuario</span>
+                <span class="info-value">{{ currentUser.username }}</span>
+              </div>
+            </div>
+          </ng-template>
+        </section>
+
+        <section class="info-card">
+          <div class="card-header">
+            <h3 class="card-title">Roles y permisos</h3>
+            <span class="badge badge-info">Solo lectura</span>
+          </div>
+          <div class="roles-container">
+            <span class="role-chip" *ngFor="let role of currentUser.roles">
+              <lucide-icon name="Shield" size="16"></lucide-icon>
+              {{ getRoleLabel(role) }}
+            </span>
+          </div>
+          <div class="help-box">
+            <lucide-icon name="Info" size="16"></lucide-icon>
+            <p>
+              Gestiona y verifica los permisos asociados a tu cuenta.
+            </p>
+            <a *ngIf="hasAdminRole" routerLink="/admin" class="help-link">
+              Abrir panel administrativo
+            </a>
+          </div>
+        </section>
+
+        <section class="info-card security-card">
+          <div class="card-header">
+            <h3 class="card-title">Seguridad</h3>
+          </div>
+          <div class="security-item">
+            <div class="security-icon">
+              <lucide-icon name="Lock" size="18"></lucide-icon>
+            </div>
+            <div>
+              <div class="security-title">ContraseÃ±a</div>
+              <div class="security-description">
+                Ãšltima actualizaciÃ³n:
+                {{ currentUser.passwordUpdatedAt | date: 'dd/MM/yyyy' || 'N/A' }}
+              </div>
+            </div>
+            <button class="btn btn-secondary-sm" (click)="changePassword()">
+              Cambiar
+            </button>
+          </div>
+          <div class="security-item">
+            <div class="security-icon">
+              <lucide-icon name="ShieldCheck" size="18"></lucide-icon>
+            </div>
+            <div>
+              <div class="security-title">AutenticaciÃ³n de dos factores</div>
+              <div class="security-description">
+                AÃ±ade una capa extra de seguridad
+              </div>
+            </div>
+            <button class="btn btn-secondary-sm" (click)="setup2FA()">
+              {{ currentUser.twoFactorEnabled ? 'Configurado' : 'Configurar' }}
+            </button>
+          </div>
+          <div class="security-item">
+            <div class="security-icon">
+              <lucide-icon name="Monitor" size="18"></lucide-icon>
+            </div>
+            <div>
+              <div class="security-title">Sesiones activas</div>
+              <div class="security-description">
+                {{ activeSessions }} dispositivo(s) conectado(s)
+              </div>
+            </div>
+            <button class="btn btn-secondary-sm" (click)="viewSessions()">
+              Ver todas
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="profile-loading">Cargando perfil...</div>
+</ng-template>
+

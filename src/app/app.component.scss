@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.app-shell {
+  flex: 1;
+  background: #f3f4f6;
+}
