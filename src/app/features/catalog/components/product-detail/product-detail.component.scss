@@ -1,0 +1,27 @@
+.detail-card {
+  margin-top: 1.5rem;
+  border-radius: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+
+  mat-card-title {
+    font-size: 1.3rem;
+  }
+
+  .price {
+    font-weight: 700;
+    margin: 1rem 0;
+    color: #0f172a;
+  }
+
+  .meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    color: #475569;
+
+    span {
+      font-size: 0.85rem;
+    }
+  }
+}

@@ -1,0 +1,185 @@
+@use 'styles/variables' as *;
+
+.orders-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 48px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  .eyebrow {
+    text-transform: uppercase;
+    font-size: $text-xs;
+    letter-spacing: 0.2em;
+    color: $gray-500;
+  }
+
+  h2 {
+    margin: 4px 0;
+    font-size: 32px;
+  }
+
+  p {
+    margin: 0;
+    color: $gray-500;
+  }
+}
+
+.filters-bar {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  .search-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid $gray-200;
+    border-radius: $radius-lg;
+    padding: 10px 14px;
+    background: white;
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: $text-base;
+    }
+  }
+
+  .filter-select {
+    border: 1px solid $gray-200;
+    border-radius: $radius-lg;
+    padding: 10px 16px;
+    background: white;
+    font-size: $text-base;
+    color: $gray-700;
+  }
+}
+
+.bulk-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: $radius-lg;
+  background: $primary-50;
+  color: $primary-700;
+}
+
+.table-container {
+  border-radius: $radius-xl;
+  border: 1px solid $gray-100;
+  background: white;
+  box-shadow: $shadow-md;
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 14px 20px;
+    text-align: left;
+  }
+
+  thead {
+    background: $gray-50;
+
+    th {
+      text-transform: uppercase;
+      font-size: $text-xs;
+      letter-spacing: 0.2em;
+      color: $gray-500;
+      font-weight: $font-semibold;
+    }
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $gray-100;
+    transition: $transition-base;
+
+    &:hover {
+      background: $gray-50;
+    }
+
+    &.selected {
+      background: $primary-50;
+    }
+  }
+}
+
+.order-id {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  code {
+    font-family: $font-mono;
+    background: $gray-100;
+    padding: 2px 8px;
+    border-radius: $radius-md;
+  }
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  strong {
+    font-weight: $font-semibold;
+  }
+
+  small {
+    color: $gray-500;
+  }
+}
+
+.status-chip {
+  padding: 6px 12px;
+  border-radius: $radius-full;
+  font-size: $text-xs;
+  font-weight: $font-semibold;
+  text-transform: uppercase;
+
+  &.pending {
+    background: rgba(245, 158, 11, 0.15);
+    color: $warning-700;
+  }
+
+  &.confirmed,
+  &.delivered {
+    background: rgba(16, 185, 129, 0.15);
+    color: $success-700;
+  }
+
+  &.cancelled {
+    background: rgba(239, 68, 68, 0.15);
+    color: $error-600;
+  }
+
+  &.shipped {
+    background: rgba(59, 130, 246, 0.15);
+    color: $primary-600;
+  }
+}
+
+.empty-message {
+  text-align: center;
+  color: $gray-500;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+  }
+}

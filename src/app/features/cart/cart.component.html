@@ -1,0 +1,81 @@
+<section class="cart-container">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Checkout</p>
+      <h2>Carrito de compras</h2>
+      <p>Revisa tus productos y confirma el pedido cuando estés listo.</p>
+    </div>
+  </div>
+
+  <ng-container *ngIf="items$ | async as items">
+    <ng-container *ngIf="items.length; else emptyCart">
+      <div class="items-grid">
+        <mat-card class="cart-item" *ngFor="let item of items">
+          <div class="item-head">
+            <div>
+              <p class="sku">#{{ item.productId | slice: 0 : 8 }}</p>
+              <h3>{{ item.productName }}</h3>
+            </div>
+            <button mat-icon-button type="button" (click)="remove(item.productId)" aria-label="Eliminar">
+              <lucide-icon name="Trash2" size="18"></lucide-icon>
+            </button>
+          </div>
+
+          <div class="item-body">
+            <div class="price-box">
+              <span>Precio</span>
+              <strong>{{ item.price | currency : item.currency }}</strong>
+            </div>
+            <mat-form-field appearance="outline" class="quantity-field">
+              <mat-label>Cantidad</mat-label>
+              <input
+                matInput
+                type="number"
+                [value]="item.quantity"
+                min="1"
+                (input)="updateQuantity(item.productId, $any($event.target).value)"
+              />
+            </mat-form-field>
+            <div class="price-box total">
+              <span>Total</span>
+              <strong>{{ (item.price * item.quantity) | currency : item.currency }}</strong>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+
+      <mat-card class="summary-card">
+        <div class="summary-row">
+          <div>
+            <p class="summary-label">Importe total</p>
+            <p class="summary-value">{{ getTotal(items) | currency : getCurrency(items) }}</p>
+          </div>
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            [disabled]="isSubmitting"
+            (click)="checkout(items)"
+          >
+            <lucide-icon name="CreditCard" size="18"></lucide-icon>
+            Proceder al pago
+          </button>
+        </div>
+        <small *ngIf="user">
+          El pedido se asociará a <strong>{{ user.name }}</strong> ({{ user.email }}).
+        </small>
+      </mat-card>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #emptyCart>
+    <div class="empty-cart">
+      <lucide-icon name="ShoppingCart" size="48"></lucide-icon>
+      <p>Tu carrito está vacío.</p>
+      <a class="btn btn-primary" routerLink="/catalog">
+        <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+        Explorar catálogo
+      </a>
+    </div>
+  </ng-template>
+</section>

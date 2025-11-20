@@ -1,0 +1,142 @@
+<section class="home-hero" *ngIf="stats$ | async as stats">
+  <div class="hero-content">
+    <span class="eyebrow">Resumen general</span>
+    <h1>Hola, {{ userName }} 👋</h1>
+    <p>
+      Microservicios + Keycloak + Gateway listos para demostrar arquitectura enterprise de principio a fin.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" routerLink="/catalog">
+        <lucide-icon name="Plus" size="18"></lucide-icon>
+        Nuevo producto
+      </a>
+      <a class="btn btn-secondary" routerLink="/orders">
+        <lucide-icon name="ShoppingCart" size="18"></lucide-icon>
+        Crear pedido
+      </a>
+      <a class="btn btn-secondary" routerLink="/admin">
+        <lucide-icon name="Settings" size="18"></lucide-icon>
+        Panel admin
+      </a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <article class="stat-card">
+      <div class="stat-icon">
+        <lucide-icon name="Package" size="24"></lucide-icon>
+      </div>
+      <div>
+        <p>Productos activos</p>
+        <h3>{{ stats.totalProducts }}</h3>
+      </div>
+      <span class="stat-chip positive">+{{ stats.productsGrowth }}%</span>
+    </article>
+    <article class="stat-card">
+      <div class="stat-icon warning">
+        <lucide-icon name="Clock" size="24"></lucide-icon>
+      </div>
+      <div>
+        <p>Pedidos pendientes</p>
+        <h3>{{ stats.pendingOrders }}</h3>
+      </div>
+      <span class="stat-chip warning">Monitorear</span>
+    </article>
+    <article class="stat-card">
+      <div class="stat-icon success">
+        <lucide-icon name="Users" size="24"></lucide-icon>
+      </div>
+      <div>
+        <p>Usuarios activos</p>
+        <h3>{{ stats.activeUsers }}</h3>
+      </div>
+      <span class="stat-chip positive">+{{ stats.usersGrowth }}%</span>
+    </article>
+    <article class="stat-card">
+      <div class="stat-icon accent">
+        <lucide-icon name="TrendingUp" size="24"></lucide-icon>
+      </div>
+      <div>
+        <p>Ingresos del mes</p>
+        <h3>{{ stats.revenue | currency: 'USD' }}</h3>
+      </div>
+      <span class="stat-chip positive">+{{ stats.revenueGrowth }}%</span>
+    </article>
+  </div>
+</section>
+
+<section class="catalog-preview">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">Catálogo</p>
+      <h2>Productos listos para demo</h2>
+      <p>Muestra la integración entre catalog-service, Elasticsearch y Kafka.</p>
+    </div>
+    <a class="btn btn-primary" routerLink="/catalog">
+      <lucide-icon name="ArrowRight" size="18"></lucide-icon>
+      Abrir catálogo
+    </a>
+  </div>
+  <div class="product-showcase" *ngIf="featuredProducts$ | async as featured">
+    <article class="product-card" *ngFor="let product of featured; trackBy: trackByProduct">
+      <div class="product-head">
+        <span class="badge badge-status active">Activo</span>
+        <lucide-icon name="Sparkles" size="18"></lucide-icon>
+      </div>
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description || 'Producto sin descripción detallada.' }}</p>
+      <div class="product-meta">
+        <span>{{ product.price | currency: (product.currency || 'USD') }}</span>
+        <span *ngIf="product.tags?.length">
+          {{ product.tags.slice(0, 2).join(', ') }}
+          <ng-container *ngIf="product.tags.length > 2">
+            +{{ product.tags.length - 2 }}
+          </ng-container>
+        </span>
+      </div>
+      <a class="product-link" routerLink="/catalog">
+        Revisar en catálogo
+        <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+      </a>
+    </article>
+    <div class="empty-state" *ngIf="!featured.length">
+      <p>Aún no hay productos. Agrega algunos desde catalog-service.</p>
+    </div>
+  </div>
+</section>
+
+<section class="experience-grid">
+  <article class="experience-card" *ngFor="let card of experienceCards">
+    <div class="card-icon">
+      <lucide-icon [name]="card.icon" size="24"></lucide-icon>
+    </div>
+    <h3>{{ card.title }}</h3>
+    <p>{{ card.description }}</p>
+    <a class="btn btn-text" [routerLink]="card.link">
+      {{ card.linkLabel }}
+      <lucide-icon name="ArrowUpRight" size="16"></lucide-icon>
+    </a>
+  </article>
+</section>
+
+<section class="quick-links-grid">
+  <article class="quick-link" *ngFor="let link of quickLinks">
+    <div class="link-content">
+      <h4>{{ link.title }}</h4>
+      <p>{{ link.copy }}</p>
+    </div>
+    <a
+      *ngIf="link.external"
+      class="btn btn-text"
+      [href]="link.link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Abrir guía
+      <lucide-icon name="ArrowUpRight" size="16"></lucide-icon>
+    </a>
+    <a *ngIf="!link.external" class="btn btn-text" [routerLink]="link.link">
+      Abrir sección
+      <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+    </a>
+  </article>
+</section>

@@ -1,0 +1,111 @@
+<section class="orders-container">
+  <div class="page-header">
+    <div class="page-info">
+      <p class="eyebrow">{{ isAdmin ? 'Operaciones' : 'Mis compras' }}</p>
+      <h2>{{ isAdmin ? 'Pedidos' : 'Historial de pedidos' }}</h2>
+      <p>
+        {{
+          isAdmin
+            ? 'Gestiona y monitorea todos los pedidos del ecosistema.'
+            : 'Consulta el estado de tus compras y recibe actualizaciones.'
+        }}
+      </p>
+    </div>
+    <a class="btn btn-primary" routerLink="create" *ngIf="isAdmin">
+      <lucide-icon name="Plus" size="18"></lucide-icon>
+      Nuevo pedido
+    </a>
+    <a class="btn btn-secondary" routerLink="/cart" *ngIf="!isAdmin">
+      <lucide-icon name="ShoppingCart" size="18"></lucide-icon>
+      Ir al carrito
+    </a>
+  </div>
+
+  <div class="filters-bar">
+    <div class="search-box">
+      <lucide-icon name="Search" size="16"></lucide-icon>
+      <input
+        type="search"
+        placeholder="Buscar por ID o usuario..."
+        [value]="searchQuery"
+        (input)="handleSearch($any($event.target).value)"
+      />
+      <button class="btn-icon" *ngIf="searchQuery" (click)="clearSearch()" type="button">
+        <lucide-icon name="X" size="14"></lucide-icon>
+      </button>
+    </div>
+    <select class="filter-select" [value]="statusFilter" (change)="onStatusChange($any($event.target).value)">
+      <option value="">Todos los estados</option>
+      <option value="PENDING">Pendiente</option>
+      <option value="CONFIRMED">Confirmado</option>
+      <option value="SHIPPED">Enviado</option>
+      <option value="DELIVERED">Entregado</option>
+      <option value="CANCELLED">Cancelado</option>
+    </select>
+  </div>
+
+  <div class="bulk-actions" *ngIf="isAdmin && selectedOrders.size">
+    <span>{{ selectedOrders.size }} pedido(s) seleccionados</span>
+    <button class="btn btn-text" type="button" (click)="bulkClear()">Limpiar selección</button>
+  </div>
+
+  <div class="table-container">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th *ngIf="isAdmin">
+            <input
+              type="checkbox"
+              [checked]="selectedOrders.size === filteredOrders.length"
+              (change)="toggleSelectAll()"
+            />
+          </th>
+          <th>Pedido</th>
+          <th>Usuario</th>
+          <th>Estado</th>
+          <th>Total</th>
+          <th>Creado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of filteredOrders" [class.selected]="isSelected(order.id)">
+          <td *ngIf="isAdmin">
+            <input type="checkbox" [checked]="isSelected(order.id)" (change)="toggleSelect(order.id)" />
+          </td>
+          <td>
+            <div class="order-id">
+              <code>#{{ order.id | slice: 0 : 8 }}</code>
+              <button class="btn-icon" type="button" (click)="copyOrderId(order.id)">
+                <lucide-icon name="Copy" size="14"></lucide-icon>
+              </button>
+            </div>
+          </td>
+          <td>
+            <div class="user-info">
+              <strong>{{ order.userName || 'Usuario' }}</strong>
+              <small>{{ order.userEmail || order.userId }}</small>
+            </div>
+          </td>
+          <td>
+            <span class="status-chip" [ngClass]="order.status.toLowerCase()">{{ order.status }}</span>
+          </td>
+          <td>{{ order.totalAmount | currency: order.currency }}</td>
+          <td>{{ order.createdAt | date: 'short' }}</td>
+          <td>
+            <a class="btn btn-text" [routerLink]="[order.id]">
+              Ver detalle
+              <lucide-icon name="ArrowRight" size="14"></lucide-icon>
+            </a>
+          </td>
+        </tr>
+        <tr *ngIf="!filteredOrders.length">
+          <td [attr.colspan]="isAdmin ? 7 : 6" class="empty-message">
+            Sin pedidos para el criterio seleccionado.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+

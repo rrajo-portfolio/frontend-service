@@ -1,0 +1,199 @@
+<header class="app-header">
+  <div class="header-container">
+    <a class="header-brand" routerLink="/" aria-label="Ir al inicio">
+      <app-logo [size]="32"></app-logo>
+      <div class="brand-copy">
+        <span class="brand-name">Portfolio Platform</span>
+        <span class="badge badge-beta">Enterprise ready</span>
+      </div>
+    </a>
+
+    <nav class="nav-main">
+      <ng-container *ngFor="let link of navLinks">
+        <a
+          *ngIf="hasAccess(link)"
+          class="nav-link"
+          routerLinkActive="active"
+          [routerLink]="link.path"
+          [routerLinkActiveOptions]="{ exact: link.path === '/home' }"
+        >
+          <lucide-icon [name]="link.icon" size="18"></lucide-icon>
+          <span>{{ link.label }}</span>
+          <span class="badge-count" *ngIf="link.badge === 'orders' && pendingOrdersCount">
+            {{ pendingOrdersCount }}
+          </span>
+          <span class="badge-count" *ngIf="link.badge === 'cart' && cartCount">
+            {{ cartCount }}
+          </span>
+        </a>
+      </ng-container>
+    </nav>
+
+    <div class="header-actions">
+      <button class="btn-icon" title="Buscar" (click)="toggleSearch()">
+        <lucide-icon name="Search" size="18"></lucide-icon>
+      </button>
+
+      <div class="notifications-wrapper">
+        <button
+          class="btn-icon"
+          title="Notificaciones"
+          (click)="toggleNotifications()"
+          [class.has-unread]="unreadNotifications > 0"
+        >
+          <lucide-icon name="Bell" size="18"></lucide-icon>
+          <span class="badge-count" *ngIf="unreadNotifications">
+            {{ unreadNotifications }}
+          </span>
+        </button>
+
+        <div class="dropdown notifications-dropdown" *ngIf="showNotifications">
+          <div class="dropdown-header">
+            <div>
+              <h4>Notificaciones</h4>
+              <p>{{ unreadNotifications }} pendientes</p>
+            </div>
+            <button class="btn-text" type="button" (click)="markAllNotificationsAsRead()">
+              Marcar como leídas
+            </button>
+          </div>
+          <div class="dropdown-body">
+            <div
+              class="notification-item"
+              *ngFor="let notification of notifications"
+              [class.unread]="!notification.read"
+              (click)="handleNotificationClick(notification)"
+            >
+              <span class="notification-icon" [class]="notification.type">
+                <lucide-icon [name]="getNotificationIcon(notification.type)" size="16"></lucide-icon>
+              </span>
+              <div class="notification-copy">
+                <div class="notification-title">{{ notification.title }}</div>
+                <p>{{ notification.message }}</p>
+              </div>
+              <span class="notification-time">{{ notification.createdAt | timeAgo }}</span>
+            </div>
+            <div class="empty-state" *ngIf="!notifications.length">
+              <lucide-icon name="BellOff" size="18"></lucide-icon>
+              <p>Sin notificaciones</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-menu">
+        <button class="user-trigger" type="button" (click)="toggleUserMenu()">
+          <span class="avatar">{{ userInitials }}</span>
+          <div class="user-meta">
+            <span class="name">{{ userName }}</span>
+            <small>{{ userEmail }}</small>
+          </div>
+          <lucide-icon name="ChevronDown" size="16"></lucide-icon>
+        </button>
+
+        <div class="dropdown user-dropdown" *ngIf="showUserMenu">
+          <div class="dropdown-header">
+            <div class="user-meta">
+              <span class="name">{{ userName }}</span>
+              <small>{{ userEmail }}</small>
+            </div>
+            <span class="badge">{{ userRoles[0] || 'Viewer' }}</span>
+          </div>
+          <div class="dropdown-body">
+            <a routerLink="/profile" class="menu-item">
+              <lucide-icon name="User" size="16"></lucide-icon>
+              Perfil
+            </a>
+            <a routerLink="/admin" class="menu-item" *ngIf="userRoles.includes('admin')">
+              <lucide-icon name="Settings" size="16"></lucide-icon>
+              Panel admin
+            </a>
+            <a
+              href="https://github.com/rrajo-portfolio"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="menu-item"
+            >
+              <lucide-icon name="HelpCircle" size="16"></lucide-icon>
+              Documentación
+            </a>
+          </div>
+          <div class="dropdown-footer">
+            <button class="menu-item" type="button" (click)="handleLogout()">
+              <lucide-icon name="LogOut" size="16"></lucide-icon>
+              Cerrar sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-overlay" *ngIf="showSearch" (click)="closeSearch()">
+    <div class="search-modal" (click)="$event.stopPropagation()">
+      <div class="search-input">
+        <lucide-icon name="Search" size="18"></lucide-icon>
+        <input
+          #searchInput
+          type="text"
+          [value]="searchQuery"
+          (input)="onSearchInput($any($event.target).value || '')"
+          placeholder="Buscar productos, pedidos o usuarios"
+        />
+        <button class="btn-icon" type="button" (click)="closeSearch()">
+          <lucide-icon name="X" size="16"></lucide-icon>
+        </button>
+      </div>
+
+      <div class="search-results" *ngIf="searchResults">
+        <div class="result-column" *ngIf="searchResults.products.length">
+          <h5>Productos</h5>
+          <a
+            *ngFor="let product of searchResults.products"
+            [routerLink]="['/catalog']"
+            (click)="closeSearch()"
+          >
+            <lucide-icon name="Package" size="16"></lucide-icon>
+            <div>
+              <span>{{ product.name }}</span>
+              <small>{{ product.description || 'Sin descripción' }}</small>
+            </div>
+            <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+          </a>
+        </div>
+
+        <div class="result-column" *ngIf="searchResults.orders.length">
+          <h5>Pedidos</h5>
+          <a
+            *ngFor="let order of searchResults.orders"
+            [routerLink]="['/orders', order.id]"
+            (click)="closeSearch()"
+          >
+            <lucide-icon name="ShoppingCart" size="16"></lucide-icon>
+            <div>
+              <span>Pedido #{{ order.id | slice: 0 : 8 }}</span>
+              <small>{{ order.status }}</small>
+            </div>
+            <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+          </a>
+        </div>
+
+        <div class="result-column" *ngIf="searchResults.users.length">
+          <h5>Usuarios</h5>
+          <a
+            *ngFor="let user of searchResults.users"
+            [routerLink]="['/admin']"
+            (click)="closeSearch()"
+          >
+            <lucide-icon name="Users" size="16"></lucide-icon>
+            <div>
+              <span>{{ user.firstName }} {{ user.lastName }}</span>
+              <small>{{ user.email }}</small>
+            </div>
+            <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

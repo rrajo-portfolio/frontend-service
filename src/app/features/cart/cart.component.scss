@@ -1,0 +1,143 @@
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 36px);
+    }
+
+    p {
+      color: #4b5563;
+      margin: 4px 0 0;
+    }
+  }
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .sku {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: #9ca3af;
+      margin: 0 0 4px;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+  }
+
+  .item-body {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .price-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    span {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    strong {
+      font-size: 1.2rem;
+    }
+
+    &.total strong {
+      color: #1d4ed8;
+    }
+  }
+
+  .quantity-field {
+    width: 120px;
+  }
+}
+
+.summary-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .summary-label {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+
+  .summary-value {
+    margin: 0;
+    font-size: 2rem;
+  }
+}
+
+.empty-cart {
+  min-height: 320px;
+  padding: 48px;
+  border: 1px dashed #d1d5db;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+
+  p {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+}

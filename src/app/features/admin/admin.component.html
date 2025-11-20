@@ -1,0 +1,27 @@
+﻿<section class="admin">
+  <header>
+    <p class="eyebrow">AdministraciÃ³n</p>
+    <h1>Centro de control</h1>
+    <p>
+      Solo visible para roles <code>admin</code> o <code>portfolio_admin</code>. Panel dedicado a operaciones internas y gobierno.
+    </p>
+  </header>
+
+  <div class="admin__grid">
+    <article *ngFor="let section of sections" class="admin-card">
+      <div class="card-icon">
+        <lucide-icon [name]="section.icon" size="24"></lucide-icon>
+      </div>
+      <div class="card-body">
+        <h3>{{ section.title }}</h3>
+        <p>{{ section.description }}</p>
+      </div>
+      <a class="btn btn-text" [routerLink]="section.link">
+        Abrir mÃ³dulo
+        <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+      </a>
+    </article>
+  </div>
+</section>
+
+

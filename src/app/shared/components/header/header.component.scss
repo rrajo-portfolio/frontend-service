@@ -1,0 +1,355 @@
+@use 'styles/variables' as *;
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: $z-header;
+  backdrop-filter: $blur-backdrop;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  padding: 12px 40px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.header-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  padding: 8px 10px;
+  margin-left: -10px;
+  border-radius: $radius-lg;
+  transition: $transition-base;
+
+  &:hover {
+    background: rgba(99, 102, 241, 0.08);
+  }
+
+  .brand-name {
+    font-weight: $font-semibold;
+    font-size: $text-lg;
+    color: $gray-900;
+  }
+}
+
+.nav-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  border-radius: $radius-lg;
+  background: $gray-100;
+
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: $radius-md;
+    font-weight: $font-medium;
+    color: $gray-600;
+    transition: $transition-base;
+
+    &.active,
+    &:hover {
+      background: white;
+      color: $primary-600;
+      box-shadow: $shadow-sm;
+    }
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notifications-wrapper,
+.user-menu {
+  position: relative;
+}
+
+.notifications-wrapper .btn-icon.has-unread {
+  border-color: $primary-200;
+  color: $primary-600;
+}
+
+.user-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1px solid $gray-200;
+  padding: 6px 14px;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  min-width: 220px;
+  transition: $transition-base;
+
+  &:hover {
+    border-color: $primary-200;
+    box-shadow: $shadow-sm;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: $radius-full;
+    background: $primary-100;
+    color: $primary-700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: $font-semibold;
+  }
+
+  .user-meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+
+    .name {
+      font-weight: $font-medium;
+      color: $gray-900;
+    }
+
+    small {
+      color: $gray-500;
+      font-size: $text-xs;
+    }
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 320px;
+  border-radius: $radius-lg;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: white;
+  box-shadow: $shadow-xl;
+  z-index: $z-overlay;
+
+  &-header,
+  &-footer {
+    padding: 16px;
+    border-bottom: 1px solid $gray-100;
+
+    h4 {
+      margin: 0;
+      font-size: $text-base;
+      font-weight: $font-semibold;
+      color: $gray-900;
+    }
+
+    p {
+      margin: 2px 0 0;
+      color: $gray-500;
+      font-size: $text-sm;
+    }
+  }
+
+  &-footer {
+    border-top: 1px solid $gray-100;
+    border-bottom: none;
+  }
+
+  &-body {
+    max-height: 360px;
+    overflow-y: auto;
+  }
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  font-size: $text-sm;
+  color: $gray-600;
+  cursor: pointer;
+  transition: $transition-base;
+
+  &:hover {
+    background: $gray-50;
+    color: $primary-600;
+  }
+}
+
+.notifications-dropdown .notification-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid $gray-100;
+  cursor: pointer;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.unread {
+    background: $primary-50;
+  }
+
+  .notification-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: $radius-full;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &.success {
+      background: rgba(16, 185, 129, 0.15);
+      color: $success-600;
+    }
+
+    &.warning {
+      background: rgba(245, 158, 11, 0.15);
+      color: $warning-600;
+    }
+
+    &.error {
+      background: rgba(239, 68, 68, 0.15);
+      color: $error-600;
+    }
+
+    &.info {
+      background: rgba(99, 102, 241, 0.15);
+      color: $info-600;
+    }
+  }
+
+  .notification-copy {
+    .notification-title {
+      font-weight: $font-semibold;
+      color: $gray-900;
+    }
+
+    p {
+      margin: 2px 0 0;
+      color: $gray-600;
+      font-size: $text-sm;
+    }
+  }
+
+  .notification-time {
+    font-size: $text-xs;
+    color: $gray-500;
+  }
+}
+
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  z-index: $z-overlay;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 80px;
+}
+
+.search-modal {
+  width: min(960px, 90vw);
+  background: white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-xl;
+  padding: 24px;
+}
+
+.search-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid $gray-200;
+  border-radius: $radius-lg;
+  padding: 12px 16px;
+  margin-bottom: 24px;
+
+  input {
+    flex: 1;
+    border: none;
+    font-size: $text-base;
+    font-family: $font-primary;
+    outline: none;
+    color: $gray-900;
+  }
+}
+
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+
+  .result-column {
+    background: $gray-50;
+    border-radius: $radius-lg;
+    padding: 16px;
+
+    h5 {
+      margin: 0 0 12px;
+      font-size: $text-sm;
+      font-weight: $font-semibold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: $gray-500;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-radius: $radius-md;
+      color: $gray-700;
+      transition: $transition-base;
+
+      small {
+        display: block;
+        font-size: $text-xs;
+        color: $gray-500;
+      }
+
+      &:hover {
+        background: white;
+        color: $primary-600;
+      }
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  color: $gray-500;
+  padding: 24px;
+
+  lucide-icon {
+    display: block;
+    margin: 0 auto 8px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .app-header {
+    padding: 12px 16px;
+  }
+
+  .nav-main {
+    display: none;
+  }
+}

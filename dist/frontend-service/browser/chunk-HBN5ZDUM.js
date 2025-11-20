@@ -1,0 +1,1 @@
+var o=globalThis.__PORTFOLIO_CONFIG__??{},t={production:!0,apiUrl:o.apiUrl??"https://api.portfolio.com",keycloak:{url:o.keycloakUrl??"https://auth.portfolio.com/auth",realm:o.keycloakRealm??"portfolio",clientId:o.keycloakClientId??"portfolio-frontend"}};export{t as a};

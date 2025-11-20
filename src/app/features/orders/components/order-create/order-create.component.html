@@ -1,0 +1,65 @@
+﻿<form class="order-form" [formGroup]="orderForm" (ngSubmit)="submit()">
+  <mat-card>
+    <mat-card-title>Nuevo pedido</mat-card-title>
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Usuario del pedido</mat-label>
+        <mat-select formControlName="userId">
+          <mat-option *ngFor="let user of users" [value]="user.id">
+            {{ displayUserLabel(user) }} Â· {{ user.email }}
+          </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="matchedUserEmail">
+          Pedido asociado a tu sesión ({{ authService.getProfile()?.email }})
+        </mat-hint>
+        <mat-hint *ngIf="!matchedUserEmail">
+          Selecciona cualquier usuario demo para simular la compra
+        </mat-hint>
+      </mat-form-field>
+
+      <div formArrayName="items">
+        <div
+          class="item-row"
+          *ngFor="let item of items.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Producto</mat-label>
+            <mat-select formControlName="productId">
+              <mat-option
+                *ngFor="let product of products$ | async"
+                [value]="product.id"
+              >
+                {{ product.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" formControlName="quantity" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Precio estimado</mat-label>
+            <input matInput formControlName="price" readonly />
+          </mat-form-field>
+
+          <button mat-icon-button type="button" (click)="removeItem(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <button mat-button type="button" (click)="addItem()">
+        AÃ±adir producto
+      </button>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">
+        Guardar pedido
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

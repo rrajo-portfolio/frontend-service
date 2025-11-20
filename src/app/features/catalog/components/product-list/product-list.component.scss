@@ -1,0 +1,100 @@
+@use 'styles/variables' as *;
+
+.catalog-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 0 48px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: $text-xs;
+    color: $gray-500;
+  }
+
+  h2 {
+    margin: 4px 0;
+    font-size: clamp(28px, 4vw, 36px);
+  }
+
+  p {
+    margin: 0;
+    color: $gray-500;
+  }
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.product-card {
+  border-radius: $radius-lg;
+  border: 1px solid $gray-100;
+  background: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: $transition-base;
+  cursor: pointer;
+
+  &:hover,
+  &.selected {
+    border-color: $primary-200;
+    box-shadow: $shadow-md;
+  }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    .sku {
+      text-transform: uppercase;
+      font-size: $text-xs;
+      color: $gray-400;
+      letter-spacing: 0.2em;
+      margin: 0 0 4px;
+    }
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .description {
+    color: $gray-600;
+    flex: 1;
+  }
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    color: $gray-500;
+    font-size: $text-sm;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  border-radius: $radius-lg;
+  border: 1px dashed $gray-200;
+  color: $gray-600;
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    padding: 16px;
+  }
+}

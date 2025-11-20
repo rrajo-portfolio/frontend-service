@@ -1,0 +1,88 @@
+.order-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+}
+
+.summary-card,
+.items-card {
+  border-radius: 20px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+
+  .label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+
+  .value {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  &.pending {
+    background: rgba(245, 158, 11, 0.15);
+    color: #b45309;
+  }
+  &.confirmed {
+    background: rgba(16, 185, 129, 0.15);
+    color: #047857;
+  }
+  &.shipped,
+  &.delivered {
+    background: rgba(59, 130, 246, 0.15);
+    color: #1d4ed8;
+  }
+  &.cancelled {
+    background: rgba(239, 68, 68, 0.15);
+    color: #b91c1c;
+  }
+}
+
+.item-line {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .item-name {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  small {
+    color: #9ca3af;
+  }
+
+  .item-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+    color: #4b5563;
+  }
+}
