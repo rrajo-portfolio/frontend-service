@@ -1,0 +1,11 @@
+<div class="language-selector">
+  <button
+    *ngFor="let lang of languages"
+    type="button"
+    (click)="selectLanguage(lang.code)"
+    [class.active]="(current$ | async) === lang.code"
+    [attr.aria-label]="'language.selector.label' | translate"
+  >
+    {{ lang.label }}
+  </button>
+</div>

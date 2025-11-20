@@ -7,6 +7,7 @@ import { NotificationService } from '../../core/services/notification.service';
 import { AuthService } from '../../core/services/auth.service';
 import { CartItem } from '../../shared/models/cart-item.model';
 import { AccountUser } from '../../shared/models/account-user.model';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
   selector: 'app-cart',
@@ -23,7 +24,8 @@ export class CartComponent implements OnInit, OnDestroy {
     private readonly ordersService: OrdersService,
     private readonly notificationService: NotificationService,
     private readonly authService: AuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly translationService: TranslationService
   ) {}
 
   get items$() {
@@ -58,7 +60,9 @@ export class CartComponent implements OnInit, OnDestroy {
       return;
     }
     if (!this.user) {
-      this.notificationService.error('No se pudo identificar al usuario actual.');
+      this.notificationService.error(
+        this.translationService.translate('cart.toast.missingUser')
+      );
       return;
     }
     const currency = this.getCurrency(items);
@@ -73,14 +77,18 @@ export class CartComponent implements OnInit, OnDestroy {
     this.isSubmitting = true;
     this.ordersService.createOrder(payload).subscribe({
       next: (order) => {
-        this.notificationService.success('Pedido creado correctamente.');
+        this.notificationService.success(
+          this.translationService.translate('cart.toast.success')
+        );
         this.cartService.clear();
         this.isSubmitting = false;
         this.router.navigate(['/orders', order.id]);
       },
       error: () => {
         this.isSubmitting = false;
-        this.notificationService.error('No se pudo procesar el pago. Inténtalo nuevamente.');
+        this.notificationService.error(
+          this.translationService.translate('cart.toast.error')
+        );
       }
     });
   }

@@ -1,9 +1,9 @@
 <section class="cart-container">
   <div class="page-header">
     <div>
-      <p class="eyebrow">Checkout</p>
-      <h2>Carrito de compras</h2>
-      <p>Revisa tus productos y confirma el pedido cuando estés listo.</p>
+      <p class="eyebrow">{{ 'cart.eyebrow' | translate }}</p>
+      <h2>{{ 'cart.title' | translate }}</h2>
+      <p>{{ 'cart.description' | translate }}</p>
     </div>
   </div>
 
@@ -16,18 +16,23 @@
               <p class="sku">#{{ item.productId | slice: 0 : 8 }}</p>
               <h3>{{ item.productName }}</h3>
             </div>
-            <button mat-icon-button type="button" (click)="remove(item.productId)" aria-label="Eliminar">
+            <button
+              mat-icon-button
+              type="button"
+              (click)="remove(item.productId)"
+              [attr.aria-label]="'cart.remove' | translate"
+            >
               <lucide-icon name="Trash2" size="18"></lucide-icon>
             </button>
           </div>
 
           <div class="item-body">
-            <div class="price-box">
-              <span>Precio</span>
-              <strong>{{ item.price | currency : item.currency }}</strong>
-            </div>
+          <div class="price-box">
+            <span>{{ 'order.detail.price' | translate }}</span>
+            <strong>{{ item.price | currency : item.currency }}</strong>
+          </div>
             <mat-form-field appearance="outline" class="quantity-field">
-              <mat-label>Cantidad</mat-label>
+              <mat-label>{{ 'cart.quantity' | translate }}</mat-label>
               <input
                 matInput
                 type="number"
@@ -37,7 +42,7 @@
               />
             </mat-form-field>
             <div class="price-box total">
-              <span>Total</span>
+              <span>{{ 'cart.lineTotal' | translate }}</span>
               <strong>{{ (item.price * item.quantity) | currency : item.currency }}</strong>
             </div>
           </div>
@@ -47,7 +52,7 @@
       <mat-card class="summary-card">
         <div class="summary-row">
           <div>
-            <p class="summary-label">Importe total</p>
+            <p class="summary-label">{{ 'cart.total' | translate }}</p>
             <p class="summary-value">{{ getTotal(items) | currency : getCurrency(items) }}</p>
           </div>
           <button
@@ -58,11 +63,11 @@
             (click)="checkout(items)"
           >
             <lucide-icon name="CreditCard" size="18"></lucide-icon>
-            Proceder al pago
+            {{ 'cart.payment' | translate }}
           </button>
         </div>
         <small *ngIf="user">
-          El pedido se asociará a <strong>{{ user.name }}</strong> ({{ user.email }}).
+          {{ 'cart.associatedUser' | translate }} <strong>{{ user.name }}</strong> ({{ user.email }}).
         </small>
       </mat-card>
     </ng-container>
@@ -71,10 +76,10 @@
   <ng-template #emptyCart>
     <div class="empty-cart">
       <lucide-icon name="ShoppingCart" size="48"></lucide-icon>
-      <p>Tu carrito está vacío.</p>
+      <p>{{ 'cart.empty' | translate }}</p>
       <a class="btn btn-primary" routerLink="/catalog">
         <lucide-icon name="ArrowRight" size="16"></lucide-icon>
-        Explorar catálogo
+        {{ 'cart.goToCatalog' | translate }}
       </a>
     </div>
   </ng-template>
