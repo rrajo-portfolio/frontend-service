@@ -71,6 +71,10 @@
   display: flex;
   align-items: center;
   gap: 12px;
+
+  app-language-selector {
+    margin-right: 8px;
+  }
 }
 
 .notifications-wrapper,

@@ -1,4 +1,4 @@
-import {
+ï»¿import {
   Component,
   ElementRef,
   EventEmitter,
@@ -18,9 +18,10 @@ import {
 import { SearchService, GlobalSearchResults } from '../../../core/services/search.service';
 import { OrdersService } from '../../../features/orders/services/orders.service';
 import { CartService } from '../../../core/services/cart.service';
+import { TranslationService } from '../../../core/services/translation.service';
 
 interface NavLink {
-  label: string;
+  labelKey: string;
   path: string;
   icon: string;
   roles?: string[];
@@ -38,23 +39,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   readonly navLinks: NavLink[] = [
     {
-      label: 'Inicio',
+      labelKey: 'nav.home',
       path: '/home',
       icon: 'Home',
       roles: ['admin', 'portfolio_admin']
     },
-    { label: 'Catálogo', path: '/catalog', icon: 'Package' },
-    { label: 'Pedidos', path: '/orders', icon: 'ShoppingBag', badge: 'orders' },
+    { labelKey: 'nav.catalog', path: '/catalog', icon: 'Package' },
+    { labelKey: 'nav.orders', path: '/orders', icon: 'ShoppingBag', badge: 'orders' },
     {
-      label: 'Carrito',
+      labelKey: 'nav.cart',
       path: '/cart',
       icon: 'ShoppingCart',
       roles: ['user'],
       badge: 'cart'
     },
-    { label: 'Perfil', path: '/profile', icon: 'User' },
+    { labelKey: 'nav.profile', path: '/profile', icon: 'User' },
     {
-      label: 'Administración',
+      labelKey: 'nav.admin',
       path: '/admin',
       icon: 'Shield',
       roles: ['admin', 'portfolio_admin']
@@ -87,7 +88,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private readonly searchService: SearchService,
     private readonly ordersService: OrdersService,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly cartService: CartService
+    private readonly cartService: CartService,
+    private readonly translationService: TranslationService
   ) {}
 
   ngOnInit(): void {
@@ -109,8 +111,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private loadUserSnapshot(): void {
     const profile = this.authService.getProfile();
-    this.userName = `${profile?.firstName ?? ''} ${profile?.lastName ?? ''}`.trim() || 'Invitado';
-    this.userEmail = profile?.email ?? 'sin-email@portfolio.local';
+    const fallbackName = this.translationService.translate('header.user.defaultName');
+    const fallbackEmail = this.translationService.translate('header.user.defaultEmail');
+    this.userName =
+      `${profile?.firstName ?? ''} ${profile?.lastName ?? ''}`.trim() || fallbackName;
+    this.userEmail = profile?.email ?? fallbackEmail;
     this.userInitials = this.userName
       .split(' ')
       .filter(Boolean)
@@ -250,6 +255,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 }
+
+
 
 
 

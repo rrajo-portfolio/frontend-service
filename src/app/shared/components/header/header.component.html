@@ -1,10 +1,14 @@
 <header class="app-header">
   <div class="header-container">
-    <a class="header-brand" routerLink="/" aria-label="Ir al inicio">
+    <a
+      class="header-brand"
+      routerLink="/"
+      [attr.aria-label]="'nav.home' | translate"
+    >
       <app-logo [size]="32"></app-logo>
       <div class="brand-copy">
         <span class="brand-name">Portfolio Platform</span>
-        <span class="badge badge-beta">Enterprise ready</span>
+        <span class="badge badge-beta">{{ 'header.badge' | translate }}</span>
       </div>
     </a>
 
@@ -18,7 +22,7 @@
           [routerLinkActiveOptions]="{ exact: link.path === '/home' }"
         >
           <lucide-icon [name]="link.icon" size="18"></lucide-icon>
-          <span>{{ link.label }}</span>
+          <span>{{ link.labelKey | translate }}</span>
           <span class="badge-count" *ngIf="link.badge === 'orders' && pendingOrdersCount">
             {{ pendingOrdersCount }}
           </span>
@@ -30,14 +34,20 @@
     </nav>
 
     <div class="header-actions">
-      <button class="btn-icon" title="Buscar" (click)="toggleSearch()">
+      <app-language-selector></app-language-selector>
+
+      <button
+        class="btn-icon"
+        [title]="'header.search.placeholder' | translate"
+        (click)="toggleSearch()"
+      >
         <lucide-icon name="Search" size="18"></lucide-icon>
       </button>
 
       <div class="notifications-wrapper">
         <button
           class="btn-icon"
-          title="Notificaciones"
+          [title]="'header.notifications.title' | translate"
           (click)="toggleNotifications()"
           [class.has-unread]="unreadNotifications > 0"
         >
@@ -50,11 +60,14 @@
         <div class="dropdown notifications-dropdown" *ngIf="showNotifications">
           <div class="dropdown-header">
             <div>
-              <h4>Notificaciones</h4>
-              <p>{{ unreadNotifications }} pendientes</p>
+              <h4>{{ 'header.notifications.title' | translate }}</h4>
+              <p>
+                {{ unreadNotifications }}
+                {{ 'header.notifications.pendingLabel' | translate }}
+              </p>
             </div>
             <button class="btn-text" type="button" (click)="markAllNotificationsAsRead()">
-              Marcar como leídas
+              {{ 'header.notifications.markAll' | translate }}
             </button>
           </div>
           <div class="dropdown-body">
@@ -75,7 +88,7 @@
             </div>
             <div class="empty-state" *ngIf="!notifications.length">
               <lucide-icon name="BellOff" size="18"></lucide-icon>
-              <p>Sin notificaciones</p>
+              <p>{{ 'header.notifications.empty' | translate }}</p>
             </div>
           </div>
         </div>
@@ -97,16 +110,16 @@
               <span class="name">{{ userName }}</span>
               <small>{{ userEmail }}</small>
             </div>
-            <span class="badge">{{ userRoles[0] || 'Viewer' }}</span>
+            <span class="badge">{{ userRoles[0] || ('header.menu.role.fallback' | translate) }}</span>
           </div>
           <div class="dropdown-body">
             <a routerLink="/profile" class="menu-item">
               <lucide-icon name="User" size="16"></lucide-icon>
-              Perfil
+              {{ 'header.menu.profile' | translate }}
             </a>
             <a routerLink="/admin" class="menu-item" *ngIf="userRoles.includes('admin')">
               <lucide-icon name="Settings" size="16"></lucide-icon>
-              Panel admin
+              {{ 'header.menu.admin' | translate }}
             </a>
             <a
               href="https://github.com/rrajo-portfolio"
@@ -115,13 +128,13 @@
               class="menu-item"
             >
               <lucide-icon name="HelpCircle" size="16"></lucide-icon>
-              Documentación
+              {{ 'header.menu.docs' | translate }}
             </a>
           </div>
           <div class="dropdown-footer">
             <button class="menu-item" type="button" (click)="handleLogout()">
               <lucide-icon name="LogOut" size="16"></lucide-icon>
-              Cerrar sesión
+              {{ 'header.menu.logout' | translate }}
             </button>
           </div>
         </div>
@@ -138,7 +151,7 @@
           type="text"
           [value]="searchQuery"
           (input)="onSearchInput($any($event.target).value || '')"
-          placeholder="Buscar productos, pedidos o usuarios"
+          [placeholder]="'header.search.placeholder' | translate"
         />
         <button class="btn-icon" type="button" (click)="closeSearch()">
           <lucide-icon name="X" size="16"></lucide-icon>
@@ -147,7 +160,7 @@
 
       <div class="search-results" *ngIf="searchResults">
         <div class="result-column" *ngIf="searchResults.products.length">
-          <h5>Productos</h5>
+          <h5>{{ 'header.results.products' | translate }}</h5>
           <a
             *ngFor="let product of searchResults.products"
             [routerLink]="['/catalog']"
@@ -156,14 +169,14 @@
             <lucide-icon name="Package" size="16"></lucide-icon>
             <div>
               <span>{{ product.name }}</span>
-              <small>{{ product.description || 'Sin descripción' }}</small>
+              <small>{{ product.description || ('header.search.noDescription' | translate) }}</small>
             </div>
             <lucide-icon name="ArrowRight" size="16"></lucide-icon>
           </a>
         </div>
 
         <div class="result-column" *ngIf="searchResults.orders.length">
-          <h5>Pedidos</h5>
+          <h5>{{ 'header.results.orders' | translate }}</h5>
           <a
             *ngFor="let order of searchResults.orders"
             [routerLink]="['/orders', order.id]"
@@ -179,7 +192,7 @@
         </div>
 
         <div class="result-column" *ngIf="searchResults.users.length">
-          <h5>Usuarios</h5>
+          <h5>{{ 'header.results.users' | translate }}</h5>
           <a
             *ngFor="let user of searchResults.users"
             [routerLink]="['/admin']"

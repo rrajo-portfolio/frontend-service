@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import {
   LucideAngularModule,
   Activity,
@@ -49,6 +50,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { LogoComponent } from './components/logo/logo.component';
+import { TranslatePipe } from './pipes/translate.pipe';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 
 @NgModule({
   declarations: [
@@ -56,11 +59,14 @@ import { LogoComponent } from './components/logo/logo.component';
     FooterComponent,
     LoadingSpinnerComponent,
     TimeAgoPipe,
-    LogoComponent
+    LogoComponent,
+    TranslatePipe,
+    LanguageSelectorComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     MaterialModule,
     LucideAngularModule.pick({
       Home,
@@ -111,6 +117,8 @@ import { LogoComponent } from './components/logo/logo.component';
     LoadingSpinnerComponent,
     TimeAgoPipe,
     LogoComponent,
+    TranslatePipe,
+    LanguageSelectorComponent,
     LucideAngularModule
   ]
 })

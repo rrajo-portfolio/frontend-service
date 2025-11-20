@@ -1,23 +1,35 @@
-<section class="orders-container">
+ï»¿<section class="orders-container">
   <div class="page-header">
     <div class="page-info">
-      <p class="eyebrow">{{ isAdmin ? 'Operaciones' : 'Mis compras' }}</p>
-      <h2>{{ isAdmin ? 'Pedidos' : 'Historial de pedidos' }}</h2>
+      <p class="eyebrow">
+        {{
+          isAdmin
+            ? ('orders.eyebrow.admin' | translate)
+            : ('orders.eyebrow.user' | translate)
+        }}
+      </p>
+      <h2>
+        {{
+          isAdmin
+            ? ('orders.title.admin' | translate)
+            : ('orders.title.user' | translate)
+        }}
+      </h2>
       <p>
         {{
           isAdmin
-            ? 'Gestiona y monitorea todos los pedidos del ecosistema.'
-            : 'Consulta el estado de tus compras y recibe actualizaciones.'
+            ? ('orders.description.admin' | translate)
+            : ('orders.description.user' | translate)
         }}
       </p>
     </div>
     <a class="btn btn-primary" routerLink="create" *ngIf="isAdmin">
       <lucide-icon name="Plus" size="18"></lucide-icon>
-      Nuevo pedido
+      {{ 'orders.button.new' | translate }}
     </a>
     <a class="btn btn-secondary" routerLink="/cart" *ngIf="!isAdmin">
       <lucide-icon name="ShoppingCart" size="18"></lucide-icon>
-      Ir al carrito
+      {{ 'orders.button.cart' | translate }}
     </a>
   </div>
 
@@ -26,7 +38,7 @@
       <lucide-icon name="Search" size="16"></lucide-icon>
       <input
         type="search"
-        placeholder="Buscar por ID o usuario..."
+        [placeholder]="'orders.search.placeholder' | translate"
         [value]="searchQuery"
         (input)="handleSearch($any($event.target).value)"
       />
@@ -34,19 +46,28 @@
         <lucide-icon name="X" size="14"></lucide-icon>
       </button>
     </div>
-    <select class="filter-select" [value]="statusFilter" (change)="onStatusChange($any($event.target).value)">
-      <option value="">Todos los estados</option>
-      <option value="PENDING">Pendiente</option>
-      <option value="CONFIRMED">Confirmado</option>
-      <option value="SHIPPED">Enviado</option>
-      <option value="DELIVERED">Entregado</option>
-      <option value="CANCELLED">Cancelado</option>
+    <select
+      class="filter-select"
+      [value]="statusFilter"
+      (change)="onStatusChange($any($event.target).value)"
+    >
+      <option value="">{{ 'orders.status.all' | translate }}</option>
+      <option value="PENDING">{{ 'orders.status.pending' | translate }}</option>
+      <option value="CONFIRMED">{{ 'orders.status.confirmed' | translate }}</option>
+      <option value="SHIPPED">{{ 'orders.status.shipped' | translate }}</option>
+      <option value="DELIVERED">{{ 'orders.status.delivered' | translate }}</option>
+      <option value="CANCELLED">{{ 'orders.status.cancelled' | translate }}</option>
     </select>
   </div>
 
   <div class="bulk-actions" *ngIf="isAdmin && selectedOrders.size">
-    <span>{{ selectedOrders.size }} pedido(s) seleccionados</span>
-    <button class="btn btn-text" type="button" (click)="bulkClear()">Limpiar selección</button>
+    <span>
+      {{ selectedOrders.size }}
+      {{ 'orders.bulk.selectionLabel' | translate }}
+    </span>
+    <button class="btn btn-text" type="button" (click)="bulkClear()">
+      {{ 'orders.bulk.clean' | translate }}
+    </button>
   </div>
 
   <div class="table-container">
@@ -60,12 +81,12 @@
               (change)="toggleSelectAll()"
             />
           </th>
-          <th>Pedido</th>
-          <th>Usuario</th>
-          <th>Estado</th>
-          <th>Total</th>
-          <th>Creado</th>
-          <th></th>
+          <th>{{ 'orders.table.order' | translate }}</th>
+          <th>{{ 'orders.table.user' | translate }}</th>
+          <th>{{ 'orders.table.status' | translate }}</th>
+          <th>{{ 'orders.table.total' | translate }}</th>
+          <th>{{ 'orders.table.created' | translate }}</th>
+          <th>{{ 'orders.table.actions' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -83,7 +104,9 @@
           </td>
           <td>
             <div class="user-info">
-              <strong>{{ order.userName || 'Usuario' }}</strong>
+              <strong>
+                {{ order.userName || ('order.detail.userFallback' | translate) }}
+              </strong>
               <small>{{ order.userEmail || order.userId }}</small>
             </div>
           </td>
@@ -94,14 +117,14 @@
           <td>{{ order.createdAt | date: 'short' }}</td>
           <td>
             <a class="btn btn-text" [routerLink]="[order.id]">
-              Ver detalle
+              {{ 'orders.table.view' | translate }}
               <lucide-icon name="ArrowRight" size="14"></lucide-icon>
             </a>
           </td>
         </tr>
         <tr *ngIf="!filteredOrders.length">
           <td [attr.colspan]="isAdmin ? 7 : 6" class="empty-message">
-            Sin pedidos para el criterio seleccionado.
+            {{ 'orders.empty' | translate }}
           </td>
         </tr>
       </tbody>
