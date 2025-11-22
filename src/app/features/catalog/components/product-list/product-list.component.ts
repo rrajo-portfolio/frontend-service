@@ -14,7 +14,7 @@ import { TranslationService } from '../../../../core/services/translation.servic
 })
 export class ProductListComponent implements OnInit {
   products$!: Observable<Product[]>;
-  selectedProduct?: Product;
+  expandedProductId?: string;
   canUseCart = false;
 
   constructor(
@@ -37,8 +37,10 @@ export class ProductListComponent implements OnInit {
         : this.catalogService.getProducts();
   }
 
-  onProductSelected(product: Product): void {
-    this.selectedProduct = product;
+  toggleDetails(product: Product, event?: Event): void {
+    event?.stopPropagation();
+    this.expandedProductId =
+      this.expandedProductId === product.id ? undefined : product.id;
   }
 
   addToCart(product: Product, event?: Event): void {
@@ -47,5 +49,9 @@ export class ProductListComponent implements OnInit {
     this.notificationService.success(
       this.translationService.translate('catalog.toast.added')
     );
+  }
+
+  onCloseDetail(): void {
+    this.expandedProductId = undefined;
   }
 }

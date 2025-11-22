@@ -1,7 +1,7 @@
 ﻿<ng-container *ngIf="order$ | async as order">
   <section class="order-detail">
     <mat-card class="summary-card">
-      <mat-card-title>{{ 'order.detail.title' | translate }} #{{ order.id | slice: 0 : 8 }}</mat-card-title>
+      <mat-card-title>{{ 'order.detail.title' | translate }}</mat-card-title>
       <mat-card-subtitle>
         {{ 'orders.table.status' | translate }}:
         <span class="status-chip" [ngClass]="order.status.toLowerCase()">
@@ -15,7 +15,7 @@
             <p class="value">
               {{ order.userName || ('order.detail.userFallback' | translate) }}
             </p>
-            <small>{{ order.userEmail || order.userId }}</small>
+            <small *ngIf="order.userEmail">{{ order.userEmail }}</small>
           </div>
           <div>
             <p class="label">{{ 'order.detail.total' | translate }}</p>
@@ -30,13 +30,12 @@
       <mat-card-title>{{ 'order.detail.items' | translate }}</mat-card-title>
       <mat-card-content>
         <mat-list>
-          <mat-list-item *ngFor="let item of order.items">
+          <mat-list-item *ngFor="let item of order.lineItems">
             <div class="item-line">
               <div>
                 <p class="item-name">
                   {{ item.productName || ('order.detail.productFallback' | translate) }}
                 </p>
-                <small>{{ 'order.detail.productId' | translate }} {{ item.productId }}</small>
               </div>
               <div class="item-meta">
                 <span>{{ 'order.detail.quantity' | translate }}: {{ item.quantity }}</span>
