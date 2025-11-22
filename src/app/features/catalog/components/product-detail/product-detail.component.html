@@ -1,17 +1,60 @@
-<mat-card *ngIf="product" class="detail-card">
-  <mat-card-title>{{ product.name }}</mat-card-title>
-  <mat-card-subtitle>
-    Ultima actualizacion:
-    {{ product.updatedAt || product.createdAt | date : 'medium' }}
-  </mat-card-subtitle>
-  <mat-card-content>
-    <p>{{ product.description }}</p>
-    <p class="price">
-      Precio: {{ product.price | currency : product.currency }}
-    </p>
-    <div class="meta">
-      <span>ID: {{ product.id }}</span>
-      <span>Tags: {{ product.tags.join(', ') }}</span>
+<ng-container *ngIf="product">
+  <div
+    *ngIf="displayMode === 'modal'"
+    class="modal-backdrop"
+    (click)="closeModal()"
+  >
+    <div class="modal-dialog" (click)="$event.stopPropagation()">
+      <button class="close-button" (click)="closeModal()" aria-label="Cerrar">
+        <lucide-icon name="X" size="24"></lucide-icon>
+      </button>
+
+      <ng-container *ngTemplateOutlet="detailCard"></ng-container>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+
+  <div *ngIf="displayMode === 'inline'" class="inline-detail">
+    <ng-container *ngTemplateOutlet="detailCard"></ng-container>
+  </div>
+</ng-container>
+
+<ng-template #detailCard>
+  <mat-card class="detail-card" [ngClass]="{ inline: displayMode === 'inline' }">
+    <div class="detail-header">
+      <div>
+        <p class="eyebrow">{{ 'catalog.detail.eyebrow' | translate }}</p>
+        <h3>{{ product?.name }}</h3>
+        <span class="sku" *ngIf="product?.sku">SKU: {{ product?.sku }}</span>
+      </div>
+      <div class="detail-tags" *ngIf="product?.tags?.length">
+        <span *ngFor="let tag of product?.tags">{{ tag }}</span>
+      </div>
+    </div>
+
+    <p class="detail-description">{{ product?.description }}</p>
+
+    <div class="detail-grid">
+      <div class="metric">
+        <span>{{ 'catalog.detail.price' | translate }}</span>
+        <strong>
+          {{ product?.price | currency : (product?.currency || defaultCurrency) }}
+        </strong>
+      </div>
+      <div class="metric">
+        <span>{{ 'catalog.detail.lastUpdate' | translate }}</span>
+        <strong>{{ product?.updatedAt || product?.createdAt | date : 'medium' }}</strong>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" type="button" (click)="closeModal()">
+        <lucide-icon name="ArrowLeft" size="16"></lucide-icon>
+        {{ 'catalog.detail.close' | translate }}
+      </button>
+      <button class="btn btn-primary" type="button" *ngIf="canUseCart">
+        <lucide-icon name="ShoppingCart" size="16"></lucide-icon>
+        {{ 'catalog.addToCart' | translate }}
+      </button>
+    </div>
+  </mat-card>
+</ng-template>

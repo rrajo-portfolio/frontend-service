@@ -1,4 +1,4 @@
-export type LanguageCode = 'es' | 'en' | 'fr' | 'de';
+﻿export type LanguageCode = 'es' | 'en' | 'fr' | 'de';
 export const LANGUAGE_CODES: LanguageCode[] = ['es', 'en', 'fr', 'de'];
 
 type TranslationMap = Record<LanguageCode, Record<string, string>>;
@@ -23,7 +23,7 @@ const LITERALS: LiteralDefinition[] = [
     de: 'Startseite'
   }),
   literal('nav.catalog', {
-    es: 'Catalogo',
+    es: 'Cat\u00E1logo',
     en: 'Catalog',
     fr: 'Catalogue',
     de: 'Katalog'
@@ -47,7 +47,7 @@ const LITERALS: LiteralDefinition[] = [
     de: 'Profil'
   }),
   literal('nav.admin', {
-    es: 'Administracion',
+    es: 'Administraci\u00F3n',
     en: 'Administration',
     fr: 'Administration',
     de: 'Verwaltung'
@@ -196,6 +196,12 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Voir les details',
     de: 'Details ansehen'
   }),
+  literal('catalog.hideDetails', {
+    es: 'Ocultar detalles',
+    en: 'Hide details',
+    fr: 'Masquer les details',
+    de: 'Details ausblenden'
+  }),
   literal('catalog.addToCart', {
     es: 'Anadir al carrito',
     en: 'Add to cart',
@@ -227,24 +233,62 @@ const LITERALS: LiteralDefinition[] = [
     de: 'Produkt zum Warenkorb hinzugefuegt.'
   }),
 
+  // Catalog detail
+  literal('catalog.detail.eyebrow', {
+    es: 'Detalle del producto',
+    en: 'Product details',
+    fr: 'Détails du produit',
+    de: 'Produktdetails'
+  }),
+  literal('catalog.detail.price', {
+    es: 'Precio',
+    en: 'Price',
+    fr: 'Prix',
+    de: 'Preis'
+  }),
+  literal('catalog.detail.lastUpdate', {
+    es: 'Última actualización',
+    en: 'Last updated',
+    fr: 'Dernière mise à jour',
+    de: 'Zuletzt aktualisiert'
+  }),
+  literal('catalog.detail.close', {
+    es: 'Volver',
+    en: 'Back',
+    fr: 'Retour',
+    de: 'Zurück'
+  }),
+
   // Cart
   literal('cart.eyebrow', {
-    es: 'Checkout',
-    en: 'Checkout',
-    fr: 'Paiement',
-    de: 'Checkout'
+    es: 'Resumen de compra',
+    en: 'Checkout summary',
+    fr: 'R\u00E9capitulatif',
+    de: 'Bestell\u00FCbersicht'
   }),
   literal('cart.title', {
-    es: 'Carrito de compras',
+    es: 'Carrito',
     en: 'Shopping cart',
     fr: 'Panier',
     de: 'Warenkorb'
   }),
   literal('cart.description', {
-    es: 'Revisa tus productos y confirma el pedido cuando estes listo.',
-    en: 'Review your products and confirm the order when ready.',
-    fr: 'Passez en revue vos produits et confirmez la commande.',
-    de: 'Produkte pruefen und Bestellung bestaetigen.'
+    es: 'Confirma cantidades, revisa totales y finaliza el pedido.',
+    en: 'Confirm quantities, review totals and place the order.',
+    fr: 'Confirmez les quantit\u00E9s, v\u00E9rifiez les totaux et validez la commande.',
+    de: 'Mengen pr\u00FCfen, Summen kontrollieren und Bestellung abschlie\u00DFen.'
+  }),
+  literal('cart.meta.items', {
+    es: 'Art\u00EDculos',
+    en: 'Items',
+    fr: 'Articles',
+    de: 'Artikel'
+  }),
+  literal('cart.meta.amount', {
+    es: 'Total estimado',
+    en: 'Estimated total',
+    fr: 'Total estim\u00E9',
+    de: 'Gesch\u00E4tzter Gesamtbetrag'
   }),
   literal('cart.total', {
     es: 'Importe total',
@@ -253,46 +297,112 @@ const LITERALS: LiteralDefinition[] = [
     de: 'Gesamtbetrag'
   }),
   literal('cart.payment', {
-    es: 'Proceder al pago',
-    en: 'Proceed to payment',
-    fr: 'Proceder au paiement',
-    de: 'Zur Zahlung fortfahren'
+    es: 'Confirmar pedido',
+    en: 'Place order',
+    fr: 'Valider la commande',
+    de: 'Bestellung abschicken'
   }),
   literal('cart.associatedUser', {
-    es: 'El pedido se asociara a',
-    en: 'The order will be linked to',
-    fr: 'La commande sera associee a',
-    de: 'Die Bestellung wird zugeordnet zu'
+    es: 'Pedido asociado a',
+    en: 'Order linked to',
+    fr: 'Commande associ\u00E9e \u00E0',
+    de: 'Bestellung zugeordnet zu'
   }),
   literal('cart.empty', {
-    es: 'Tu carrito esta vacio.',
+    es: 'Tu carrito est\u00E1 vac\u00EDo.',
     en: 'Your cart is empty.',
     fr: 'Votre panier est vide.',
     de: 'Dein Warenkorb ist leer.'
   }),
   literal('cart.goToCatalog', {
-    es: 'Explorar catalogo',
-    en: 'Browse catalog',
-    fr: 'Voir le catalogue',
-    de: 'Zum Katalog'
+    es: 'Volver al cat\u00E1logo',
+    en: 'Back to catalog',
+    fr: 'Retour au catalogue',
+    de: 'Zur\u00FCck zum Katalog'
   }),
   literal('cart.quantity', {
     es: 'Cantidad',
     en: 'Quantity',
-    fr: 'Quantite',
+    fr: 'Quantit\u00E9',
     de: 'Menge'
   }),
   literal('cart.lineTotal', {
-    es: 'Total',
+    es: 'Total de la l\u00EDnea',
     en: 'Line total',
-    fr: 'Total',
-    de: 'Zwischensumme'
+    fr: 'Total de la ligne',
+    de: 'Zeilensumme'
   }),
   literal('cart.remove', {
-    es: 'Eliminar',
-    en: 'Remove',
-    fr: 'Supprimer',
-    de: 'Entfernen'
+    es: 'Eliminar del carrito',
+    en: 'Remove from cart',
+    fr: 'Retirer du panier',
+    de: 'Aus dem Warenkorb entfernen'
+  }),
+  literal('cart.items.heading', {
+    es: 'Productos en el carrito',
+    en: 'Cart items',
+    fr: 'Produits du panier',
+    de: 'Artikel im Warenkorb'
+  }),
+  literal('cart.items.countLabel', {
+    es: 'art\u00EDculos',
+    en: 'items',
+    fr: 'articles',
+    de: 'Artikel'
+  }),
+  literal('cart.summary.title', {
+    es: 'Resumen',
+    en: 'Summary',
+    fr: 'R\u00E9capitulatif',
+    de: '\u00DCbersicht'
+  }),
+  literal('cart.summary.subtotal', {
+    es: 'Subtotal',
+    en: 'Subtotal',
+    fr: 'Sous-total',
+    de: 'Zwischensumme'
+  }),
+  literal('cart.summary.taxes', {
+    es: 'Impuestos (IVA 21%)',
+    en: 'Taxes (VAT 21%)',
+    fr: 'Taxes (TVA 21%)',
+    de: 'Steuern (MwSt. 21 %)'
+  }),
+  literal('cart.summary.total', {
+    es: 'Total a pagar',
+    en: 'Amount due',
+    fr: 'Montant \u00E0 payer',
+    de: 'Zu zahlender Betrag'
+  }),
+  literal('cart.summary.disclaimer', {
+    es: 'Los montos se recalculan al confirmar el pedido.',
+    en: 'Totals are recalculated when the order is confirmed.',
+    fr: 'Les montants sont recalcul\u00E9s lors de la confirmation.',
+    de: 'Summen werden bei der Best\u00E4tigung neu berechnet.'
+  }),
+  literal('cart.customer.title', {
+    es: 'Datos de facturaci\u00F3n',
+    en: 'Billing details',
+    fr: 'Informations de facturation',
+    de: 'Rechnungsinformationen'
+  }),
+  literal('cart.customer.email', {
+    es: 'Correo',
+    en: 'Email',
+    fr: 'Courriel',
+    de: 'E-Mail'
+  }),
+  literal('cart.customer.role', {
+    es: 'Roles',
+    en: 'Roles',
+    fr: 'R\u00F4les',
+    de: 'Rollen'
+  }),
+  literal('cart.customer.manage', {
+    es: 'Gestionar perfil',
+    en: 'Manage profile',
+    fr: 'G\u00E9rer le profil',
+    de: 'Profil verwalten'
   }),
   literal('cart.toast.missingUser', {
     es: 'No se pudo identificar al usuario actual.',
@@ -303,13 +413,13 @@ const LITERALS: LiteralDefinition[] = [
   literal('cart.toast.success', {
     es: 'Pedido creado correctamente.',
     en: 'Order created successfully.',
-    fr: 'Commande creee avec succes.',
+    fr: 'Commande cr\u00E9\u00E9e avec succ\u00E8s.',
     de: 'Bestellung erfolgreich erstellt.'
   }),
   literal('cart.toast.error', {
-    es: 'No se pudo procesar el pago. Intentalo nuevamente.',
+    es: 'No se pudo procesar el pago. Int\u00E9ntalo nuevamente.',
     en: 'Payment could not be processed. Please try again.',
-    fr: 'Impossible de traiter le paiement. Reessayez.',
+    fr: 'Impossible de traiter le paiement. R\u00E9essayez.',
     de: 'Zahlung konnte nicht verarbeitet werden. Bitte erneut versuchen.'
   }),
 
@@ -317,14 +427,14 @@ const LITERALS: LiteralDefinition[] = [
   literal('orders.eyebrow.admin', {
     es: 'Operaciones',
     en: 'Operations',
-    fr: 'Operations',
+    fr: 'Op\u00E9rations',
     de: 'Operationen'
   }),
   literal('orders.eyebrow.user', {
     es: 'Mis compras',
     en: 'My purchases',
     fr: 'Mes achats',
-    de: 'Meine Kaeufe'
+    de: 'Meine K\u00E4ufe'
   }),
   literal('orders.title.admin', {
     es: 'Pedidos',
@@ -341,14 +451,14 @@ const LITERALS: LiteralDefinition[] = [
   literal('orders.description.admin', {
     es: 'Gestiona y monitorea todos los pedidos del ecosistema.',
     en: 'Manage and monitor every order in the ecosystem.',
-    fr: 'Gerez et surveillez toutes les commandes.',
-    de: 'Verwalte und ueberwache alle Bestellungen.'
+    fr: 'G\u00E9rez et surveillez toutes les commandes de l\u2019\u00E9cosyst\u00E8me.',
+    de: 'Verwalte und \u00FCberwache alle Bestellungen im gesamten System.'
   }),
   literal('orders.description.user', {
     es: 'Consulta el estado de tus compras y recibe actualizaciones.',
-    en: 'Track your purchases and get updates.',
-    fr: 'Suivez vos achats et recevez des mises a jour.',
-    de: 'Verfolge deine Kaeufe und erhalte Updates.'
+    en: 'Track your purchases and receive updates.',
+    fr: 'Suivez vos achats et recevez des mises \u00E0 jour.',
+    de: 'Verfolge deine K\u00E4ufe und erhalte Updates.'
   }),
   literal('orders.button.new', {
     es: 'Nuevo pedido',
@@ -363,10 +473,10 @@ const LITERALS: LiteralDefinition[] = [
     de: 'Zum Warenkorb'
   }),
   literal('orders.search.placeholder', {
-    es: 'Buscar por ID o usuario...',
-    en: 'Search by ID or user...',
-    fr: 'Rechercher par ID ou utilisateur...',
-    de: 'Nach ID oder Benutzer suchen...'
+    es: 'Buscar pedido o usuario',
+    en: 'Search order or user',
+    fr: 'Rechercher une commande ou un utilisateur',
+    de: 'Bestellung oder Benutzer suchen'
   }),
   literal('orders.status.all', {
     es: 'Todos los estados',
@@ -383,38 +493,38 @@ const LITERALS: LiteralDefinition[] = [
   literal('orders.status.confirmed', {
     es: 'Confirmado',
     en: 'Confirmed',
-    fr: 'Confirmee',
-    de: 'Bestaetigt'
+    fr: 'Confirm\u00E9',
+    de: 'Best\u00E4tigt'
   }),
   literal('orders.status.shipped', {
     es: 'Enviado',
     en: 'Shipped',
-    fr: 'Expediee',
+    fr: 'Exp\u00E9di\u00E9',
     de: 'Versandt'
   }),
   literal('orders.status.delivered', {
     es: 'Entregado',
     en: 'Delivered',
-    fr: 'Livree',
+    fr: 'Livr\u00E9',
     de: 'Zugestellt'
   }),
   literal('orders.status.cancelled', {
     es: 'Cancelado',
     en: 'Cancelled',
-    fr: 'Annulee',
+    fr: 'Annul\u00E9',
     de: 'Storniert'
-  }),
-  literal('orders.bulk.clean', {
-    es: 'Limpiar seleccion',
-    en: 'Clear selection',
-    fr: 'Effacer la selection',
-    de: 'Auswahl loeschen'
   }),
   literal('orders.bulk.selectionLabel', {
     es: 'pedido(s) seleccionados',
     en: 'order(s) selected',
-    fr: 'commande(s) selectionnee(s)',
-    de: 'Bestellung(en) ausgewaehlt'
+    fr: 'commande(s) s\u00E9lectionn\u00E9e(s)',
+    de: 'Bestellung(en) ausgew\u00E4hlt'
+  }),
+  literal('orders.bulk.clean', {
+    es: 'Limpiar selecci\u00F3n',
+    en: 'Clear selection',
+    fr: 'Effacer la s\u00E9lection',
+    de: 'Auswahl l\u00F6schen'
   }),
   literal('orders.table.order', {
     es: 'Pedido',
@@ -426,7 +536,7 @@ const LITERALS: LiteralDefinition[] = [
     es: 'Usuario',
     en: 'Customer',
     fr: 'Utilisateur',
-    de: 'Benutzer'
+    de: 'Kunde'
   }),
   literal('orders.table.status', {
     es: 'Estado',
@@ -443,7 +553,7 @@ const LITERALS: LiteralDefinition[] = [
   literal('orders.table.created', {
     es: 'Creado',
     en: 'Created',
-    fr: 'Cree',
+    fr: 'Cr\u00E9\u00E9',
     de: 'Erstellt'
   }),
   literal('orders.table.actions', {
@@ -455,14 +565,20 @@ const LITERALS: LiteralDefinition[] = [
   literal('orders.table.view', {
     es: 'Ver detalle',
     en: 'View detail',
-    fr: 'Voir le detail',
+    fr: 'Voir le d\u00E9tail',
     de: 'Details ansehen'
+  }),
+  literal('orders.table.userEmailFallback', {
+    es: 'Sin correo registrado',
+    en: 'No email on record',
+    fr: 'Aucun courriel disponible',
+    de: 'Keine E-Mail vorhanden'
   }),
   literal('orders.empty', {
     es: 'Sin pedidos para el criterio seleccionado.',
     en: 'No orders match the selected filters.',
     fr: 'Aucune commande ne correspond aux filtres.',
-    de: 'Keine Bestellungen fuer diese Filter.'
+    de: 'Keine Bestellungen f\u00FCr diese Filter.'
   }),
 
   // Order detail
@@ -487,7 +603,7 @@ const LITERALS: LiteralDefinition[] = [
   literal('order.detail.created', {
     es: 'Emitido el',
     en: 'Issued on',
-    fr: 'Emis le',
+    fr: '\u00C9mis le',
     de: 'Erstellt am'
   }),
   literal('order.detail.items', {
@@ -496,16 +612,10 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Produits',
     de: 'Artikel'
   }),
-  literal('order.detail.productId', {
-    es: 'ID',
-    en: 'ID',
-    fr: 'ID',
-    de: 'ID'
-  }),
   literal('order.detail.quantity', {
     es: 'Cantidad',
     en: 'Quantity',
-    fr: 'Quantite',
+    fr: 'Quantit\u00E9',
     de: 'Menge'
   }),
   literal('order.detail.price', {
@@ -525,6 +635,63 @@ const LITERALS: LiteralDefinition[] = [
     en: 'Product',
     fr: 'Produit',
     de: 'Produkt'
+  })
+,
+
+  // Admin module
+  literal('admin.eyebrow', {
+    es: 'Administración',
+    en: 'Administration',
+    fr: 'Administration',
+    de: 'Verwaltung'
+  }),
+  literal('admin.title', {
+    es: 'Centro de control',
+    en: 'Control Center',
+    fr: 'Centre de contrôle',
+    de: 'Kontrollzentrum'
+  }),
+  literal('admin.button.openModule', {
+    es: 'Abrir módulo',
+    en: 'Open module',
+    fr: 'Ouvrir le module',
+    de: 'Modul öffnen'
+  }),
+  literal('home.catalog.eyebrow', {
+    es: 'Catálogo',
+    en: 'Catalog',
+    fr: 'Catalogue',
+    de: 'Katalog'
+  }),
+  literal('home.catalog.button.open', {
+    es: 'Abrir catálogo',
+    en: 'Open catalog',
+    fr: 'Ouvrir le catalogue',
+    de: 'Katalog öffnen'
+  }),
+  literal('home.link.button.openGuide', {
+    es: 'Abrir guía',
+    en: 'Open guide',
+    fr: 'Ouvrir le guide',
+    de: 'Anleitung öffnen'
+  }),
+  literal('home.link.button.openSection', {
+    es: 'Abrir sección',
+    en: 'Open section',
+    fr: 'Ouvrir la section',
+    de: 'Abschnitt öffnen'
+  }),
+  literal('profile.breadcrumb.catalog', {
+    es: 'Catálogo',
+    en: 'Catalog',
+    fr: 'Catalogue',
+    de: 'Katalog'
+  }),
+  literal('profile.security.lastUpdate', {
+    es: 'Última actualización',
+    en: 'Last updated',
+    fr: 'Dernière mise à jour',
+    de: 'Zuletzt aktualisiert'
   })
 ];
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable, tap } from 'rxjs';
+import { take } from 'rxjs/operators';
 import {
   AccountUser,
   UserPreferences,
@@ -15,8 +17,10 @@ import { NotificationService } from '../../core/services/notification.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: AccountUser | null = null;
-  userStats: UserStats | null = null;
+  user$!: Observable<AccountUser | null>;
+  userStats$!: Observable<UserStats | null>;
+  private currentUser: AccountUser | null = null;
+
   preferences: UserPreferences = {
     emailNotifications: true,
     pushNotifications: true,
@@ -44,23 +48,13 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe((user) => {
-      this.user = user;
-      this.userService.setCurrentUser(user);
-      this.patchPersonalForm(user);
-    });
-
-    this.userService.getUserStats().subscribe((stats) => {
-      this.userStats = stats;
-    });
-
-    this.userService.getPreferences().subscribe((prefs) => {
-      this.preferences = prefs;
-    });
+    this.user$ = this.loadCurrentUserStream();
+    this.userStats$ = this.userService.getUserStats();
+    this.loadPreferences();
   }
 
   get hasAdminRole(): boolean {
-    return this.user?.roles.includes('admin') ?? false;
+    return false; // Se evaluará en el template con async pipe
   }
 
   getRoleLabel(role: string): string {
@@ -79,13 +73,13 @@ export class ProfileComponent implements OnInit {
 
   cancelEditPersonal(): void {
     this.editingPersonal = false;
-    if (this.user) {
-      this.patchPersonalForm(this.user);
+    if (this.currentUser) {
+      this.patchPersonalForm(this.currentUser);
     }
   }
 
   savePersonal(): void {
-    if (this.personalForm.invalid || !this.user) {
+    if (this.personalForm.invalid) {
       this.personalForm.markAllAsTouched();
       return;
     }
@@ -100,10 +94,10 @@ export class ProfileComponent implements OnInit {
     };
 
     this.userService.updateProfile(payload).subscribe({
-      next: (user) => {
-        this.user = user;
+      next: () => {
         this.savingPersonal = false;
         this.editingPersonal = false;
+        this.refreshCurrentUser();
         this.notificationService.success('Perfil actualizado correctamente');
       },
       error: () => {
@@ -123,10 +117,8 @@ export class ProfileComponent implements OnInit {
         return;
       }
       this.userService.uploadAvatar(file).subscribe({
-        next: ({ avatarUrl }) => {
-          if (this.user) {
-            this.user = { ...this.user, avatar: avatarUrl };
-          }
+        next: () => {
+          this.refreshCurrentUser();
           this.notificationService.success('Avatar actualizado correctamente');
         },
         error: () => {
@@ -193,5 +185,32 @@ export class ProfileComponent implements OnInit {
       phone: user.phone ?? '',
       username: user.username
     });
+  }
+
+  private loadPreferences(): void {
+    this.userService
+      .getPreferences()
+      .pipe(take(1))
+      .subscribe({
+        next: (prefs) => {
+          this.preferences = prefs;
+        }
+      });
+  }
+
+  private loadCurrentUserStream(): Observable<AccountUser | null> {
+    return this.authService.getCurrentUser().pipe(
+      tap((user) => {
+        this.currentUser = user;
+        if (user) {
+          this.userService.setCurrentUser(user);
+          this.patchPersonalForm(user);
+        }
+      })
+    );
+  }
+
+  private refreshCurrentUser(): void {
+    this.user$ = this.loadCurrentUserStream();
   }
 }

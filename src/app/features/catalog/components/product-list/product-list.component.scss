@@ -46,12 +46,16 @@
   flex-direction: column;
   gap: 12px;
   transition: $transition-base;
-  cursor: pointer;
+  cursor: default;
 
-  &:hover,
-  &.selected {
+  &:hover {
     border-color: $primary-200;
-    box-shadow: $shadow-md;
+  }
+
+  &.expanded {
+    grid-column: 1 / -1;
+    border-color: $primary-300;
+    box-shadow: $shadow-lg;
   }
 
   .card-head {
@@ -93,8 +97,15 @@
   color: $gray-600;
 }
 
+.product-detail-inline {
+  margin-top: 16px;
+}
+
 @media (max-width: 768px) {
   .product-card {
     padding: 16px;
+    &.expanded {
+      grid-column: auto;
+    }
   }
 }

@@ -17,8 +17,7 @@
     <article
       *ngFor="let product of products"
       class="product-card"
-      (click)="onProductSelected(product)"
-      [class.selected]="product.id === selectedProduct?.id"
+      [class.expanded]="expandedProductId === product.id"
     >
       <div class="card-head">
         <div>
@@ -33,7 +32,7 @@
         {{ product.description || ('catalog.noDescription' | translate) }}
       </p>
       <div class="meta">
-        <span>{{ product.price | currency: (product.currency || 'USD') }}</span>
+        <span>{{ product.price | currency: (product.currency || 'EUR') }}</span>
         <span *ngIf="product.tags?.length">
           {{ product.tags.slice(0, 2).join(', ') }}
           <ng-container *ngIf="product.tags.length > 2">
@@ -50,10 +49,29 @@
         <lucide-icon name="ShoppingCart" size="16"></lucide-icon>
         {{ 'catalog.addToCart' | translate }}
       </button>
-      <button class="btn btn-text" type="button">
-        {{ 'catalog.viewDetails' | translate }}
-        <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+      <button
+        class="btn btn-text"
+        type="button"
+        (click)="toggleDetails(product, $event)"
+      >
+        {{
+          expandedProductId === product.id
+            ? ('catalog.hideDetails' | translate)
+            : ('catalog.viewDetails' | translate)
+        }}
+        <lucide-icon
+          [name]="expandedProductId === product.id ? 'ChevronUp' : 'ArrowRight'"
+          size="16"
+        ></lucide-icon>
       </button>
+
+      <div class="product-detail-inline" *ngIf="expandedProductId === product.id">
+        <app-product-detail
+          [product]="product"
+          displayMode="inline"
+          (close)="onCloseDetail()"
+        ></app-product-detail>
+      </div>
     </article>
   </div>
 
@@ -66,8 +84,4 @@
     </div>
   </ng-template>
 
-  <app-product-detail
-    *ngIf="selectedProduct"
-    [product]="selectedProduct"
-  ></app-product-detail>
 </section>
