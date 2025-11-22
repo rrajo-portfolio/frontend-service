@@ -1,14 +1,14 @@
-﻿<ng-container *ngIf="user as currentUser; else loading">
+﻿<ng-container *ngIf="user$ | async as currentUser; else loading">
   <div class="profile-container">
     <header class="profile-header">
       <div class="breadcrumb">
-        <a routerLink="/catalog">CatÃ¡logo</a>
+        <a routerLink="/catalog">{{ 'profile.breadcrumb.catalog' | translate }}</a>
         <lucide-icon name="ChevronRight" size="14"></lucide-icon>
         <span>Perfil</span>
       </div>
       <h1 class="page-title">Mi Perfil</h1>
       <p class="page-description">
-        Gestiona tus datos personales, seguridad y preferencias de notificaciÃ³n.
+        Gestiona tus datos personales, seguridad y preferencias de notificaci&#x00F3;n.
       </p>
     </header>
 
@@ -44,15 +44,15 @@
               Cuenta activa
             </span>
           </div>
-          <div class="user-stats">
+          <div class="user-stats" *ngIf="userStats$ | async as stats">
             <div class="stat-item">
-              <div class="stat-value">{{ userStats?.orderCount ?? 0 }}</div>
+              <div class="stat-value">{{ stats?.orderCount ?? 0 }}</div>
               <div class="stat-label">Pedidos</div>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
               <div class="stat-value">
-                {{ userStats?.memberSince | date: 'yyyy' }}
+                {{ stats?.memberSince | date: 'yyyy' }}
               </div>
               <div class="stat-label">Miembro desde</div>
             </div>
@@ -60,10 +60,10 @@
         </section>
 
         <section class="quick-actions-card">
-          <h3 class="card-title">Acciones rÃ¡pidas</h3>
+          <h3 class="card-title">Acciones r&#x00E1;pidas</h3>
           <button class="action-button" type="button" (click)="changePassword()">
             <lucide-icon name="Lock" size="16"></lucide-icon>
-            <span>Cambiar contraseÃ±a</span>
+            <span>Cambiar contrase&#x00F1;a</span>
             <lucide-icon class="arrow" name="ChevronRight" size="16"></lucide-icon>
           </button>
           <button class="action-button" type="button" (click)="downloadData()">
@@ -139,7 +139,7 @@
       <main class="profile-main">
         <section class="info-card">
           <div class="card-header">
-            <h3 class="card-title">InformaciÃ³n personal</h3>
+            <h3 class="card-title">Informaci&#x00F3;n personal</h3>
             <button
               class="btn btn-secondary"
               type="button"
@@ -169,7 +169,7 @@
               <input type="email" formControlName="email" [disabled]="true" />
             </label>
             <label class="form-group">
-              <span>TelÃ©fono</span>
+              <span>Tel&#x00E9;fono</span>
               <input type="tel" formControlName="phone" />
             </label>
             <label class="form-group">
@@ -205,7 +205,7 @@
                 <span class="info-value">{{ currentUser.email }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">TelÃ©fono</span>
+                <span class="info-label">Tel&#x00E9;fono</span>
                 <span class="info-value">
                   {{ currentUser.phone || 'No especificado' }}
                 </span>
@@ -234,7 +234,7 @@
             <p>
               Gestiona y verifica los permisos asociados a tu cuenta.
             </p>
-            <a *ngIf="hasAdminRole" routerLink="/admin" class="help-link">
+            <a *ngIf="currentUser.roles.includes('admin')" routerLink="/admin" class="help-link">
               Abrir panel administrativo
             </a>
           </div>
@@ -249,9 +249,9 @@
               <lucide-icon name="Lock" size="18"></lucide-icon>
             </div>
             <div>
-              <div class="security-title">ContraseÃ±a</div>
+              <div class="security-title">Contrase&#x00F1;a</div>
               <div class="security-description">
-                Ãšltima actualizaciÃ³n:
+                {{ 'profile.security.lastUpdate' | translate }}:
                 {{ currentUser.passwordUpdatedAt | date: 'dd/MM/yyyy' || 'N/A' }}
               </div>
             </div>
@@ -264,9 +264,9 @@
               <lucide-icon name="ShieldCheck" size="18"></lucide-icon>
             </div>
             <div>
-              <div class="security-title">AutenticaciÃ³n de dos factores</div>
+              <div class="security-title">Autenticaci&#x00F3;n de dos factores</div>
               <div class="security-description">
-                AÃ±ade una capa extra de seguridad
+                A&#x00F1;ade una capa extra de seguridad
               </div>
             </div>
             <button class="btn btn-secondary-sm" (click)="setup2FA()">
