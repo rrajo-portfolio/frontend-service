@@ -1,0 +1,10 @@
+# Frontend build artifacts
+node_modules/
+dist/
+.angular/
+coverage/
+.npm/
+npm-debug.log*
+temp_add_literals.*
+temp_literals.*
+
