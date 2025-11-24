@@ -278,6 +278,42 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Dernière mise à jour',
     de: 'Zuletzt aktualisiert'
   }),
+  literal('catalog.products.api-gateway.name', {
+    es: 'Gateway reactivo con Spring Cloud',
+    en: 'Reactive gateway with Spring Cloud',
+    fr: 'Passerelle reactive avec Spring Cloud',
+    de: 'Reaktives Gateway mit Spring Cloud'
+  }),
+  literal('catalog.products.api-gateway.description', {
+    es: 'Unifica rutas, resiliencia y token relay para microservicios seguros.',
+    en: 'Unifies routing, resilience and token relay for secure microservices.',
+    fr: 'Unifie routage, resilience et token relay pour microservices securises.',
+    de: 'Vereint Routing, Resilienz und Token Relay fuer sichere Microservices.'
+  }),
+  literal('catalog.products.orders-engine.name', {
+    es: 'Motor de pedidos resilient',
+    en: 'Resilient orders engine',
+    fr: 'Moteur de commandes resilient',
+    de: 'Resilienter Bestellmotor'
+  }),
+  literal('catalog.products.orders-engine.description', {
+    es: 'Incluye validaciones cruzadas y cálculo de totales con WebClient.',
+    en: 'Includes cross-service validation and total calculation with WebClient.',
+    fr: 'Inclut validations croisées et calculs avec WebClient.',
+    de: 'Enthält Querverifizierungen und Betragsermittlung via WebClient.'
+  }),
+  literal('catalog.products.users-registry.name', {
+    es: 'Registro de identidades clave',
+    en: 'Key identity registry',
+    fr: 'Registre d’identités clé',
+    de: 'Zentrale Identity Registry'
+  }),
+  literal('catalog.products.users-registry.description', {
+    es: 'Sincroniza usuarios, roles y cuentas de servicio con Keycloak.',
+    en: 'Synchronizes users, roles and service accounts with Keycloak.',
+    fr: 'Synchronise utilisateurs, rôles et comptes de service avec Keycloak.',
+    de: 'Synchronisiert Benutzer, Rollen und Servicekonten mit Keycloak.'
+  }),
   literal('catalog.detail.close', {
     es: 'Volver',
     en: 'Back',
@@ -796,6 +832,66 @@ const LITERALS: LiteralDefinition[] = [
     en: 'Registered on',
     fr: 'Enregistre le',
     de: 'Registriert am'
+  }),
+  literal('users.list.eyebrow', {
+    es: 'Gobernanza de identidades',
+    en: 'Identity governance',
+    fr: 'Gouvernance des identites',
+    de: 'Identity Governance'
+  }),
+  literal('users.list.title', {
+    es: 'Usuarios y roles federados',
+    en: 'Federated users & roles',
+    fr: 'Utilisateurs federes et roles',
+    de: 'Föderierte Benutzer und Rollen'
+  }),
+  literal('users.list.description', {
+    es: 'Valida cuentas sincronizadas con Keycloak, estados activos y permisos listos para auditoria.',
+    en: 'Validate Keycloak-synced accounts, active states and audit-ready permissions.',
+    fr: 'Validez les comptes synchronises avec Keycloak, les etats actifs et les permissions auditees.',
+    de: 'Pruefe Keycloak-synchronisierte Konten, aktive Stati und auditfaehige Berechtigungen.'
+  }),
+  literal('users.list.metrics.total', {
+    es: 'Usuarios totales',
+    en: 'Total users',
+    fr: 'Utilisateurs totaux',
+    de: 'Gesamtbenutzer'
+  }),
+  literal('users.list.metrics.active', {
+    es: 'Activos',
+    en: 'Active',
+    fr: 'Actifs',
+    de: 'Aktive'
+  }),
+  literal('users.list.metrics.pending', {
+    es: 'Pendientes',
+    en: 'Pending',
+    fr: 'En attente',
+    de: 'Ausstehend'
+  }),
+  literal('users.list.status.active', {
+    es: 'Activo',
+    en: 'Active',
+    fr: 'Actif',
+    de: 'Aktiv'
+  }),
+  literal('users.list.status.inactive', {
+    es: 'Inactivo',
+    en: 'Inactive',
+    fr: 'Inactif',
+    de: 'Inaktiv'
+  }),
+  literal('users.list.actions.view', {
+    es: 'Ver perfil',
+    en: 'View profile',
+    fr: 'Voir le profil',
+    de: 'Profil anzeigen'
+  }),
+  literal('users.list.empty', {
+    es: 'No hay usuarios registrados todavía.',
+    en: 'No users registered yet.',
+    fr: 'Aucun utilisateur pour le moment.',
+    de: 'Noch keine Benutzer vorhanden.'
   }),
   literal('home.catalog.eyebrow', {
     es: 'Catálogo',

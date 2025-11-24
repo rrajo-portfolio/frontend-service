@@ -15,6 +15,7 @@ import {
   BellOff,
   BellRing,
   Box,
+  Camera,
   CheckCircle2,
   ChevronDown,
   ChevronRight,
@@ -29,6 +30,7 @@ import {
   Home,
   Info,
   LayoutDashboard,
+  Lock,
   LogOut,
   Menu,
   Package,
@@ -117,7 +119,9 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
       Sparkles,
       Activity,
       Trash2,
-      CreditCard
+      CreditCard,
+      Camera,
+      Lock
     })
   ],
   exports: [

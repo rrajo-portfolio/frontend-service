@@ -191,6 +191,19 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  getUserInitials(user: AccountUser | null): string {
+    if (!user) {
+      return '';
+    }
+    const source = user.name?.trim() || user.username || user.email || '';
+    return source
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((segment) => segment[0]?.toUpperCase() ?? '')
+      .slice(0, 2)
+      .join('');
+  }
+
   private patchPersonalForm(user: AccountUser): void {
     const [firstName, ...lastParts] = user.name.split(' ');
     this.personalForm.patchValue({

@@ -7,6 +7,7 @@ import { Product } from '../../shared/models/product.model';
 import { Order } from '../../shared/models/order.model';
 import { User } from '../../shared/models/user.model';
 import { AuthService } from '../../core/services/auth.service';
+import { ProductLocalizationService } from '../../shared/services/product-localization.service';
 
 interface HeroStats {
   totalProducts: number;
@@ -88,7 +89,8 @@ export class HomeComponent implements OnInit {
     private readonly catalogService: CatalogService,
     private readonly ordersService: OrdersService,
     private readonly usersService: UsersService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly productLocalization: ProductLocalizationService
   ) {}
 
   ngOnInit(): void {
@@ -119,6 +121,18 @@ export class HomeComponent implements OnInit {
 
   trackByProduct(index: number, product: Product): string | number {
     return product.id ?? index;
+  }
+
+  getProductName(product: Product): string {
+    return this.productLocalization.getName(product);
+  }
+
+  getProductDescription(product: Product): string {
+    return (
+      this.productLocalization.getDescription(product) ||
+      product.description ||
+      ''
+    );
   }
 
   private mapStats(products: Product[], orders: Order[], users: User[]): HeroStats {

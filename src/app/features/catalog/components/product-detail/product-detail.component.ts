@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../../../shared/models/product.model';
 import { AuthService } from '../../../../core/services/auth.service';
+import { ProductLocalizationService } from '../../../../shared/services/product-localization.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,7 +15,10 @@ export class ProductDetailComponent {
   
   readonly defaultCurrency = 'EUR';
 
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly productLocalization: ProductLocalizationService
+  ) {}
 
   get canUseCart(): boolean {
     return this.authService.hasRole('user');
@@ -22,5 +26,17 @@ export class ProductDetailComponent {
 
   closeModal(): void {
     this.close.emit();
+  }
+
+  get productName(): string {
+    return this.productLocalization.getName(this.product);
+  }
+
+  get productDescription(): string {
+    return (
+      this.productLocalization.getDescription(this.product) ||
+      this.product?.description ||
+      ''
+    );
   }
 }

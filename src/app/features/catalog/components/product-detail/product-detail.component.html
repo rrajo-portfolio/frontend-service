@@ -23,14 +23,14 @@
     <div class="detail-header">
       <div>
         <p class="eyebrow">{{ 'catalog.detail.eyebrow' | translate }}</p>
-        <h3>{{ product?.name }}</h3>
+        <h3>{{ productName }}</h3>
       </div>
       <div class="detail-tags" *ngIf="product?.tags?.length">
         <span *ngFor="let tag of product?.tags">{{ tag }}</span>
       </div>
     </div>
 
-    <p class="detail-description">{{ product?.description }}</p>
+    <p class="detail-description">{{ productDescription }}</p>
 
     <div class="detail-grid">
       <div class="metric">

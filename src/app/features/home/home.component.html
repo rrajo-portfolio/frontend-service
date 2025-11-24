@@ -97,8 +97,8 @@
         </span>
         <lucide-icon name="Sparkles" size="18"></lucide-icon>
       </div>
-      <h3>{{ product.name }}</h3>
-      <p>{{ product.description || ('catalog.noDescription' | translate) }}</p>
+      <h3>{{ getProductName(product) }}</h3>
+      <p>{{ getProductDescription(product) || ('catalog.noDescription' | translate) }}</p>
       <div class="product-meta">
         <span>{{ product.price | currency: (product.currency || 'EUR') }}</span>
         <span *ngIf="product.tags?.length">

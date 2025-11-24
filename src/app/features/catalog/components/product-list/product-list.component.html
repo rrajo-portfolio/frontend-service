@@ -18,14 +18,14 @@
       <div class="card-body">
         <div class="card-head">
           <div>
-            <h3>{{ product.name }}</h3>
+            <h3>{{ getProductName(product) }}</h3>
           </div>
           <span class="badge badge-status" [class.active]="product.status === 'ACTIVE'">
             {{ product.status }}
           </span>
         </div>
         <p class="description">
-          {{ product.description || ('catalog.noDescription' | translate) }}
+          {{ getProductDescription(product) }}
         </p>
         <div class="meta">
           <span>{{ product.price | currency: (product.currency || 'EUR') }}</span>

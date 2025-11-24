@@ -24,7 +24,7 @@
             />
             <ng-template #initials>
               <div class="avatar-placeholder">
-                {{ currentUser.name.slice(0, 2).toUpperCase() }}
+                {{ getUserInitials(currentUser) }}
               </div>
             </ng-template>
             <button

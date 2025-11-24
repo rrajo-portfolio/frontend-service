@@ -6,6 +6,7 @@ import { CartService } from '../../../../core/services/cart.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { TranslationService } from '../../../../core/services/translation.service';
+import { ProductLocalizationService } from '../../../../shared/services/product-localization.service';
 import { PrefetchService } from '../../../../core/services/prefetch.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class ProductListComponent implements OnInit {
     private readonly notificationService: NotificationService,
     private readonly authService: AuthService,
     private readonly translationService: TranslationService,
-    private readonly prefetchService: PrefetchService
+    private readonly prefetchService: PrefetchService,
+    private readonly productLocalization: ProductLocalizationService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,17 @@ export class ProductListComponent implements OnInit {
     this.cartService.addProduct(product);
     this.notificationService.success(
       this.translationService.translate('catalog.toast.added')
+    );
+  }
+
+  getProductName(product: Product): string {
+    return this.productLocalization.getName(product);
+  }
+
+  getProductDescription(product: Product): string {
+    return (
+      this.productLocalization.getDescription(product) ||
+      this.translationService.translate('catalog.noDescription')
     );
   }
 }
