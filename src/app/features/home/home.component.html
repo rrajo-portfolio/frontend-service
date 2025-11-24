@@ -1,4 +1,4 @@
-<section class="home-hero" *ngIf="stats$ | async as stats">
+﻿<section class="home-hero" *ngIf="stats$ | async as stats">
   <div class="hero-content">
     <span class="eyebrow">Resumen general</span>
     <h1>Hola, {{ userName }} 👋</h1>
@@ -22,44 +22,52 @@
   </div>
   <div class="hero-stats">
     <article class="stat-card">
-      <div class="stat-icon">
-        <lucide-icon name="Package" size="24"></lucide-icon>
-      </div>
       <div>
+        <div class="stat-icon">
+          <lucide-icon name="Package" size="24"></lucide-icon>
+        </div>
         <p>Productos activos</p>
+      </div>
+      <div>
         <h3>{{ stats.totalProducts }}</h3>
+        <span class="stat-chip positive">+{{ stats.productsGrowth }}%</span>
       </div>
-      <span class="stat-chip positive">+{{ stats.productsGrowth }}%</span>
     </article>
     <article class="stat-card">
-      <div class="stat-icon warning">
-        <lucide-icon name="Clock" size="24"></lucide-icon>
-      </div>
       <div>
+        <div class="stat-icon warning">
+          <lucide-icon name="Clock" size="24"></lucide-icon>
+        </div>
         <p>Pedidos pendientes</p>
+      </div>
+      <div>
         <h3>{{ stats.pendingOrders }}</h3>
+        <span class="stat-chip warning">Monitorear</span>
       </div>
-      <span class="stat-chip warning">Monitorear</span>
     </article>
     <article class="stat-card">
-      <div class="stat-icon success">
-        <lucide-icon name="Users" size="24"></lucide-icon>
-      </div>
       <div>
+        <div class="stat-icon success">
+          <lucide-icon name="Users" size="24"></lucide-icon>
+        </div>
         <p>Usuarios activos</p>
-        <h3>{{ stats.activeUsers }}</h3>
-      </div>
-      <span class="stat-chip positive">+{{ stats.usersGrowth }}%</span>
-    </article>
-    <article class="stat-card">
-      <div class="stat-icon accent">
-        <lucide-icon name="TrendingUp" size="24"></lucide-icon>
       </div>
       <div>
-        <p>Ingresos del mes</p>
-        <h3>{{ stats.revenue | currency: 'USD' }}</h3>
+        <h3>{{ stats.activeUsers }}</h3>
+        <span class="stat-chip positive">+{{ stats.usersGrowth }}%</span>
       </div>
-      <span class="stat-chip positive">+{{ stats.revenueGrowth }}%</span>
+    </article>
+    <article class="stat-card">
+      <div>
+        <div class="stat-icon accent">
+          <lucide-icon name="TrendingUp" size="24"></lucide-icon>
+        </div>
+        <p>Ingresos del mes</p>
+      </div>
+      <div>
+        <h3>{{ stats.revenue | currency: 'EUR' }}</h3>
+        <span class="stat-chip positive">+{{ stats.revenueGrowth }}%</span>
+      </div>
     </article>
   </div>
 </section>
@@ -67,13 +75,13 @@
 <section class="catalog-preview">
   <div class="section-header">
     <div>
-      <p class="eyebrow">Catálogo</p>
+      <p class="eyebrow">{{ 'home.catalog.eyebrow' | translate }}</p>
       <h2>Productos listos para demo</h2>
       <p>Muestra la integración entre catalog-service, Elasticsearch y Kafka.</p>
     </div>
     <a class="btn btn-primary" routerLink="/catalog">
       <lucide-icon name="ArrowRight" size="18"></lucide-icon>
-      Abrir catálogo
+      {{ 'home.catalog.button.open' | translate }}
     </a>
   </div>
   <div class="product-showcase" *ngIf="featuredProducts$ | async as featured">
@@ -85,7 +93,7 @@
       <h3>{{ product.name }}</h3>
       <p>{{ product.description || 'Producto sin descripción detallada.' }}</p>
       <div class="product-meta">
-        <span>{{ product.price | currency: (product.currency || 'USD') }}</span>
+        <span>{{ product.price | currency: (product.currency || 'EUR') }}</span>
         <span *ngIf="product.tags?.length">
           {{ product.tags.slice(0, 2).join(', ') }}
           <ng-container *ngIf="product.tags.length > 2">
@@ -131,11 +139,11 @@
       target="_blank"
       rel="noopener noreferrer"
     >
-      Abrir guía
+      {{ 'home.link.button.openGuide' | translate }}
       <lucide-icon name="ArrowUpRight" size="16"></lucide-icon>
     </a>
     <a *ngIf="!link.external" class="btn btn-text" [routerLink]="link.link">
-      Abrir sección
+      {{ 'home.link.button.openSection' | translate }}
       <lucide-icon name="ArrowRight" size="16"></lucide-icon>
     </a>
   </article>

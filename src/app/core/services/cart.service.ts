@@ -19,7 +19,7 @@ export class CartService {
         productId: product.id,
         productName: product.name,
         price: product.price,
-        currency: product.currency,
+        currency: product.currency ?? 'EUR',
         quantity: 1
       });
     }

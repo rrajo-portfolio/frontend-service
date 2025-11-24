@@ -1,20 +1,35 @@
-<section class="cart-container">
-  <div class="page-header">
+<section class="cart-shell" *ngIf="items$ | async as items">
+  <header class="cart-hero">
     <div>
       <p class="eyebrow">{{ 'cart.eyebrow' | translate }}</p>
-      <h2>{{ 'cart.title' | translate }}</h2>
+      <h1>{{ 'cart.title' | translate }}</h1>
       <p>{{ 'cart.description' | translate }}</p>
     </div>
-  </div>
+    <div class="cart-hero__meta" *ngIf="items.length">
+      <div class="meta-badge">
+        <span>{{ getItemCount(items) }}</span>
+        <small>{{ 'cart.meta.items' | translate }}</small>
+      </div>
+      <div class="meta-amount">
+        <span>{{ 'cart.meta.amount' | translate }}</span>
+        <strong>{{ getSubtotal(items) | currency : getCurrency(items) }}</strong>
+      </div>
+    </div>
+  </header>
 
-  <ng-container *ngIf="items$ | async as items">
-    <ng-container *ngIf="items.length; else emptyCart">
-      <div class="items-grid">
+  <ng-container *ngIf="items.length; else emptyCart">
+    <div class="cart-layout">
+      <div class="cart-items">
+        <h3 class="section-title">
+          {{ 'cart.items.heading' | translate }}
+          <small>({{ getItemCount(items) }} {{ 'cart.items.countLabel' | translate }})</small>
+        </h3>
+
         <mat-card class="cart-item" *ngFor="let item of items">
-          <div class="item-head">
+          <div class="item-header">
             <div>
               <p class="sku">#{{ item.productId | slice: 0 : 8 }}</p>
-              <h3>{{ item.productName }}</h3>
+              <h4>{{ item.productName }}</h4>
             </div>
             <button
               mat-icon-button
@@ -26,11 +41,12 @@
             </button>
           </div>
 
-          <div class="item-body">
-          <div class="price-box">
-            <span>{{ 'order.detail.price' | translate }}</span>
-            <strong>{{ item.price | currency : item.currency }}</strong>
-          </div>
+          <div class="item-grid">
+            <div class="metric">
+              <span>{{ 'order.detail.price' | translate }}</span>
+              <strong>{{ item.price | currency : (item.currency || defaultCurrency) }}</strong>
+            </div>
+
             <mat-form-field appearance="outline" class="quantity-field">
               <mat-label>{{ 'cart.quantity' | translate }}</mat-label>
               <input
@@ -41,36 +57,68 @@
                 (input)="updateQuantity(item.productId, $any($event.target).value)"
               />
             </mat-form-field>
-            <div class="price-box total">
+
+            <div class="metric total">
               <span>{{ 'cart.lineTotal' | translate }}</span>
-              <strong>{{ (item.price * item.quantity) | currency : item.currency }}</strong>
+              <strong>
+                {{ (item.price * item.quantity) | currency : (item.currency || defaultCurrency) }}
+              </strong>
             </div>
           </div>
         </mat-card>
       </div>
 
-      <mat-card class="summary-card">
-        <div class="summary-row">
-          <div>
-            <p class="summary-label">{{ 'cart.total' | translate }}</p>
-            <p class="summary-value">{{ getTotal(items) | currency : getCurrency(items) }}</p>
+      <aside class="cart-summary">
+        <mat-card class="summary-card">
+          <div class="summary-header">
+            <div>
+              <p class="eyebrow">{{ 'cart.summary.title' | translate }}</p>
+              <h3>{{ getGrandTotal(items) | currency : getCurrency(items) }}</h3>
+            </div>
+            <button
+              mat-raised-button
+              color="primary"
+              type="button"
+              [disabled]="isSubmitting"
+              (click)="checkout(items)"
+            >
+              <lucide-icon name="CreditCard" size="18"></lucide-icon>
+              {{ 'cart.payment' | translate }}
+            </button>
           </div>
-          <button
-            mat-raised-button
-            color="primary"
-            type="button"
-            [disabled]="isSubmitting"
-            (click)="checkout(items)"
-          >
-            <lucide-icon name="CreditCard" size="18"></lucide-icon>
-            {{ 'cart.payment' | translate }}
-          </button>
-        </div>
-        <small *ngIf="user">
-          {{ 'cart.associatedUser' | translate }} <strong>{{ user.name }}</strong> ({{ user.email }}).
-        </small>
-      </mat-card>
-    </ng-container>
+
+          <div class="summary-lines">
+            <div class="line">
+              <span>{{ 'cart.summary.subtotal' | translate }}</span>
+              <strong>{{ getSubtotal(items) | currency : getCurrency(items) }}</strong>
+            </div>
+            <div class="line">
+              <span>{{ 'cart.summary.taxes' | translate }}</span>
+              <strong>{{ getTaxes(items) | currency : getCurrency(items) }}</strong>
+            </div>
+            <div class="line total">
+              <span>{{ 'cart.summary.total' | translate }}</span>
+              <strong>{{ getGrandTotal(items) | currency : getCurrency(items) }}</strong>
+            </div>
+          </div>
+          <p class="summary-disclaimer">
+            {{ 'cart.summary.disclaimer' | translate }}
+          </p>
+
+          <div class="customer-card" *ngIf="user">
+            <div>
+              <p class="customer-title">{{ 'cart.customer.title' | translate }}</p>
+              <strong>{{ user.name }}</strong>
+              <span>{{ 'cart.customer.email' | translate }}: {{ user.email }}</span>
+              <span>{{ 'cart.customer.role' | translate }}: {{ user.roles.join(', ') }}</span>
+            </div>
+            <button type="button" class="link-button" (click)="goToProfile()">
+              {{ 'cart.customer.manage' | translate }}
+            </button>
+          </div>
+        </mat-card>
+      </aside>
+    </div>
   </ng-container>
 
   <ng-template #emptyCart>

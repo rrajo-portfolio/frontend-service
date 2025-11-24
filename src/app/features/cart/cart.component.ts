@@ -17,6 +17,8 @@ import { TranslationService } from '../../core/services/translation.service';
 export class CartComponent implements OnInit, OnDestroy {
   user?: AccountUser;
   isSubmitting = false;
+  readonly defaultCurrency = 'EUR';
+  private readonly vatRate = 0.21;
   private readonly destroy$ = new Subject<void>();
 
   constructor(
@@ -93,11 +95,31 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
-  getTotal(items: CartItem[]): number {
+  getItemCount(items: CartItem[]): number {
+    return items.reduce((acc, item) => acc + item.quantity, 0);
+  }
+
+  getSubtotal(items: CartItem[]): number {
     return items.reduce((acc, item) => acc + item.price * item.quantity, 0);
   }
 
+  getTaxes(items: CartItem[]): number {
+    return this.roundCurrency(this.getSubtotal(items) * this.vatRate);
+  }
+
+  getGrandTotal(items: CartItem[]): number {
+    return this.roundCurrency(this.getSubtotal(items) + this.getTaxes(items));
+  }
+
   getCurrency(items: CartItem[]): string {
-    return items[0]?.currency ?? 'USD';
+    return items[0]?.currency ?? this.defaultCurrency;
+  }
+
+  private roundCurrency(value: number): number {
+    return Math.round((value + Number.EPSILON) * 100) / 100;
+  }
+
+  goToProfile(): void {
+    this.router.navigate(['/profile']);
   }
 }

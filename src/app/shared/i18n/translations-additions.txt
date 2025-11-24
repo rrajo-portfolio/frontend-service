@@ -1,0 +1,75 @@
+,
+
+  // Admin module
+  literal('admin.eyebrow', {
+    es: 'Administración',
+    en: 'Administration',
+    fr: 'Administration',
+    de: 'Verwaltung'
+  }),
+  literal('admin.title', {
+    es: 'Centro de control',
+    en: 'Control Center',
+    fr: 'Centre de contrôle',
+    de: 'Kontrollzentrum'
+  }),
+  literal('admin.description', {
+    es: 'Solo visible para roles admin o portfolio_admin. Panel dedicado a operaciones internas y gobierno.',
+    en: 'Only visible for admin or portfolio_admin roles. Dashboard dedicated to internal operations and governance.',
+    fr: 'Visible uniquement pour les rôles admin ou portfolio_admin. Tableau de bord dédié aux opérations internes et à la gouvernance.',
+    de: 'Nur sichtbar für admin oder portfolio_admin Rollen. Dashboard für interne Operationen und Verwaltung.'
+  }),
+  literal('admin.button.openModule', {
+    es: 'Abrir módulo',
+    en: 'Open module',
+    fr: 'Ouvrir le module',
+    de: 'Modul öffnen'
+  }),
+  literal('home.hero.eyebrow', {
+    es: 'Resumen general',
+    en: 'General overview',
+    fr: 'Vue d\'ensemble',
+    de: 'Gesamtübersicht'
+  }),
+  literal('home.hero.greeting', {
+    es: 'Hola',
+    en: 'Hello',
+    fr: 'Bonjour',
+    de: 'Hallo'
+  }),
+  literal('home.catalog.eyebrow', {
+    es: 'Catálogo',
+    en: 'Catalog',
+    fr: 'Catalogue',
+    de: 'Katalog'
+  }),
+  literal('home.catalog.button.open', {
+    es: 'Abrir catálogo',
+    en: 'Open catalog',
+    fr: 'Ouvrir le catalogue',
+    de: 'Katalog öffnen'
+  }),
+  literal('home.link.button.openGuide', {
+    es: 'Abrir guía',
+    en: 'Open guide',
+    fr: 'Ouvrir le guide',
+    de: 'Anleitung öffnen'
+  }),
+  literal('home.link.button.openSection', {
+    es: 'Abrir sección',
+    en: 'Open section',
+    fr: 'Ouvrir la section',
+    de: 'Abschnitt öffnen'
+  }),
+  literal('profile.breadcrumb.catalog', {
+    es: 'Catálogo',
+    en: 'Catalog',
+    fr: 'Catalogue',
+    de: 'Katalog'
+  }),
+  literal('profile.security.lastUpdate', {
+    es: 'Última actualización',
+    en: 'Last updated',
+    fr: 'Dernière mise à jour',
+    de: 'Zuletzt aktualisiert'
+  })

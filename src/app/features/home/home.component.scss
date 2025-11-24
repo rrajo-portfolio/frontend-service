@@ -60,7 +60,7 @@
 
 .hero-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: 16px;
   position: relative;
   z-index: 1;
@@ -68,32 +68,65 @@
   .stat-card {
     background: rgba(255, 255, 255, 0.15);
     border-radius: $radius-lg;
-    padding: 16px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 12px;
-    align-items: center;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0; /* Important for proper text wrapping */
+    transition: all 0.2s ease;
+    overflow: hidden; /* Prevent content overflow */
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    > div:first-child {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0; /* Allows text to wrap */
+    }
+
+    > div:nth-child(2) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      min-width: 0; /* Allows text to wrap */
+    }
 
     p {
       margin: 0;
       font-size: $text-sm;
-      opacity: 0.8;
+      opacity: 0.9;
+      word-wrap: break-word; /* Allow word breaking */
+      overflow-wrap: break-word; /* Modern property */
+      hyphens: auto; /* Add hyphens if needed */
+      min-width: 0; /* Allows flex item to shrink */
     }
 
     h3 {
-      margin: 4px 0 0;
-      font-size: 28px;
+      margin: 0;
+      font-size: clamp(20px, 2.5vw, 32px); /* More responsive sizing */
+      font-weight: 700;
+      word-wrap: break-word; /* Allow word breaking */
+      overflow-wrap: break-word; /* Modern property */
+      min-width: 0; /* Allows flex item to shrink */
     }
   }
 
   .stat-icon {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
     border-radius: $radius-full;
     background: rgba(255, 255, 255, 0.18);
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 
     &.success {
       background: rgba(16, 185, 129, 0.2);
@@ -109,11 +142,13 @@
   }
 
   .stat-chip {
-    padding: 4px 10px;
+    padding: 4px 12px;
     border-radius: $radius-full;
     font-size: $text-xs;
     font-weight: $font-semibold;
     text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
 
     &.positive {
       background: rgba(16, 185, 129, 0.2);

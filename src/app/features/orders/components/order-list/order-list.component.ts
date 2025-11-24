@@ -96,9 +96,4 @@ export class OrderListComponent implements OnInit, OnDestroy {
   bulkClear(): void {
     this.selectedOrders.clear();
   }
-
-  copyOrderId(orderId: string): void {
-    navigator.clipboard?.writeText(orderId);
-    this.notificationService.success('ID copiado al portapapeles');
-  }
 }

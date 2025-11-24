@@ -81,7 +81,6 @@
               (change)="toggleSelectAll()"
             />
           </th>
-          <th>{{ 'orders.table.order' | translate }}</th>
           <th>{{ 'orders.table.user' | translate }}</th>
           <th>{{ 'orders.table.status' | translate }}</th>
           <th>{{ 'orders.table.total' | translate }}</th>
@@ -95,19 +94,15 @@
             <input type="checkbox" [checked]="isSelected(order.id)" (change)="toggleSelect(order.id)" />
           </td>
           <td>
-            <div class="order-id">
-              <code>#{{ order.id | slice: 0 : 8 }}</code>
-              <button class="btn-icon" type="button" (click)="copyOrderId(order.id)">
-                <lucide-icon name="Copy" size="14"></lucide-icon>
-              </button>
-            </div>
-          </td>
-          <td>
             <div class="user-info">
               <strong>
                 {{ order.userName || ('order.detail.userFallback' | translate) }}
               </strong>
-              <small>{{ order.userEmail || order.userId }}</small>
+              <small>
+                {{
+                  order.userEmail || ('orders.table.userEmailFallback' | translate)
+                }}
+              </small>
             </div>
           </td>
           <td>
@@ -123,7 +118,7 @@
           </td>
         </tr>
         <tr *ngIf="!filteredOrders.length">
-          <td [attr.colspan]="isAdmin ? 7 : 6" class="empty-message">
+          <td [attr.colspan]="isAdmin ? 6 : 5" class="empty-message">
             {{ 'orders.empty' | translate }}
           </td>
         </tr>

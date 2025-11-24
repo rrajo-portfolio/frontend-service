@@ -1,6 +1,6 @@
 ﻿# Frontend Service (Angular 18)
 
-Aplicacion SPA que consume los microservicios del portfolio via Spring Cloud Gateway y Keycloak. Replica la arquitectura descrita en "AGENTS (1).md": lazy modules, interceptores, guards, RxJS y configuracion en tiempo de ejecucion para no recompilar cuando cambia la URL del gateway.
+Aplicacion SPA que consume los microservicios del portfolio via Spring Cloud Gateway y Keycloak. 
 
 ## Stack y modulos
 

@@ -1,10 +1,8 @@
-﻿<section class="admin">
+<section class="admin">
   <header>
-    <p class="eyebrow">AdministraciÃ³n</p>
-    <h1>Centro de control</h1>
-    <p>
-      Solo visible para roles <code>admin</code> o <code>portfolio_admin</code>. Panel dedicado a operaciones internas y gobierno.
-    </p>
+    <p class="eyebrow">{{ 'admin.eyebrow' | translate }}</p>
+    <h1>{{ 'admin.title' | translate }}</h1>
+    <p>{{ 'admin.description' | translate }}</p>
   </header>
 
   <div class="admin__grid">
@@ -17,11 +15,9 @@
         <p>{{ section.description }}</p>
       </div>
       <a class="btn btn-text" [routerLink]="section.link">
-        Abrir mÃ³dulo
+        {{ 'admin.button.openModule' | translate }}
         <lucide-icon name="ArrowRight" size="16"></lucide-icon>
       </a>
     </article>
   </div>
 </section>
-
-
