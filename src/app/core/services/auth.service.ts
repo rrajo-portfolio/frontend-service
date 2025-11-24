@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { from, Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AccountUser } from '../../shared/models/account-user.model';
 
@@ -45,10 +45,11 @@ export class AuthService {
   }
 
   getCurrentUser(): Observable<AccountUser> {
-    return from(this.keycloak.loadUserProfile()).pipe(
-      map((profile) => this.mapAccountUser(profile)),
-      catchError(() => of(this.mapFallbackAccountUser()))
-    );
+    const profile = this.profile ?? this.syncProfileFromToken();
+    if (profile) {
+      return of(this.mapAccountUser(profile));
+    }
+    return of(this.mapFallbackAccountUser());
   }
 
   hasRole(role: string): boolean {

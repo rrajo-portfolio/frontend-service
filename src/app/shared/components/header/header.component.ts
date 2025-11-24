@@ -236,7 +236,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.mobileNavOpen = false;
   }
 
-  toggleMobileNav(): void {
+  toggleMobileNav(event?: Event): void {
+    event?.stopPropagation();
     this.mobileNavOpen = !this.mobileNavOpen;
     if (this.mobileNavOpen) {
       this.showNotifications = false;

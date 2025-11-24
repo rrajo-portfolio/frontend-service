@@ -33,12 +33,14 @@ import {
   Lock,
   LogOut,
   Menu,
+  Monitor,
   Package,
   Plus,
   RefreshCw,
   Search,
   Settings,
   Shield,
+  ShieldCheck,
   ShoppingBag,
   ShoppingCart,
   Sparkles,
@@ -116,12 +118,14 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
       Download,
       Copy,
       Shield,
+      ShieldCheck,
       Sparkles,
       Activity,
       Trash2,
       CreditCard,
       Camera,
-      Lock
+      Lock,
+      Monitor
     })
   ],
   exports: [
