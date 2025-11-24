@@ -1,12 +1,72 @@
 <ng-container *ngIf="user$ | async as user">
-  <mat-card>
-    <mat-card-title>{{ user.firstName }} {{ user.lastName }}</mat-card-title>
-    <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
-    <mat-card-content>
-      <p>Telefono: {{ user.phone || 'No registrado' }}</p>
-      <p>Roles: {{ user.roles.join(', ') }}</p>
-      <p>Estatus: {{ user.active ? 'Activo' : 'Inactivo' }}</p>
-      <p>Creado: {{ user.createdAt | date : 'medium' }}</p>
-    </mat-card-content>
-  </mat-card>
+  <section class="user-detail">
+    <div class="user-detail__toolbar">
+      <app-back-button fallbackUrl="/users"></app-back-button>
+    </div>
+
+    <div class="user-detail__header">
+      <div>
+        <p class="eyebrow">{{ 'users.detail.eyebrow' | translate }}</p>
+        <h1>{{ displayName(user) }}</h1>
+        <p class="muted">{{ user.email }}</p>
+      </div>
+      <span class="status-chip" [class.inactive]="!user.active">
+        {{
+          user.active
+            ? ('users.detail.status.active' | translate)
+            : ('users.detail.status.inactive' | translate)
+        }}
+      </span>
+    </div>
+
+    <div class="user-detail__grid">
+      <article class="detail-card">
+        <p class="detail-card__label">{{ 'users.detail.contact' | translate }}</p>
+        <dl>
+          <div>
+            <dt>{{ 'profile.personal.phone' | translate }}</dt>
+            <dd>{{ user.phone || ('profile.personal.unset' | translate) }}</dd>
+          </div>
+          <div>
+            <dt>{{ 'users.detail.created' | translate }}</dt>
+            <dd>{{ user.createdAt | date: 'medium' }}</dd>
+          </div>
+          <div>
+            <dt>{{ 'profile.personal.fullName' | translate }}</dt>
+            <dd>{{ user.fullName || displayName(user) }}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="detail-card">
+        <p class="detail-card__label">{{ 'users.detail.roles' | translate }}</p>
+        <div class="roles-list" *ngIf="user.roles?.length; else emptyRoles">
+          <span class="role-chip" *ngFor="let role of user.roles">{{ role }}</span>
+        </div>
+        <ng-template #emptyRoles>
+          <p class="muted">{{ 'users.detail.roles.empty' | translate }}</p>
+        </ng-template>
+      </article>
+
+      <article class="detail-card">
+        <p class="detail-card__label">{{ 'users.detail.keycloak' | translate }}</p>
+        <dl>
+          <div>
+            <dt>{{ 'users.detail.realm' | translate }}</dt>
+            <dd>portfolio-realm</dd>
+          </div>
+          <div>
+            <dt>{{ 'orders.table.status' | translate }}</dt>
+            <dd>
+              {{
+                user.active
+                  ? ('users.detail.status.active' | translate)
+                  : ('users.detail.status.inactive' | translate)
+              }}
+            </dd>
+          </div>
+        </dl>
+      </article>
+    </div>
+  </section>
 </ng-container>

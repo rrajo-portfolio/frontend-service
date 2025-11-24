@@ -19,16 +19,16 @@ interface HeroStats {
 }
 
 interface ExperienceCard {
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   icon: string;
   link: string;
-  linkLabel: string;
+  linkLabelKey: string;
 }
 
 interface QuickLink {
-  title: string;
-  copy: string;
+  titleKey: string;
+  copyKey: string;
   link: string;
   external?: boolean;
 }
@@ -43,42 +43,42 @@ export class HomeComponent implements OnInit {
   featuredProducts$!: Observable<Product[]>;
   readonly experienceCards: ExperienceCard[] = [
     {
-      title: 'Catálogo inteligente',
-      description: 'Elasticsearch + MySQL para búsquedas de texto completo y catálogos enriquecidos.',
+      titleKey: 'home.experience.catalog.title',
+      descriptionKey: 'home.experience.catalog.description',
       icon: 'Package',
       link: '/catalog',
-      linkLabel: 'Explorar catálogo'
+      linkLabelKey: 'home.experience.catalog.link'
     },
     {
-      title: 'Pedidos orquestados',
-      description: 'Validaciones cruzadas via WebClient, estados automáticos y trazabilidad.',
+      titleKey: 'home.experience.orders.title',
+      descriptionKey: 'home.experience.orders.description',
       icon: 'ShoppingCart',
       link: '/orders',
-      linkLabel: 'Ver pedidos'
+      linkLabelKey: 'home.experience.orders.link'
     },
     {
-      title: 'Gobierno de identidades',
-      description: 'Usuarios sincronizados con Keycloak y panel de administración seguro.',
+      titleKey: 'home.experience.identity.title',
+      descriptionKey: 'home.experience.identity.description',
       icon: 'Users',
       link: '/admin',
-      linkLabel: 'Panel admin'
+      linkLabelKey: 'home.experience.identity.link'
     }
   ];
   readonly quickLinks: QuickLink[] = [
     {
-      title: 'Perfil y roles',
-      copy: 'Consulta los roles otorgados por Keycloak y muestra control de acceso detallado.',
+      titleKey: 'home.quickLinks.profile.title',
+      copyKey: 'home.quickLinks.profile.copy',
       link: '/profile'
     },
     {
-      title: 'Pipelines CI/CD',
-      copy: 'Jenkins, SonarQube y Docker documentados en el repo principal.',
+      titleKey: 'home.quickLinks.pipeline.title',
+      copyKey: 'home.quickLinks.pipeline.copy',
       link: 'https://github.com/rrajo-portfolio/infra-dev/blob/main/README.md',
       external: true
     },
     {
-      title: 'Guides & Playbooks',
-      copy: 'Documentación API-First, DevOps y seguridad incluida en esta plataforma.',
+      titleKey: 'home.quickLinks.guides.title',
+      copyKey: 'home.quickLinks.guides.copy',
       link: '/admin'
     }
   ];

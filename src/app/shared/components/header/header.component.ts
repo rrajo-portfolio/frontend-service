@@ -78,6 +78,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showUserMenu = false;
   showNotifications = false;
   showSearch = false;
+  mobileNavOpen = false;
 
   private readonly destroy$ = new Subject<void>();
   private readonly searchStream$ = new Subject<string>();
@@ -232,6 +233,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   handleLogout(): void {
     this.logout.emit();
     this.showUserMenu = false;
+    this.mobileNavOpen = false;
+  }
+
+  toggleMobileNav(): void {
+    this.mobileNavOpen = !this.mobileNavOpen;
+    if (this.mobileNavOpen) {
+      this.showNotifications = false;
+      this.showUserMenu = false;
+      if (this.showSearch) {
+        this.closeSearch();
+      }
+    }
+  }
+
+  closeMobileNav(): void {
+    this.mobileNavOpen = false;
   }
 
   @HostListener('document:click', ['$event'])
@@ -246,12 +263,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (!target.closest('.user-menu')) {
       this.showUserMenu = false;
     }
+    if (
+      this.mobileNavOpen &&
+      !target.closest('.mobile-nav__panel') &&
+      !target.closest('.mobile-nav-toggle')
+    ) {
+      this.closeMobileNav();
+    }
   }
 
   @HostListener('document:keydown.escape')
   handleEscape(): void {
     if (this.showSearch) {
       this.closeSearch();
+      return;
+    }
+    if (this.mobileNavOpen) {
+      this.closeMobileNav();
+    }
+  }
+
+  @HostListener('window:resize')
+  handleResize(): void {
+    if (window.innerWidth > 1024 && this.mobileNavOpen) {
+      this.closeMobileNav();
     }
   }
 }

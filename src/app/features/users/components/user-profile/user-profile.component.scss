@@ -1,3 +1,130 @@
-mat-card {
-  margin: 1rem;
+@use 'styles/variables' as *;
+
+.user-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+
+  &__toolbar {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 24px;
+    border-radius: $radius-xl;
+    background: white;
+    border: 1px solid $gray-100;
+    box-shadow: $shadow-sm;
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: $text-xs;
+      color: $gray-500;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .muted {
+      margin: 4px 0 0;
+      color: $gray-500;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+}
+
+.detail-card {
+  border-radius: $radius-xl;
+  border: 1px solid $gray-100;
+  background: white;
+  padding: 20px;
+  box-shadow: $shadow-sm;
+
+  &__label {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: $text-xs;
+    color: $gray-500;
+    margin: 0 0 10px;
+  }
+
+  dl {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    dt {
+      font-size: $text-xs;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: $gray-500;
+    }
+
+    dd {
+      margin: 0;
+      font-weight: $font-semibold;
+      color: $gray-900;
+    }
+  }
+}
+
+.roles-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.role-chip {
+  padding: 6px 12px;
+  border-radius: $radius-full;
+  background: rgba(99, 102, 241, 0.15);
+  color: $primary-700;
+  font-weight: $font-medium;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  border-radius: $radius-full;
+  font-weight: $font-semibold;
+  background: rgba(16, 185, 129, 0.18);
+  color: $success-700;
+
+  &.inactive {
+    background: rgba(239, 68, 68, 0.15);
+    color: $error-600;
+  }
+}
+
+.muted {
+  color: $gray-500;
+}
+
+@media (max-width: 768px) {
+  .user-detail {
+    padding: 16px;
+  }
 }

@@ -319,4 +319,8 @@
   .section-header {
     flex-direction: column;
   }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
 }

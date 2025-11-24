@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, tap } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { map, shareReplay, take } from 'rxjs/operators';
 import {
   AccountUser,
   UserPreferences,
@@ -10,6 +10,7 @@ import {
 import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/user.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { TranslationService } from '../../core/services/translation.service';
 
 @Component({
   selector: 'app-profile',
@@ -31,12 +32,14 @@ export class ProfileComponent implements OnInit {
   editingPersonal = false;
   savingPersonal = false;
   activeSessions = 1;
+  private readonly defaultMemberSince = new Date('2023-01-01');
 
   constructor(
     private readonly fb: FormBuilder,
     public readonly authService: AuthService,
     private readonly userService: UserService,
-    private readonly notificationService: NotificationService
+    private readonly notificationService: NotificationService,
+    private readonly translationService: TranslationService
   ) {
     this.personalForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -48,23 +51,24 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user$ = this.loadCurrentUserStream();
-    this.userStats$ = this.userService.getUserStats();
+    this.initializeUserStreams();
     this.loadPreferences();
   }
 
   get hasAdminRole(): boolean {
-    return false; // Se evaluará en el template con async pipe
+    return this.authService.hasRole('portfolio_admin') || this.authService.hasRole('admin');
   }
 
+  private readonly roleLabelMap: Record<string, string> = {
+    admin: 'profile.roles.labels.admin',
+    user: 'profile.roles.labels.user',
+    catalog_read: 'profile.roles.labels.catalogRead',
+    orders_write: 'profile.roles.labels.ordersWrite'
+  };
+
   getRoleLabel(role: string): string {
-    const labels: Record<string, string> = {
-      admin: 'Administrador',
-      user: 'Usuario',
-      'catalog_read': 'Lectura catálogo',
-      'orders_write': 'Gestión pedidos'
-    };
-    return labels[role] ?? role;
+    const key = this.roleLabelMap[role];
+    return key ? this.translationService.translate(key) : role;
   }
 
   toggleEditPersonal(): void {
@@ -98,11 +102,11 @@ export class ProfileComponent implements OnInit {
         this.savingPersonal = false;
         this.editingPersonal = false;
         this.refreshCurrentUser();
-        this.notificationService.success('Perfil actualizado correctamente');
+        this.notificationService.success(this.t('profile.notifications.personalSaved'));
       },
       error: () => {
         this.savingPersonal = false;
-        this.notificationService.error('Error al actualizar el perfil');
+        this.notificationService.error(this.t('profile.notifications.personalError'));
       }
     });
   }
@@ -119,10 +123,10 @@ export class ProfileComponent implements OnInit {
       this.userService.uploadAvatar(file).subscribe({
         next: () => {
           this.refreshCurrentUser();
-          this.notificationService.success('Avatar actualizado correctamente');
+          this.notificationService.success(this.t('profile.notifications.avatarSaved'));
         },
         error: () => {
-          this.notificationService.error('No se pudo actualizar el avatar');
+          this.notificationService.error(this.t('profile.notifications.avatarError'));
         }
       });
     };
@@ -147,33 +151,44 @@ export class ProfileComponent implements OnInit {
   deleteAccount(): void {
     if (
       !confirm(
-        'Esta acción eliminará tu cuenta de demostración. ¿Deseas continuar?'
+        this.t('profile.notifications.deleteConfirm')
       )
     ) {
       return;
     }
     this.userService.deleteAccount().subscribe(() => {
-      this.notificationService.success('Cuenta eliminada correctamente');
+      this.notificationService.success(this.t('profile.notifications.deleteSuccess'));
       this.authService.logout();
     });
   }
 
   savePreferences(): void {
     this.userService.updatePreferences(this.preferences).subscribe(() => {
-      this.notificationService.success('Preferencias guardadas');
+      this.notificationService.success(this.t('profile.notifications.preferencesSaved'));
     });
   }
 
   setup2FA(): void {
-    this.notificationService.success('Configura 2FA desde el portal de Keycloak');
+    this.notificationService.success(this.t('profile.notifications.2fa'));
   }
 
   viewActivity(): void {
-    this.notificationService.success('Actividad disponible en el panel de Keycloak');
+    this.notificationService.success(this.t('profile.notifications.activity'));
   }
 
   viewSessions(): void {
-    this.notificationService.success('Revisa las sesiones activas en Keycloak');
+    this.notificationService.success(this.t('profile.notifications.sessions'));
+  }
+
+  private initializeUserStreams(): void {
+    const stream$ = this.loadCurrentUserStream().pipe(shareReplay(1));
+    this.user$ = stream$;
+    this.userStats$ = stream$.pipe(
+      map((user) => ({
+        orderCount: 24,
+        memberSince: user?.passwordUpdatedAt ?? this.defaultMemberSince
+      }))
+    );
   }
 
   private patchPersonalForm(user: AccountUser): void {
@@ -193,7 +208,7 @@ export class ProfileComponent implements OnInit {
       .pipe(take(1))
       .subscribe({
         next: (prefs) => {
-          this.preferences = prefs;
+          this.preferences = { ...prefs };
         }
       });
   }
@@ -211,6 +226,14 @@ export class ProfileComponent implements OnInit {
   }
 
   private refreshCurrentUser(): void {
-    this.user$ = this.loadCurrentUserStream();
+    this.initializeUserStreams();
+  }
+
+  private t(key: string): string {
+    return this.translationService.translate(key);
   }
 }
+
+
+
+

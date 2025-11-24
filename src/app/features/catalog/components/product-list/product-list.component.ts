@@ -6,6 +6,7 @@ import { CartService } from '../../../../core/services/cart.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { TranslationService } from '../../../../core/services/translation.service';
+import { PrefetchService } from '../../../../core/services/prefetch.service';
 
 @Component({
   selector: 'app-product-list',
@@ -14,7 +15,7 @@ import { TranslationService } from '../../../../core/services/translation.servic
 })
 export class ProductListComponent implements OnInit {
   products$!: Observable<Product[]>;
-  expandedProductId?: string;
+  selectedProduct?: Product;
   canUseCart = false;
 
   constructor(
@@ -22,12 +23,14 @@ export class ProductListComponent implements OnInit {
     private readonly cartService: CartService,
     private readonly notificationService: NotificationService,
     private readonly authService: AuthService,
-    private readonly translationService: TranslationService
+    private readonly translationService: TranslationService,
+    private readonly prefetchService: PrefetchService
   ) {}
 
   ngOnInit(): void {
     this.canUseCart = this.authService.hasRole('user');
     this.loadProducts();
+    this.prefetchService.warmProductDetailComponent();
   }
 
   loadProducts(term?: string): void {
@@ -37,10 +40,13 @@ export class ProductListComponent implements OnInit {
         : this.catalogService.getProducts();
   }
 
-  toggleDetails(product: Product, event?: Event): void {
+  openDetails(product: Product, event?: Event): void {
     event?.stopPropagation();
-    this.expandedProductId =
-      this.expandedProductId === product.id ? undefined : product.id;
+    this.selectedProduct = product;
+  }
+
+  closeDetails(): void {
+    this.selectedProduct = undefined;
   }
 
   addToCart(product: Product, event?: Event): void {
@@ -49,9 +55,5 @@ export class ProductListComponent implements OnInit {
     this.notificationService.success(
       this.translationService.translate('catalog.toast.added')
     );
-  }
-
-  onCloseDetail(): void {
-    this.expandedProductId = undefined;
   }
 }

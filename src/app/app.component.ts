@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { AuthService } from './core/services/auth.service';
 import { LoadingService } from './core/services/loading.service';
+import { PrefetchService } from './core/services/prefetch.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly authService: AuthService,
     loadingService: LoadingService,
-    private readonly titleService: Title
+    private readonly titleService: Title,
+    private readonly prefetchService: PrefetchService
   ) {
     this.loading$ = loadingService.loading$;
     this.authService.init().subscribe();
@@ -25,6 +27,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle(this.appTitle);
     this.ensureFavicon();
+    this.prefetchService.warmCriticalFlows();
   }
 
   logout(): void {

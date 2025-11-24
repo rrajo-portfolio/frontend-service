@@ -1,8 +1,8 @@
 ﻿import { Component } from '@angular/core';
 
 interface AdminSection {
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   link: string;
   icon: string;
 }
@@ -15,30 +15,26 @@ interface AdminSection {
 export class AdminComponent {
   readonly sections: AdminSection[] = [
     {
-      title: 'Usuarios y roles',
-      description:
-        'Administra usuarios de negocio, valida estados y sincroniza datos con Keycloak.',
+      titleKey: 'admin.sections.users.title',
+      descriptionKey: 'admin.sections.users.description',
       link: '/users',
       icon: 'Users'
     },
     {
-      title: 'Catálogo',
-      description:
-        'Actualiza precios, publica eventos a Kafka y mantiene los índices de Elasticsearch.',
+      titleKey: 'admin.sections.catalog.title',
+      descriptionKey: 'admin.sections.catalog.description',
       link: '/catalog',
       icon: 'Package'
     },
     {
-      title: 'Pedidos y cumplimiento',
-      description:
-        'Supervisa estados, ejecuta reintentos de integraciones y comprueba la resiliencia del servicio.',
+      titleKey: 'admin.sections.orders.title',
+      descriptionKey: 'admin.sections.orders.description',
       link: '/orders',
       icon: 'ShoppingCart'
     },
     {
-      title: 'Observabilidad',
-      description:
-        'Keycloak, gateways y pipelines con métricas y tableros listos para auditoría.',
+      titleKey: 'admin.sections.observability.title',
+      descriptionKey: 'admin.sections.observability.description',
       link: '/dashboard',
       icon: 'Activity'
     }

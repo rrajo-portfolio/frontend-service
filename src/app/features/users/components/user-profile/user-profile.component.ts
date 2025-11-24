@@ -23,4 +23,8 @@ export class UserProfileComponent implements OnInit {
       switchMap((params) => this.usersService.getUser(params.get('id')!))
     );
   }
+
+  displayName(user: User): string {
+    return `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim() || user.fullName || user.email;
+  }
 }

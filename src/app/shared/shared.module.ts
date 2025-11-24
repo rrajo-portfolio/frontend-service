@@ -7,8 +7,10 @@ import {
   Activity,
   AlertCircle,
   AlertTriangle,
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
+  BarChart2,
   Bell,
   BellOff,
   BellRing,
@@ -18,31 +20,33 @@ import {
   ChevronRight,
   Clock,
   Copy,
+  CreditCard,
   Download,
   Edit,
+  ExternalLink,
   Filter,
   HelpCircle,
   Home,
   Info,
   LayoutDashboard,
   LogOut,
+  Menu,
   Package,
   Plus,
   RefreshCw,
   Search,
   Settings,
   Shield,
-  ShoppingCart,
   ShoppingBag,
+  ShoppingCart,
   Sparkles,
   Star,
   Tag,
+  Trash2,
   TrendingUp,
   User,
   Users,
-  X,
-  Trash2,
-  CreditCard
+  X
 } from 'lucide-angular';
 import { MaterialModule } from './material.module';
 import { HeaderComponent } from './components/header/header.component';
@@ -52,6 +56,7 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
 import { LogoComponent } from './components/logo/logo.component';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +66,8 @@ import { LanguageSelectorComponent } from './components/language-selector/langua
     TimeAgoPipe,
     LogoComponent,
     TranslatePipe,
-    LanguageSelectorComponent
+    LanguageSelectorComponent,
+    BackButtonComponent
   ],
   imports: [
     CommonModule,
@@ -83,10 +89,13 @@ import { LanguageSelectorComponent } from './components/language-selector/langua
       BellOff,
       ChevronDown,
       ChevronRight,
+      ArrowLeft,
       ArrowRight,
       ArrowUpRight,
+      BarChart2,
       LogOut,
       HelpCircle,
+      Menu,
       CheckCircle2,
       AlertTriangle,
       AlertCircle,
@@ -94,6 +103,7 @@ import { LanguageSelectorComponent } from './components/language-selector/langua
       X,
       Star,
       Tag,
+      ExternalLink,
       Box,
       Edit,
       Plus,
@@ -119,7 +129,8 @@ import { LanguageSelectorComponent } from './components/language-selector/langua
     LogoComponent,
     TranslatePipe,
     LanguageSelectorComponent,
-    LucideAngularModule
+    LucideAngularModule,
+    BackButtonComponent
   ]
 })
 export class SharedModule {}

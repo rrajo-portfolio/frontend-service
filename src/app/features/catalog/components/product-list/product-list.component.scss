@@ -41,35 +41,26 @@
   border-radius: $radius-lg;
   border: 1px solid $gray-100;
   background: white;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  padding: 0;
   transition: $transition-base;
+  overflow: hidden;
   cursor: default;
 
   &:hover {
     border-color: $primary-200;
   }
 
-  &.expanded {
-    grid-column: 1 / -1;
-    border-color: $primary-300;
-    box-shadow: $shadow-lg;
+  .card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .card-head {
     display: flex;
     justify-content: space-between;
     gap: 12px;
-
-    .sku {
-      text-transform: uppercase;
-      font-size: $text-xs;
-      color: $gray-400;
-      letter-spacing: 0.2em;
-      margin: 0 0 4px;
-    }
 
     h3 {
       margin: 0;
@@ -97,15 +88,25 @@
   color: $gray-600;
 }
 
-.product-detail-inline {
-  margin-top: 16px;
-}
+.product-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1100;
 
-@media (max-width: 768px) {
-  .product-card {
-    padding: 16px;
-    &.expanded {
-      grid-column: auto;
-    }
+  &__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+  }
+
+  &__dialog {
+    position: relative;
+    width: min(720px, 100%);
+    z-index: 1;
   }
 }

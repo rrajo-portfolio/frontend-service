@@ -84,6 +84,12 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Commandes',
     de: 'Bestellungen'
   }),
+  literal('header.results.orders.itemTitle', {
+    es: 'Pedido reciente',
+    en: 'Recent order',
+    fr: 'Commande récente',
+    de: 'Letzte Bestellung'
+  }),
   literal('header.results.users', {
     es: 'Usuarios',
     en: 'Users',
@@ -144,6 +150,18 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Lecteur',
     de: 'Betrachter'
   }),
+  literal('header.nav.openMenu', {
+    es: 'Abrir menu',
+    en: 'Open menu',
+    fr: 'Ouvrir le menu',
+    de: 'Menue oeffnen'
+  }),
+  literal('header.nav.closeMenu', {
+    es: 'Cerrar menu',
+    en: 'Close menu',
+    fr: 'Fermer le menu',
+    de: 'Menue schliessen'
+  }),
   literal('header.user.defaultName', {
     es: 'Invitado',
     en: 'Guest',
@@ -163,6 +181,14 @@ const LITERALS: LiteralDefinition[] = [
     en: 'Language',
     fr: 'Langue',
     de: 'Sprache'
+  }),
+
+  // Common helpers
+  literal('common.back', {
+    es: 'Volver',
+    en: 'Go back',
+    fr: 'Retour',
+    de: 'Zurück'
   }),
 
   // Catalog
@@ -582,6 +608,12 @@ const LITERALS: LiteralDefinition[] = [
   }),
 
   // Order detail
+  literal('order.detail.eyebrow', {
+    es: 'Seguimiento del pedido',
+    en: 'Order tracking',
+    fr: 'Suivi de commande',
+    de: 'Bestellverfolgung'
+  }),
   literal('order.detail.title', {
     es: 'Pedido',
     en: 'Order',
@@ -651,11 +683,119 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Centre de contrôle',
     de: 'Kontrollzentrum'
   }),
+  literal('admin.description', {
+    es: 'Operaciones admin centralizadas para microservicios, datos maestros y pipelines listos para demo.',
+    en: 'Centralized admin operations for microservices, master data and interview-ready pipelines.',
+    fr: 'Operations admin centralisees pour microservices, donnees maitre et pipelines prets pour les entretiens.',
+    de: 'Zentrale Adminaufgaben fuer Microservices, Stammdaten und vorfuehrbereite Pipelines.'
+  }),
   literal('admin.button.openModule', {
     es: 'Abrir módulo',
     en: 'Open module',
     fr: 'Ouvrir le module',
     de: 'Modul öffnen'
+  }),
+  literal('admin.sections.users.title', {
+    es: 'Usuarios y roles',
+    en: 'Users & roles',
+    fr: 'Utilisateurs et roles',
+    de: 'Benutzer und Rollen'
+  }),
+  literal('admin.sections.users.description', {
+    es: 'Administra usuarios, sincroniza roles y audita integraciones con Keycloak.',
+    en: 'Manage business users, sync roles and audit integrations with Keycloak.',
+    fr: 'Gerer les utilisateurs, synchroniser les roles et auditer les integrations avec Keycloak.',
+    de: 'Verwalte Benutzer, synchronisiere Rollen und pruefe Integrationen mit Keycloak.'
+  }),
+  literal('admin.sections.catalog.title', {
+    es: 'Catálogo',
+    en: 'Catalog',
+    fr: 'Catalogue',
+    de: 'Katalog'
+  }),
+  literal('admin.sections.catalog.description', {
+    es: 'Publica precios, dispara eventos Kafka y mantiene índices Elasticsearch listos para buscar.',
+    en: 'Publish pricing, trigger Kafka events and keep Elasticsearch indexes searchable.',
+    fr: 'Publier les prix, declencher des evenements Kafka et garder les index Elasticsearch exploitables.',
+    de: 'Preise pflegen, Kafka-Ereignisse auslösen und Elasticsearch-Indizes suchbereit halten.'
+  }),
+  literal('admin.sections.orders.title', {
+    es: 'Pedidos y cumplimiento',
+    en: 'Orders & fulfillment',
+    fr: 'Commandes et execution',
+    de: 'Bestellungen und Abwicklung'
+  }),
+  literal('admin.sections.orders.description', {
+    es: 'Supervisa estados, lanza reintentos y valida integraciones con users-service y catalog-service.',
+    en: 'Monitor statuses, trigger retries and validate integrations with users and catalog services.',
+    fr: 'Suivre les statuts, relancer les integrations et valider les services utilisateurs et catalogue.',
+    de: 'Status überwachen, Wiederholungen anstoßen und Integrationen zu User- und Catalog-Services prüfen.'
+  }),
+  literal('admin.sections.observability.title', {
+    es: 'Observabilidad',
+    en: 'Observability',
+    fr: 'Observabilite',
+    de: 'Observability'
+  }),
+  literal('admin.sections.observability.description', {
+    es: 'Paneles de Prometheus, Grafana y Keycloak listos para auditoría.',
+    en: 'Prometheus, Grafana and Keycloak dashboards that are audit-ready.',
+    fr: 'Tableaux de bord Prometheus, Grafana et Keycloak prets pour les audits.',
+    de: 'Prometheus-, Grafana- und Keycloak-Dashboards bereit fuer Audits.'
+  }),
+  literal('users.detail.eyebrow', {
+    es: 'Usuarios y roles',
+    en: 'Users & roles',
+    fr: 'Utilisateurs et roles',
+    de: 'Benutzer und Rollen'
+  }),
+  literal('users.detail.contact', {
+    es: 'Contacto y credenciales',
+    en: 'Contact & credentials',
+    fr: 'Contact et identifiants',
+    de: 'Kontakt & Zugangsdaten'
+  }),
+  literal('users.detail.roles', {
+    es: 'Roles asignados',
+    en: 'Assigned roles',
+    fr: 'Roles attribues',
+    de: 'Zugewiesene Rollen'
+  }),
+  literal('users.detail.roles.empty', {
+    es: 'Sin roles asignados',
+    en: 'No roles assigned',
+    fr: 'Aucun role attribue',
+    de: 'Keine Rollen zugewiesen'
+  }),
+  literal('users.detail.realm', {
+    es: 'Realm',
+    en: 'Realm',
+    fr: 'Realm',
+    de: 'Realm'
+  }),
+  literal('users.detail.keycloak', {
+    es: 'Cuenta Keycloak',
+    en: 'Keycloak account',
+    fr: 'Compte Keycloak',
+    de: 'Keycloak-Konto'
+  }),
+  literal('users.detail.status.active', {
+    es: 'Activo',
+    en: 'Active',
+    fr: 'Actif',
+    de: 'Aktiv'
+  }),
+  literal('users.detail.status.inactive', {
+    es: 'Inactivo',
+    en: 'Inactive',
+    fr: 'Inactif',
+    de: 'Inaktiv'
+  }),
+  literal('users.detail.created', {
+    es: 'Registrado el',
+    en: 'Registered on',
+    fr: 'Enregistre le',
+    de: 'Registriert am'
   }),
   literal('home.catalog.eyebrow', {
     es: 'Catálogo',
@@ -681,11 +821,659 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Ouvrir la section',
     de: 'Abschnitt öffnen'
   }),
+  literal('home.hero.eyebrow', {
+    es: 'Resumen general',
+    en: 'General overview',
+    fr: 'Vue d’ensemble',
+    de: 'Gesamtübersicht'
+  }),
+  literal('home.hero.greeting', {
+    es: 'Hola',
+    en: 'Hello',
+    fr: 'Bonjour',
+    de: 'Hallo'
+  }),
+  literal('home.hero.description', {
+    es: 'Microservicios + Keycloak + Gateway listos para entrevistas enterprise.',
+    en: 'Microservices + Keycloak + Gateway ready for enterprise interviews.',
+    fr: 'Microservices + Keycloak + passerelle prêts pour les entretiens.',
+    de: 'Microservices + Keycloak + Gateway – bereit für Enterprise-Interviews.'
+  }),
+  literal('home.hero.cta.newProduct', {
+    es: 'Nuevo producto',
+    en: 'New product',
+    fr: 'Nouveau produit',
+    de: 'Neues Produkt'
+  }),
+  literal('home.hero.cta.createOrder', {
+    es: 'Crear pedido',
+    en: 'Create order',
+    fr: 'Créer commande',
+    de: 'Bestellung anlegen'
+  }),
+  literal('home.hero.cta.adminPanel', {
+    es: 'Panel admin',
+    en: 'Admin panel',
+    fr: 'Panneau admin',
+    de: 'Adminbereich'
+  }),
+  literal('home.hero.stats.products', {
+    es: 'Productos activos',
+    en: 'Active products',
+    fr: 'Produits actifs',
+    de: 'Aktive Produkte'
+  }),
+  literal('home.hero.stats.pending', {
+    es: 'Pedidos pendientes',
+    en: 'Pending orders',
+    fr: 'Commandes en attente',
+    de: 'Offene Bestellungen'
+  }),
+  literal('home.hero.stats.monitor', {
+    es: 'Monitorear',
+    en: 'Monitor',
+    fr: 'Surveiller',
+    de: 'Überwachen'
+  }),
+  literal('home.hero.stats.users', {
+    es: 'Usuarios activos',
+    en: 'Active users',
+    fr: 'Utilisateurs actifs',
+    de: 'Aktive Benutzer'
+  }),
+  literal('home.hero.stats.revenue', {
+    es: 'Ingresos del mes',
+    en: 'Monthly revenue',
+    fr: 'Revenus du mois',
+    de: 'Monatsumsatz'
+  }),
+  literal('home.catalog.title', {
+    es: 'Productos listos para demo',
+    en: 'Products ready for demo',
+    fr: 'Produits prêts pour la démo',
+    de: 'Produkte für Demos bereit'
+  }),
+  literal('home.catalog.description', {
+    es: 'Muestra Elasticsearch, MySQL y Kafka en acción.',
+    en: 'Showcases Elasticsearch, MySQL and Kafka in action.',
+    fr: 'Met en avant Elasticsearch, MySQL et Kafka en action.',
+    de: 'Zeigt Elasticsearch, MySQL und Kafka in Aktion.'
+  }),
+  literal('home.catalog.status.active', {
+    es: 'Activo',
+    en: 'Active',
+    fr: 'Actif',
+    de: 'Aktiv'
+  }),
+  literal('home.catalog.card.link', {
+    es: 'Revisar en catálogo',
+    en: 'View in catalog',
+    fr: 'Voir dans le catalogue',
+    de: 'Im Katalog ansehen'
+  }),
+  literal('home.catalog.empty', {
+    es: 'Aún no hay productos. Agrega algunos desde catalog-service.',
+    en: 'No products yet. Seed catalog-service to populate.',
+    fr: 'Pas encore de produits. Ajoutez-les via catalog-service.',
+    de: 'Noch keine Produkte. Über catalog-service befüllen.'
+  }),
+  literal('home.experience.catalog.title', {
+    es: 'Catálogo inteligente',
+    en: 'Smart catalog',
+    fr: 'Catalogue intelligent',
+    de: 'Intelligenter Katalog'
+  }),
+  literal('home.experience.catalog.description', {
+    es: 'Elasticsearch + MySQL para búsquedas enriquecidas.',
+    en: 'Elasticsearch + MySQL for enriched search.',
+    fr: 'Elasticsearch + MySQL pour une recherche enrichie.',
+    de: 'Elasticsearch + MySQL für intelligente Suche.'
+  }),
+  literal('home.experience.catalog.link', {
+    es: 'Explorar catálogo',
+    en: 'Explore catalog',
+    fr: 'Explorer le catalogue',
+    de: 'Katalog erkunden'
+  }),
+  literal('home.experience.orders.title', {
+    es: 'Pedidos orquestados',
+    en: 'Orchestrated orders',
+    fr: 'Commandes orchestrées',
+    de: 'Orchestrierte Bestellungen'
+  }),
+  literal('home.experience.orders.description', {
+    es: 'Validaciones cruzadas y trazabilidad WebClient.',
+    en: 'WebClient cross-validation and full traceability.',
+    fr: 'Validations croisées WebClient et traçabilité.',
+    de: 'WebClient-Validierung und Nachverfolgbarkeit.'
+  }),
+  literal('home.experience.orders.link', {
+    es: 'Ver pedidos',
+    en: 'View orders',
+    fr: 'Voir les commandes',
+    de: 'Bestellungen ansehen'
+  }),
+  literal('home.experience.identity.title', {
+    es: 'Gobierno de identidades',
+    en: 'Identity governance',
+    fr: 'Gouvernance des identités',
+    de: 'Identity-Governance'
+  }),
+  literal('home.experience.identity.description', {
+    es: 'Usuarios sincronizados con Keycloak y panel seguro.',
+    en: 'Users synced with Keycloak and secured admin panel.',
+    fr: 'Utilisateurs synchronisés avec Keycloak et panneau sécurisé.',
+    de: 'Benutzer mit Keycloak synchronisiert und sicheres Admin-Panel.'
+  }),
+  literal('home.experience.identity.link', {
+    es: 'Panel admin',
+    en: 'Admin panel',
+    fr: 'Panneau admin',
+    de: 'Adminbereich'
+  }),
+  literal('home.quickLinks.profile.title', {
+    es: 'Perfil y roles',
+    en: 'Profile & roles',
+    fr: 'Profil et rôles',
+    de: 'Profil & Rollen'
+  }),
+  literal('home.quickLinks.profile.copy', {
+    es: 'Consulta permisos de Keycloak y prueba el control de acceso.',
+    en: 'Check Keycloak permissions and test access control.',
+    fr: 'Consultez les permissions Keycloak et testez l’accès.',
+    de: 'Prüfe Keycloak-Berechtigungen und teste Zugriff.'
+  }),
+  literal('home.quickLinks.pipeline.title', {
+    es: 'Pipelines CI/CD',
+    en: 'CI/CD pipelines',
+    fr: 'Pipelines CI/CD',
+    de: 'CI/CD-Pipelines'
+  }),
+  literal('home.quickLinks.pipeline.copy', {
+    es: 'Jenkins, SonarQube y Docker documentados en infra-dev.',
+    en: 'Jenkins, SonarQube and Docker documented in infra-dev.',
+    fr: 'Jenkins, SonarQube et Docker documentés dans infra-dev.',
+    de: 'Jenkins, SonarQube und Docker im infra-dev dokumentiert.'
+  }),
+  literal('home.quickLinks.guides.title', {
+    es: 'Guides & Playbooks',
+    en: 'Guides & playbooks',
+    fr: 'Guides & playbooks',
+    de: 'Guides & Playbooks'
+  }),
+  literal('home.quickLinks.guides.copy', {
+    es: 'Documentación API-First, DevOps y seguridad incluida.',
+    en: 'API-first, DevOps and security docs included.',
+    fr: 'Documentation API-First, DevOps et sécurité incluse.',
+    de: 'API-First-, DevOps- und Security-Dokumentation enthalten.'
+  }),
   literal('profile.breadcrumb.catalog', {
     es: 'Catálogo',
     en: 'Catalog',
     fr: 'Catalogue',
     de: 'Katalog'
+  }),
+  literal('profile.breadcrumb.profile', {
+    es: 'Perfil',
+    en: 'Profile',
+    fr: 'Profil',
+    de: 'Profil'
+  }),
+  literal('profile.hero.title', {
+    es: 'Mi Perfil',
+    en: 'My profile',
+    fr: 'Mon profil',
+    de: 'Mein Profil'
+  }),
+  literal('profile.hero.description', {
+    es: 'Gestiona datos personales, seguridad y preferencias de notificación.',
+    en: 'Manage personal data, security and notification preferences.',
+    fr: 'Gérez vos données personnelles, sécurité et préférences.',
+    de: 'Verwalte persönliche Daten, Sicherheit und Benachrichtigungen.'
+  }),
+  literal('profile.hero.changeAvatar', {
+    es: 'Cambiar avatar',
+    en: 'Change avatar',
+    fr: 'Changer d’avatar',
+    de: 'Avatar ändern'
+  }),
+  literal('profile.status.active', {
+    es: 'Cuenta activa',
+    en: 'Active account',
+    fr: 'Compte actif',
+    de: 'Aktives Konto'
+  }),
+  literal('profile.stats.orders', {
+    es: 'Pedidos',
+    en: 'Orders',
+    fr: 'Commandes',
+    de: 'Bestellungen'
+  }),
+  literal('profile.stats.memberSince', {
+    es: 'Miembro desde',
+    en: 'Member since',
+    fr: 'Membre depuis',
+    de: 'Mitglied seit'
+  }),
+  literal('profile.quickActions.title', {
+    es: 'Acciones rápidas',
+    en: 'Quick actions',
+    fr: 'Actions rapides',
+    de: 'Schnellaktionen'
+  }),
+  literal('profile.quickActions.password', {
+    es: 'Cambiar contraseña',
+    en: 'Change password',
+    fr: 'Changer le mot de passe',
+    de: 'Passwort ändern'
+  }),
+  literal('profile.quickActions.download', {
+    es: 'Descargar mis datos',
+    en: 'Download my data',
+    fr: 'Télécharger mes données',
+    de: 'Meine Daten herunterladen'
+  }),
+  literal('profile.quickActions.activity', {
+    es: 'Actividad reciente',
+    en: 'Recent activity',
+    fr: 'Activité récente',
+    de: 'Aktuelle Aktivitäten'
+  }),
+  literal('profile.quickActions.delete', {
+    es: 'Eliminar cuenta',
+    en: 'Delete account',
+    fr: 'Supprimer le compte',
+    de: 'Konto löschen'
+  }),
+  literal('profile.preferences.title', {
+    es: 'Preferencias',
+    en: 'Preferences',
+    fr: 'Préférences',
+    de: 'Einstellungen'
+  }),
+  literal('profile.preferences.transactional.title', {
+    es: 'Emails transaccionales',
+    en: 'Transactional emails',
+    fr: 'Emails transactionnels',
+    de: 'Transaktions-E-Mails'
+  }),
+  literal('profile.preferences.transactional.description', {
+    es: 'Confirmaciones, facturas y actualizaciones importantes.',
+    en: 'Confirmations, invoices and important updates.',
+    fr: 'Confirmations, factures et mises à jour importantes.',
+    de: 'Bestätigungen, Rechnungen und wichtige Updates.'
+  }),
+  literal('profile.preferences.push.title', {
+    es: 'Notificaciones push',
+    en: 'Push notifications',
+    fr: 'Notifications push',
+    de: 'Push-Benachrichtigungen'
+  }),
+  literal('profile.preferences.push.description', {
+    es: 'Recordatorios sobre pedidos y seguridad.',
+    en: 'Reminders about orders and security.',
+    fr: 'Rappels sur les commandes et la sécurité.',
+    de: 'Erinnerungen zu Bestellungen und Sicherheit.'
+  }),
+  literal('profile.preferences.marketing.title', {
+    es: 'Emails de marketing',
+    en: 'Marketing emails',
+    fr: 'Emails marketing',
+    de: 'Marketing-E-Mails'
+  }),
+  literal('profile.preferences.marketing.description', {
+    es: 'Novedades y contenido exclusivo del portfolio.',
+    en: 'Portfolio news and exclusive content.',
+    fr: 'Actualités du portfolio et contenu exclusif.',
+    de: 'Portfolio-News und exklusiver Inhalt.'
+  }),
+  literal('profile.personal.title', {
+    es: 'Información personal',
+    en: 'Personal information',
+    fr: 'Informations personnelles',
+    de: 'Persönliche Informationen'
+  }),
+  literal('profile.personal.edit', {
+    es: 'Editar',
+    en: 'Edit',
+    fr: 'Modifier',
+    de: 'Bearbeiten'
+  }),
+  literal('profile.personal.firstName', {
+    es: 'Nombre',
+    en: 'First name',
+    fr: 'Prénom',
+    de: 'Vorname'
+  }),
+  literal('profile.personal.lastName', {
+    es: 'Apellidos',
+    en: 'Last name',
+    fr: 'Nom de famille',
+    de: 'Nachname'
+  }),
+  literal('profile.personal.fullName', {
+    es: 'Nombre completo',
+    en: 'Full name',
+    fr: 'Nom complet',
+    de: 'Vollständiger Name'
+  }),
+  literal('profile.personal.email', {
+    es: 'Email',
+    en: 'Email',
+    fr: 'Email',
+    de: 'E-Mail'
+  }),
+  literal('profile.personal.phone', {
+    es: 'Teléfono',
+    en: 'Phone',
+    fr: 'Téléphone',
+    de: 'Telefon'
+  }),
+  literal('profile.personal.username', {
+    es: 'Usuario',
+    en: 'Username',
+    fr: 'Utilisateur',
+    de: 'Benutzername'
+  }),
+  literal('profile.personal.cancel', {
+    es: 'Cancelar',
+    en: 'Cancel',
+    fr: 'Annuler',
+    de: 'Abbrechen'
+  }),
+  literal('profile.personal.save', {
+    es: 'Guardar cambios',
+    en: 'Save changes',
+    fr: 'Enregistrer',
+    de: 'Änderungen speichern'
+  }),
+  literal('profile.personal.saving', {
+    es: 'Guardando...',
+    en: 'Saving...',
+    fr: 'Enregistrement...',
+    de: 'Speichern...'
+  }),
+  literal('profile.personal.unset', {
+    es: 'No especificado',
+    en: 'Not provided',
+    fr: 'Non renseigné',
+    de: 'Nicht angegeben'
+  }),
+  literal('profile.roles.title', {
+    es: 'Roles y permisos',
+    en: 'Roles & permissions',
+    fr: 'Rôles et permissions',
+    de: 'Rollen & Berechtigungen'
+  }),
+  literal('profile.roles.badge', {
+    es: 'Solo lectura',
+    en: 'Read only',
+    fr: 'Lecture seule',
+    de: 'Nur Lesen'
+  }),
+  literal('profile.roles.helper', {
+    es: 'Gestiona y verifica los permisos asociados a tu cuenta.',
+    en: 'Manage and verify the permissions granted to your account.',
+    fr: 'Gérez et vérifiez les permissions associées à votre compte.',
+    de: 'Verwalte und prüfe die deinem Konto zugewiesenen Berechtigungen.'
+  }),
+  literal('profile.roles.link', {
+    es: 'Abrir panel administrativo',
+    en: 'Open admin panel',
+    fr: 'Ouvrir le panneau admin',
+    de: 'Adminbereich öffnen'
+  }),
+  literal('profile.roles.labels.admin', {
+    es: 'Administrador',
+    en: 'Administrator',
+    fr: 'Administrateur',
+    de: 'Administrator'
+  }),
+  literal('profile.roles.labels.user', {
+    es: 'Usuario',
+    en: 'User',
+    fr: 'Utilisateur',
+    de: 'Benutzer'
+  }),
+  literal('profile.roles.labels.catalogRead', {
+    es: 'Lectura catálogo',
+    en: 'Catalog read',
+    fr: 'Lecture catalogue',
+    de: 'Katalog lesen'
+  }),
+  literal('profile.roles.labels.ordersWrite', {
+    es: 'Gestión pedidos',
+    en: 'Orders write',
+    fr: 'Gestion des commandes',
+    de: 'Bestellungen verwalten'
+  }),
+  literal('profile.security.title', {
+    es: 'Seguridad',
+    en: 'Security',
+    fr: 'Sécurité',
+    de: 'Sicherheit'
+  }),
+  literal('profile.security.password', {
+    es: 'Contraseña',
+    en: 'Password',
+    fr: 'Mot de passe',
+    de: 'Passwort'
+  }),
+  literal('profile.security.change', {
+    es: 'Cambiar',
+    en: 'Change',
+    fr: 'Changer',
+    de: 'Ändern'
+  }),
+  literal('profile.security.twoFactor', {
+    es: 'Autenticación de dos factores',
+    en: 'Two-factor authentication',
+    fr: 'Authentification à deux facteurs',
+    de: 'Zwei-Faktor-Authentifizierung'
+  }),
+  literal('profile.security.twoFactorDescription', {
+    es: 'Añade una capa extra de seguridad.',
+    en: 'Add an extra security layer.',
+    fr: 'Ajoutez une couche de sécurité supplémentaire.',
+    de: 'Füge eine zusätzliche Sicherheitsschicht hinzu.'
+  }),
+  literal('profile.security.twoFactorConfigured', {
+    es: 'Configurado',
+    en: 'Configured',
+    fr: 'Configuré',
+    de: 'Konfiguriert'
+  }),
+  literal('profile.security.twoFactorConfigure', {
+    es: 'Configurar',
+    en: 'Configure',
+    fr: 'Configurer',
+    de: 'Konfigurieren'
+  }),
+  literal('profile.security.sessions', {
+    es: 'Sesiones activas',
+    en: 'Active sessions',
+    fr: 'Sessions actives',
+    de: 'Aktive Sitzungen'
+  }),
+  literal('profile.security.sessionsDescription', {
+    es: 'Dispositivos conectados',
+    en: 'Connected devices',
+    fr: 'Appareils connectés',
+    de: 'Verbundene Geräte'
+  }),
+  literal('profile.security.sessionsButton', {
+    es: 'Ver todas',
+    en: 'View all',
+    fr: 'Tout voir',
+    de: 'Alle anzeigen'
+  }),
+  literal('profile.security.notAvailable', {
+    es: 'No disponible',
+    en: 'Not available',
+    fr: 'Non disponible',
+    de: 'Nicht verfügbar'
+  }),
+  literal('profile.notifications.personalSaved', {
+    es: 'Perfil actualizado correctamente',
+    en: 'Profile updated successfully',
+    fr: 'Profil mis à jour',
+    de: 'Profil aktualisiert'
+  }),
+  literal('profile.notifications.personalError', {
+    es: 'Error al actualizar el perfil',
+    en: 'Could not update profile',
+    fr: 'Impossible de mettre à jour le profil',
+    de: 'Profil konnte nicht aktualisiert werden'
+  }),
+  literal('profile.notifications.avatarSaved', {
+    es: 'Avatar actualizado correctamente',
+    en: 'Avatar updated successfully',
+    fr: 'Avatar mis à jour',
+    de: 'Avatar aktualisiert'
+  }),
+  literal('profile.notifications.avatarError', {
+    es: 'No se pudo actualizar el avatar',
+    en: 'Avatar update failed',
+    fr: 'Échec de la mise à jour de l’avatar',
+    de: 'Avatar konnte nicht aktualisiert werden'
+  }),
+  literal('profile.notifications.deleteConfirm', {
+    es: 'Esta acción eliminará tu cuenta de demostración. ¿Deseas continuar?',
+    en: 'This action removes your demo account. Continue?',
+    fr: 'Cette action supprimera votre compte démo. Continuer ?',
+    de: 'Dies löscht dein Demo-Konto. Fortfahren?'
+  }),
+  literal('profile.notifications.deleteSuccess', {
+    es: 'Cuenta eliminada correctamente',
+    en: 'Account deleted successfully',
+    fr: 'Compte supprimé',
+    de: 'Konto gelöscht'
+  }),
+  literal('profile.notifications.preferencesSaved', {
+    es: 'Preferencias guardadas',
+    en: 'Preferences saved',
+    fr: 'Préférences enregistrées',
+    de: 'Einstellungen gespeichert'
+  }),
+  literal('profile.notifications.2fa', {
+    es: 'Configura 2FA desde el portal de Keycloak',
+    en: 'Configure 2FA from the Keycloak portal',
+    fr: 'Configurez la 2FA depuis Keycloak',
+    de: '2FA im Keycloak-Portal konfigurieren'
+  }),
+  literal('profile.notifications.activity', {
+    es: 'Actividad disponible en el panel de Keycloak',
+    en: 'Activity is available in the Keycloak panel',
+    fr: 'Activité disponible dans Keycloak',
+    de: 'Aktivität im Keycloak-Panel verfügbar'
+  }),
+  literal('profile.notifications.sessions', {
+    es: 'Revisa las sesiones activas en Keycloak',
+    en: 'Review active sessions in Keycloak',
+    fr: 'Consultez les sessions actives dans Keycloak',
+    de: 'Aktive Sitzungen in Keycloak prüfen'
+  }),
+  literal('profile.loading', {
+    es: 'Cargando perfil...',
+    en: 'Loading profile...',
+    fr: 'Chargement du profil...',
+    de: 'Profil wird geladen...'
+  }),
+  literal('dashboard.hero.eyebrow', {
+    es: 'Observabilidad',
+    en: 'Observability',
+    fr: 'Observabilité',
+    de: 'Observierbarkeit'
+  }),
+  literal('dashboard.hero.title', {
+    es: 'Tableros y métricas listos para auditar',
+    en: 'Dashboards & metrics ready for audits',
+    fr: 'Tableaux et métriques prêts pour audit',
+    de: 'Dashboards & Metriken auditbereit'
+  }),
+  literal('dashboard.hero.description', {
+    es: 'Grafana, Prometheus y eventos del gateway expuestos en vivo.',
+    en: 'Grafana, Prometheus and gateway events exposed live.',
+    fr: 'Grafana, Prometheus et événements du gateway exposés en temps réel.',
+    de: 'Grafana, Prometheus und Gateway-Events live sichtbar.'
+  }),
+  literal('dashboard.hero.cta.prometheus', {
+    es: 'Abrir Prometheus',
+    en: 'Open Prometheus',
+    fr: 'Ouvrir Prometheus',
+    de: 'Prometheus öffnen'
+  }),
+  literal('dashboard.hero.cta.grafana', {
+    es: 'Abrir Grafana',
+    en: 'Open Grafana',
+    fr: 'Ouvrir Grafana',
+    de: 'Grafana öffnen'
+  }),
+  literal('dashboard.metrics.products', {
+    es: 'Productos monitoreados',
+    en: 'Products monitored',
+    fr: 'Produits surveillés',
+    de: 'Überwachte Produkte'
+  }),
+  literal('dashboard.metrics.users', {
+    es: 'Usuarios registrados',
+    en: 'Registered users',
+    fr: 'Utilisateurs enregistrés',
+    de: 'Registrierte Benutzer'
+  }),
+  literal('dashboard.metrics.pending', {
+    es: 'Pedidos pendientes',
+    en: 'Pending orders',
+    fr: 'Commandes en attente',
+    de: 'Offene Bestellungen'
+  }),
+  literal('dashboard.highlight.title', {
+    es: 'Productos destacados',
+    en: 'Highlighted products',
+    fr: 'Produits mis en avant',
+    de: 'Hervorgehobene Produkte'
+  }),
+  literal('dashboard.highlight.empty', {
+    es: 'No hay productos para destacar todavía.',
+    en: 'No products to highlight yet.',
+    fr: 'Aucun produit à mettre en avant pour le moment.',
+    de: 'Noch keine Produkte zum Hervorheben.'
+  }),
+  literal('dashboard.endpoints.title', {
+    es: 'Endpoints de observabilidad',
+    en: 'Observability endpoints',
+    fr: 'Endpoints d’observabilité',
+    de: 'Observability-Endpunkte'
+  }),
+  literal('dashboard.endpoints.description', {
+    es: 'Comparte estos accesos con recruiters o usa port-forward para auditorías.',
+    en: 'Share these entrypoints with recruiters or port-forward for audits.',
+    fr: 'Partagez ces accès avec les recruteurs ou utilisez le port-forward pour les audits.',
+    de: 'Teile diese Endpunkte mit Recruitern oder nutze Port-Forward für Audits.'
+  }),
+  literal('dashboard.endpoints.prometheus', {
+    es: 'Targets Prometheus',
+    en: 'Prometheus targets',
+    fr: 'Cibles Prometheus',
+    de: 'Prometheus-Targets'
+  }),
+  literal('dashboard.endpoints.grafana', {
+    es: 'Panel Grafana',
+    en: 'Grafana panel',
+    fr: 'Tableau Grafana',
+    de: 'Grafana-Panel'
+  }),
+  literal('dashboard.endpoints.keycloak', {
+    es: 'Auditoría Keycloak',
+    en: 'Keycloak audit',
+    fr: 'Audit Keycloak',
+    de: 'Keycloak-Audit'
+  }),
+  literal('dashboard.endpoints.open', {
+    es: 'Abrir endpoint',
+    en: 'Open endpoint',
+    fr: 'Ouvrir l’endpoint',
+    de: 'Endpoint öffnen'
   }),
   literal('profile.security.lastUpdate', {
     es: 'Última actualización',

@@ -24,7 +24,6 @@
       <div>
         <p class="eyebrow">{{ 'catalog.detail.eyebrow' | translate }}</p>
         <h3>{{ product?.name }}</h3>
-        <span class="sku" *ngIf="product?.sku">SKU: {{ product?.sku }}</span>
       </div>
       <div class="detail-tags" *ngIf="product?.tags?.length">
         <span *ngFor="let tag of product?.tags">{{ tag }}</span>

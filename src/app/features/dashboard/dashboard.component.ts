@@ -22,6 +22,26 @@ interface DashboardMetrics {
 export class DashboardComponent implements OnInit {
   metrics$!: Observable<DashboardMetrics>;
   highlightedProducts$!: Observable<Product[]>;
+  readonly endpoints = [
+    {
+      icon: 'Activity',
+      labelKey: 'dashboard.endpoints.prometheus',
+      description: 'http://localhost:9090/targets',
+      link: 'http://localhost:9090/targets'
+    },
+    {
+      icon: 'BarChart2',
+      labelKey: 'dashboard.endpoints.grafana',
+      description: 'http://localhost:3000/d/portfolio-overview',
+      link: 'http://localhost:3000/d/portfolio-overview'
+    },
+    {
+      icon: 'KeyRound',
+      labelKey: 'dashboard.endpoints.keycloak',
+      description: 'http://localhost:7080',
+      link: 'http://localhost:7080'
+    }
+  ];
 
   constructor(
     private readonly catalogService: CatalogService,

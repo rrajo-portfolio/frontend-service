@@ -32,6 +32,19 @@
         </a>
       </ng-container>
     </nav>
+    <button
+      class="btn-icon mobile-nav-toggle"
+      type="button"
+      (click)="toggleMobileNav()"
+      [attr.aria-expanded]="mobileNavOpen"
+      [attr.aria-label]="
+        mobileNavOpen
+          ? ('header.nav.closeMenu' | translate)
+          : ('header.nav.openMenu' | translate)
+      "
+    >
+      <lucide-icon [name]="mobileNavOpen ? 'X' : 'Menu'" size="20"></lucide-icon>
+    </button>
 
     <div class="header-actions">
       <app-language-selector></app-language-selector>
@@ -142,6 +155,56 @@
     </div>
   </div>
 
+  <div class="mobile-nav" *ngIf="mobileNavOpen">
+    <div class="mobile-nav__backdrop" (click)="closeMobileNav()"></div>
+    <div class="mobile-nav__panel" role="dialog" aria-modal="true">
+      <div class="mobile-nav__header">
+        <div class="mobile-nav__user">
+          <span class="avatar">{{ userInitials }}</span>
+          <div>
+            <span class="name">{{ userName }}</span>
+            <small>{{ userEmail }}</small>
+          </div>
+        </div>
+        <button
+          class="btn-icon"
+          type="button"
+          (click)="closeMobileNav()"
+          [attr.aria-label]="'header.nav.closeMenu' | translate"
+        >
+          <lucide-icon name="X" size="18"></lucide-icon>
+        </button>
+      </div>
+      <nav class="mobile-nav__links">
+        <ng-container *ngFor="let link of navLinks">
+          <a
+            *ngIf="hasAccess(link)"
+            class="mobile-nav__link"
+            routerLinkActive="active"
+            [routerLink]="link.path"
+            [routerLinkActiveOptions]="{ exact: link.path === '/home' }"
+            (click)="closeMobileNav()"
+          >
+            <lucide-icon [name]="link.icon" size="18"></lucide-icon>
+            <span>{{ link.labelKey | translate }}</span>
+            <span class="badge-count" *ngIf="link.badge === 'orders' && pendingOrdersCount">
+              {{ pendingOrdersCount }}
+            </span>
+            <span class="badge-count" *ngIf="link.badge === 'cart' && cartCount">
+              {{ cartCount }}
+            </span>
+          </a>
+        </ng-container>
+      </nav>
+      <div class="mobile-nav__footer">
+        <button class="menu-item" type="button" (click)="handleLogout()">
+          <lucide-icon name="LogOut" size="16"></lucide-icon>
+          {{ 'header.menu.logout' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="search-overlay" *ngIf="showSearch" (click)="closeSearch()">
     <div class="search-modal" (click)="$event.stopPropagation()">
       <div class="search-input">
@@ -184,8 +247,8 @@
           >
             <lucide-icon name="ShoppingCart" size="16"></lucide-icon>
             <div>
-              <span>Pedido #{{ order.id | slice: 0 : 8 }}</span>
-              <small>{{ order.status }}</small>
+              <span>{{ 'header.results.orders.itemTitle' | translate }}</span>
+              <small>{{ 'orders.table.status' | translate }}: {{ order.status }}</small>
             </div>
             <lucide-icon name="ArrowRight" size="16"></lucide-icon>
           </a>

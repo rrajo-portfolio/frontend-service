@@ -1,29 +1,86 @@
-<section class="dashboard-container">
-  <h2>Resumen operativo</h2>
-
-  <div class="metrics" *ngIf="metrics$ | async as metrics">
-    <mat-card>
-      <mat-card-title>{{ metrics.products }}</mat-card-title>
-      <mat-card-subtitle>Productos activos</mat-card-subtitle>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>{{ metrics.users }}</mat-card-title>
-      <mat-card-subtitle>Usuarios registrados</mat-card-subtitle>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>{{ metrics.pendingOrders }}</mat-card-title>
-      <mat-card-subtitle>Pedidos pendientes</mat-card-subtitle>
-    </mat-card>
+<section class="dashboard-page">
+  <div class="dashboard-toolbar">
+    <app-back-button class="dashboard-toolbar__back" fallbackUrl="/admin"></app-back-button>
   </div>
 
-  <h3>Productos destacados</h3>
-  <div class="highlighted">
-    <mat-card *ngFor="let product of highlightedProducts$ | async">
-      <mat-card-title>{{ product.name }}</mat-card-title>
-      <mat-card-content>
-        <p>{{ product.description }}</p>
-        <span>{{ product.price | currency : product.currency }}</span>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  <section class="dashboard-hero">
+    <div>
+      <p class="eyebrow">{{ 'dashboard.hero.eyebrow' | translate }}</p>
+      <h1>{{ 'dashboard.hero.title' | translate }}</h1>
+      <p>{{ 'dashboard.hero.description' | translate }}</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="http://localhost:9090/targets" target="_blank" rel="noopener">
+          <lucide-icon name="Activity" size="16"></lucide-icon>
+          {{ 'dashboard.hero.cta.prometheus' | translate }}
+        </a>
+        <a class="btn btn-secondary" href="http://localhost:3000/d/portfolio-overview" target="_blank" rel="noopener">
+          <lucide-icon name="BarChart2" size="16"></lucide-icon>
+          {{ 'dashboard.hero.cta.grafana' | translate }}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="metrics-grid" *ngIf="metrics$ | async as metrics">
+    <article class="metric-card">
+      <p>{{ 'dashboard.metrics.products' | translate }}</p>
+      <h3>{{ metrics.products }}</h3>
+    </article>
+    <article class="metric-card">
+      <p>{{ 'dashboard.metrics.users' | translate }}</p>
+      <h3>{{ metrics.users }}</h3>
+    </article>
+    <article class="metric-card">
+      <p>{{ 'dashboard.metrics.pending' | translate }}</p>
+      <h3>{{ metrics.pendingOrders }}</h3>
+    </article>
+  </section>
+
+  <section class="highlight-section">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">{{ 'dashboard.hero.eyebrow' | translate }}</p>
+        <h2>{{ 'dashboard.highlight.title' | translate }}</h2>
+      </div>
+    </div>
+    <div class="highlight-grid" *ngIf="highlightedProducts$ | async as highlighted; else highlightEmpty">
+      <article class="highlight-card" *ngFor="let product of highlighted">
+        <div class="card-icon">
+          <lucide-icon name="Sparkles" size="18"></lucide-icon>
+        </div>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description || ('catalog.noDescription' | translate) }}</p>
+        <span>{{ product.price | currency: (product.currency || 'EUR') }}</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="endpoints-section">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">{{ 'dashboard.hero.eyebrow' | translate }}</p>
+        <h2>{{ 'dashboard.endpoints.title' | translate }}</h2>
+        <p>{{ 'dashboard.endpoints.description' | translate }}</p>
+      </div>
+    </div>
+    <div class="endpoints-grid">
+      <article class="endpoint-card" *ngFor="let endpoint of endpoints">
+        <div class="endpoint-icon">
+          <lucide-icon [name]="endpoint.icon" size="20"></lucide-icon>
+        </div>
+        <h3>{{ endpoint.labelKey | translate }}</h3>
+        <p>{{ endpoint.description }}</p>
+        <a class="btn btn-text" [href]="endpoint.link" target="_blank" rel="noopener">
+          <lucide-icon name="ExternalLink" size="16"></lucide-icon>
+          {{ 'dashboard.endpoints.open' | translate }}
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <ng-template #highlightEmpty>
+    <div class="empty-state">
+      {{ 'dashboard.highlight.empty' | translate }}
+    </div>
+  </ng-template>
 </section>

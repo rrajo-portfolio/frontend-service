@@ -11,8 +11,8 @@
         <lucide-icon [name]="section.icon" size="24"></lucide-icon>
       </div>
       <div class="card-body">
-        <h3>{{ section.title }}</h3>
-        <p>{{ section.description }}</p>
+        <h3>{{ section.titleKey | translate }}</h3>
+        <p>{{ section.descriptionKey | translate }}</p>
       </div>
       <a class="btn btn-text" [routerLink]="section.link">
         {{ 'admin.button.openModule' | translate }}

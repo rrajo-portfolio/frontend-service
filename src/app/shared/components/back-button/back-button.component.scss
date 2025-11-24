@@ -1,0 +1,23 @@
+@use 'styles/variables' as *;
+
+.back-button {
+  gap: 6px;
+  padding-left: 0;
+  padding-right: 0;
+  color: $gray-600;
+  font-weight: $font-medium;
+
+  lucide-icon {
+    color: $gray-500;
+    transition: $transition-base;
+  }
+
+  &:hover {
+    color: $primary-600;
+
+    lucide-icon {
+      color: $primary-600;
+      transform: translateX(-2px);
+    }
+  }
+}

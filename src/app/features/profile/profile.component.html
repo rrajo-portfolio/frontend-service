@@ -1,14 +1,14 @@
-﻿<ng-container *ngIf="user$ | async as currentUser; else loading">
+<ng-container *ngIf="user$ | async as currentUser; else loading">
   <div class="profile-container">
     <header class="profile-header">
       <div class="breadcrumb">
         <a routerLink="/catalog">{{ 'profile.breadcrumb.catalog' | translate }}</a>
         <lucide-icon name="ChevronRight" size="14"></lucide-icon>
-        <span>Perfil</span>
+        <span>{{ 'profile.breadcrumb.profile' | translate }}</span>
       </div>
-      <h1 class="page-title">Mi Perfil</h1>
+      <h1 class="page-title">{{ 'profile.hero.title' | translate }}</h1>
       <p class="page-description">
-        Gestiona tus datos personales, seguridad y preferencias de notificaci&#x00F3;n.
+        {{ 'profile.hero.description' | translate }}
       </p>
     </header>
 
@@ -30,7 +30,7 @@
             <button
               class="avatar-edit"
               type="button"
-              aria-label="Cambiar avatar"
+              [attr.aria-label]="'profile.hero.changeAvatar' | translate"
               (click)="changeAvatar()"
             >
               <lucide-icon name="Camera" size="16"></lucide-icon>
@@ -41,55 +41,55 @@
           <div class="user-status">
             <span class="status-badge active">
               <span class="status-dot"></span>
-              Cuenta activa
+              {{ 'profile.status.active' | translate }}
             </span>
           </div>
           <div class="user-stats" *ngIf="userStats$ | async as stats">
             <div class="stat-item">
               <div class="stat-value">{{ stats?.orderCount ?? 0 }}</div>
-              <div class="stat-label">Pedidos</div>
+              <div class="stat-label">{{ 'profile.stats.orders' | translate }}</div>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
               <div class="stat-value">
                 {{ stats?.memberSince | date: 'yyyy' }}
               </div>
-              <div class="stat-label">Miembro desde</div>
+              <div class="stat-label">{{ 'profile.stats.memberSince' | translate }}</div>
             </div>
           </div>
         </section>
 
         <section class="quick-actions-card">
-          <h3 class="card-title">Acciones r&#x00E1;pidas</h3>
+          <h3 class="card-title">{{ 'profile.quickActions.title' | translate }}</h3>
           <button class="action-button" type="button" (click)="changePassword()">
             <lucide-icon name="Lock" size="16"></lucide-icon>
-            <span>Cambiar contrase&#x00F1;a</span>
+            <span>{{ 'profile.quickActions.password' | translate }}</span>
             <lucide-icon class="arrow" name="ChevronRight" size="16"></lucide-icon>
           </button>
           <button class="action-button" type="button" (click)="downloadData()">
             <lucide-icon name="Download" size="16"></lucide-icon>
-            <span>Descargar mis datos</span>
+            <span>{{ 'profile.quickActions.download' | translate }}</span>
             <lucide-icon class="arrow" name="ChevronRight" size="16"></lucide-icon>
           </button>
           <button class="action-button" type="button" (click)="viewActivity()">
             <lucide-icon name="Activity" size="16"></lucide-icon>
-            <span>Actividad reciente</span>
+            <span>{{ 'profile.quickActions.activity' | translate }}</span>
             <lucide-icon class="arrow" name="ChevronRight" size="16"></lucide-icon>
           </button>
           <button class="action-button danger" type="button" (click)="deleteAccount()">
             <lucide-icon name="Trash2" size="16"></lucide-icon>
-            <span>Eliminar cuenta</span>
+            <span>{{ 'profile.quickActions.delete' | translate }}</span>
             <lucide-icon class="arrow" name="ChevronRight" size="16"></lucide-icon>
           </button>
         </section>
 
         <section class="preferences-card">
-          <h3 class="card-title">Preferencias</h3>
+          <h3 class="card-title">{{ 'profile.preferences.title' | translate }}</h3>
           <div class="preference-row">
             <div>
-              <div class="preference-title">Emails transaccionales</div>
+              <div class="preference-title">{{ 'profile.preferences.transactional.title' | translate }}</div>
               <div class="preference-description">
-                Confirmaciones, facturas y actualizaciones importantes.
+                {{ 'profile.preferences.transactional.description' | translate }}
               </div>
             </div>
             <label class="toggle-switch">
@@ -103,9 +103,9 @@
           </div>
           <div class="preference-row">
             <div>
-              <div class="preference-title">Notificaciones push</div>
+              <div class="preference-title">{{ 'profile.preferences.push.title' | translate }}</div>
               <div class="preference-description">
-                Recordatorios sobre pedidos y seguridad.
+                {{ 'profile.preferences.push.description' | translate }}
               </div>
             </div>
             <label class="toggle-switch">
@@ -119,9 +119,9 @@
           </div>
           <div class="preference-row">
             <div>
-              <div class="preference-title">Emails de marketing</div>
+              <div class="preference-title">{{ 'profile.preferences.marketing.title' | translate }}</div>
               <div class="preference-description">
-                Novedades y contenido exclusivo del portfolio.
+                {{ 'profile.preferences.marketing.description' | translate }}
               </div>
             </div>
             <label class="toggle-switch">
@@ -139,7 +139,7 @@
       <main class="profile-main">
         <section class="info-card">
           <div class="card-header">
-            <h3 class="card-title">Informaci&#x00F3;n personal</h3>
+            <h3 class="card-title">{{ 'profile.personal.title' | translate }}</h3>
             <button
               class="btn btn-secondary"
               type="button"
@@ -147,7 +147,7 @@
               (click)="toggleEditPersonal()"
             >
               <lucide-icon name="Edit" size="16"></lucide-icon>
-              Editar
+              {{ 'profile.personal.edit' | translate }}
             </button>
           </div>
 
@@ -157,23 +157,23 @@
             class="form-grid"
           >
             <label class="form-group">
-              <span>Nombre</span>
+              <span>{{ 'profile.personal.firstName' | translate }}</span>
               <input type="text" formControlName="firstName" />
             </label>
             <label class="form-group">
-              <span>Apellidos</span>
+              <span>{{ 'profile.personal.lastName' | translate }}</span>
               <input type="text" formControlName="lastName" />
             </label>
             <label class="form-group full-width">
-              <span>Email</span>
+              <span>{{ 'profile.personal.email' | translate }}</span>
               <input type="email" formControlName="email" [disabled]="true" />
             </label>
             <label class="form-group">
-              <span>Tel&#x00E9;fono</span>
+              <span>{{ 'profile.personal.phone' | translate }}</span>
               <input type="tel" formControlName="phone" />
             </label>
             <label class="form-group">
-              <span>Usuario</span>
+              <span>{{ 'profile.personal.username' | translate }}</span>
               <input type="text" formControlName="username" />
             </label>
             <div class="form-actions full-width">
@@ -182,7 +182,7 @@
                 type="button"
                 (click)="cancelEditPersonal()"
               >
-                Cancelar
+                {{ 'profile.personal.cancel' | translate }}
               </button>
               <button
                 class="btn btn-primary"
@@ -190,28 +190,28 @@
                 (click)="savePersonal()"
                 [disabled]="personalForm.invalid || savingPersonal"
               >
-                {{ savingPersonal ? 'Guardando...' : 'Guardar cambios' }}
+                {{ savingPersonal ? ( 'profile.personal.saving' | translate ) : ( 'profile.personal.save' | translate ) }}
               </button>
             </div>
           </form>
           <ng-template #personalView>
             <div class="info-grid">
               <div class="info-item">
-                <span class="info-label">Nombre completo</span>
+                <span class="info-label">{{ 'profile.personal.fullName' | translate }}</span>
                 <span class="info-value">{{ currentUser.name }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">Email</span>
+                <span class="info-label">{{ 'profile.personal.email' | translate }}</span>
                 <span class="info-value">{{ currentUser.email }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">Tel&#x00E9;fono</span>
+                <span class="info-label">{{ 'profile.personal.phone' | translate }}</span>
                 <span class="info-value">
-                  {{ currentUser.phone || 'No especificado' }}
+                  {{ currentUser.phone || ('profile.personal.unset' | translate) }}
                 </span>
               </div>
               <div class="info-item">
-                <span class="info-label">Usuario</span>
+                <span class="info-label">{{ 'profile.personal.username' | translate }}</span>
                 <span class="info-value">{{ currentUser.username }}</span>
               </div>
             </div>
@@ -220,8 +220,8 @@
 
         <section class="info-card">
           <div class="card-header">
-            <h3 class="card-title">Roles y permisos</h3>
-            <span class="badge badge-info">Solo lectura</span>
+            <h3 class="card-title">{{ 'profile.roles.title' | translate }}</h3>
+            <span class="badge badge-info">{{ 'profile.roles.badge' | translate }}</span>
           </div>
           <div class="roles-container">
             <span class="role-chip" *ngFor="let role of currentUser.roles">
@@ -232,31 +232,35 @@
           <div class="help-box">
             <lucide-icon name="Info" size="16"></lucide-icon>
             <p>
-              Gestiona y verifica los permisos asociados a tu cuenta.
+              {{ 'profile.roles.helper' | translate }}
             </p>
             <a *ngIf="currentUser.roles.includes('admin')" routerLink="/admin" class="help-link">
-              Abrir panel administrativo
+              {{ 'profile.roles.link' | translate }}
             </a>
           </div>
         </section>
 
         <section class="info-card security-card">
           <div class="card-header">
-            <h3 class="card-title">Seguridad</h3>
+            <h3 class="card-title">{{ 'profile.security.title' | translate }}</h3>
           </div>
           <div class="security-item">
             <div class="security-icon">
               <lucide-icon name="Lock" size="18"></lucide-icon>
             </div>
             <div>
-              <div class="security-title">Contrase&#x00F1;a</div>
+              <div class="security-title">{{ 'profile.security.password' | translate }}</div>
               <div class="security-description">
                 {{ 'profile.security.lastUpdate' | translate }}:
-                {{ currentUser.passwordUpdatedAt | date: 'dd/MM/yyyy' || 'N/A' }}
+                {{
+                  currentUser.passwordUpdatedAt
+                    ? (currentUser.passwordUpdatedAt | date: 'dd/MM/yyyy')
+                    : ('profile.security.notAvailable' | translate)
+                }}
               </div>
             </div>
             <button class="btn btn-secondary-sm" (click)="changePassword()">
-              Cambiar
+              {{ 'profile.security.change' | translate }}
             </button>
           </div>
           <div class="security-item">
@@ -264,13 +268,17 @@
               <lucide-icon name="ShieldCheck" size="18"></lucide-icon>
             </div>
             <div>
-              <div class="security-title">Autenticaci&#x00F3;n de dos factores</div>
+              <div class="security-title">{{ 'profile.security.twoFactor' | translate }}</div>
               <div class="security-description">
-                A&#x00F1;ade una capa extra de seguridad
+                {{ 'profile.security.twoFactorDescription' | translate }}
               </div>
             </div>
             <button class="btn btn-secondary-sm" (click)="setup2FA()">
-              {{ currentUser.twoFactorEnabled ? 'Configurado' : 'Configurar' }}
+              {{
+                currentUser.twoFactorEnabled
+                  ? ('profile.security.twoFactorConfigured' | translate)
+                  : ('profile.security.twoFactorConfigure' | translate)
+              }}
             </button>
           </div>
           <div class="security-item">
@@ -278,13 +286,14 @@
               <lucide-icon name="Monitor" size="18"></lucide-icon>
             </div>
             <div>
-              <div class="security-title">Sesiones activas</div>
+              <div class="security-title">{{ 'profile.security.sessions' | translate }}</div>
               <div class="security-description">
-                {{ activeSessions }} dispositivo(s) conectado(s)
+                {{ 'profile.security.sessionsDescription' | translate }}:
+                {{ activeSessions }}
               </div>
             </div>
             <button class="btn btn-secondary-sm" (click)="viewSessions()">
-              Ver todas
+              {{ 'profile.security.sessionsButton' | translate }}
             </button>
           </div>
         </section>
@@ -294,6 +303,12 @@
 </ng-container>
 
 <ng-template #loading>
-  <div class="profile-loading">Cargando perfil...</div>
+  <div class="profile-loading">{{ 'profile.loading' | translate }}</div>
 </ng-template>
+
+
+
+
+
+
 

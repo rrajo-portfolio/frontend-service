@@ -1,50 +1,69 @@
-﻿<ng-container *ngIf="order$ | async as order">
+<ng-container *ngIf="order$ | async as order">
   <section class="order-detail">
-    <mat-card class="summary-card">
-      <mat-card-title>{{ 'order.detail.title' | translate }}</mat-card-title>
-      <mat-card-subtitle>
-        {{ 'orders.table.status' | translate }}:
-        <span class="status-chip" [ngClass]="order.status.toLowerCase()">
-          {{ order.status }}
-        </span>
-      </mat-card-subtitle>
-      <mat-card-content>
-        <div class="summary-grid">
-          <div>
-            <p class="label">{{ 'order.detail.customer' | translate }}</p>
-            <p class="value">
-              {{ order.userName || ('order.detail.userFallback' | translate) }}
-            </p>
-            <small *ngIf="order.userEmail">{{ order.userEmail }}</small>
-          </div>
-          <div>
-            <p class="label">{{ 'order.detail.total' | translate }}</p>
-            <p class="value">{{ order.totalAmount | currency: order.currency }}</p>
-            <small>{{ 'order.detail.created' | translate }} {{ order.createdAt | date: 'medium' }}</small>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <div class="order-detail__toolbar">
+      <app-back-button class="order-detail__back" fallbackUrl="/orders"></app-back-button>
+    </div>
 
-    <mat-card class="items-card">
-      <mat-card-title>{{ 'order.detail.items' | translate }}</mat-card-title>
-      <mat-card-content>
-        <mat-list>
-          <mat-list-item *ngFor="let item of order.lineItems">
-            <div class="item-line">
-              <div>
-                <p class="item-name">
-                  {{ item.productName || ('order.detail.productFallback' | translate) }}
-                </p>
-              </div>
-              <div class="item-meta">
-                <span>{{ 'order.detail.quantity' | translate }}: {{ item.quantity }}</span>
-                <span>{{ 'order.detail.price' | translate }}: {{ item.price | currency: order.currency }}</span>
-              </div>
-            </div>
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
+    <div class="order-detail__header">
+      <div>
+        <p class="eyebrow">{{ 'order.detail.eyebrow' | translate }}</p>
+        <h1>{{ 'order.detail.title' | translate }}</h1>
+        <p class="muted">
+          {{ 'orders.table.status' | translate }}:
+          <span class="status-chip" [ngClass]="order.status.toLowerCase()">
+            {{ order.status }}
+          </span>
+        </p>
+      </div>
+      <div class="order-detail__total">
+        <span>{{ 'order.detail.total' | translate }}</span>
+        <strong>{{ order.totalAmount | currency: order.currency }}</strong>
+        <small>
+          {{ 'order.detail.created' | translate }}
+          {{ order.createdAt | date: 'medium' }}
+        </small>
+      </div>
+    </div>
+
+    <div class="order-detail__grid">
+      <article class="detail-card glass-card">
+        <p class="detail-card__label">{{ 'order.detail.customer' | translate }}</p>
+        <h3>{{ order.userName || ('order.detail.userFallback' | translate) }}</h3>
+        <p class="muted">
+          {{ order.userEmail || ('order.detail.userFallback' | translate) }}
+        </p>
+      </article>
+
+      <article class="detail-card glass-card">
+        <p class="detail-card__label">{{ 'order.detail.items' | translate }}</p>
+        <h3>{{ order.lineItems.length }}</h3>
+        <p class="muted">
+          {{ 'dashboard.metrics.products' | translate }}
+        </p>
+      </article>
+    </div>
+
+    <article class="detail-card detail-card--items">
+      <header>
+        <div>
+          <p class="detail-card__label">{{ 'order.detail.items' | translate }}</p>
+          <h2>{{ 'catalog.detail.eyebrow' | translate }}</h2>
+        </div>
+      </header>
+      <div class="item-line" *ngFor="let item of order.lineItems">
+        <div>
+          <p class="item-name">
+            {{ item.productName || ('order.detail.productFallback' | translate) }}
+          </p>
+        </div>
+        <div class="item-meta">
+          <span>{{ 'order.detail.quantity' | translate }}: {{ item.quantity }}</span>
+          <span>
+            {{ 'order.detail.price' | translate }}:
+            {{ item.price | currency: order.currency }}
+          </span>
+        </div>
+      </div>
+    </article>
   </section>
 </ng-container>

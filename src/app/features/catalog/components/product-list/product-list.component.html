@@ -1,4 +1,4 @@
-﻿<section class="catalog-container">
+<section class="catalog-container">
   <div class="page-header">
     <div>
       <p class="eyebrow">{{ 'catalog.eyebrow' | translate }}</p>
@@ -14,63 +14,41 @@
   <app-product-search (search)="loadProducts($event)"></app-product-search>
 
   <div class="products-grid" *ngIf="products$ | async as products; else empty">
-    <article
-      *ngFor="let product of products"
-      class="product-card"
-      [class.expanded]="expandedProductId === product.id"
-    >
-      <div class="card-head">
-        <div>
-          <p class="sku">SKU {{ product.sku }}</p>
-          <h3>{{ product.name }}</h3>
+    <article *ngFor="let product of products" class="product-card">
+      <div class="card-body">
+        <div class="card-head">
+          <div>
+            <h3>{{ product.name }}</h3>
+          </div>
+          <span class="badge badge-status" [class.active]="product.status === 'ACTIVE'">
+            {{ product.status }}
+          </span>
         </div>
-        <span class="badge badge-status" [class.active]="product.status === 'ACTIVE'">
-          {{ product.status }}
-        </span>
-      </div>
-      <p class="description">
-        {{ product.description || ('catalog.noDescription' | translate) }}
-      </p>
-      <div class="meta">
-        <span>{{ product.price | currency: (product.currency || 'EUR') }}</span>
-        <span *ngIf="product.tags?.length">
-          {{ product.tags.slice(0, 2).join(', ') }}
-          <ng-container *ngIf="product.tags.length > 2">
-            +{{ product.tags.length - 2 }}
-          </ng-container>
-        </span>
-      </div>
-      <button
-        class="btn btn-secondary"
-        type="button"
-        *ngIf="canUseCart"
-        (click)="addToCart(product, $event)"
-      >
-        <lucide-icon name="ShoppingCart" size="16"></lucide-icon>
-        {{ 'catalog.addToCart' | translate }}
-      </button>
-      <button
-        class="btn btn-text"
-        type="button"
-        (click)="toggleDetails(product, $event)"
-      >
-        {{
-          expandedProductId === product.id
-            ? ('catalog.hideDetails' | translate)
-            : ('catalog.viewDetails' | translate)
-        }}
-        <lucide-icon
-          [name]="expandedProductId === product.id ? 'ChevronUp' : 'ArrowRight'"
-          size="16"
-        ></lucide-icon>
-      </button>
-
-      <div class="product-detail-inline" *ngIf="expandedProductId === product.id">
-        <app-product-detail
-          [product]="product"
-          displayMode="inline"
-          (close)="onCloseDetail()"
-        ></app-product-detail>
+        <p class="description">
+          {{ product.description || ('catalog.noDescription' | translate) }}
+        </p>
+        <div class="meta">
+          <span>{{ product.price | currency: (product.currency || 'EUR') }}</span>
+          <span *ngIf="product.tags?.length">
+            {{ product.tags.slice(0, 2).join(', ') }}
+            <ng-container *ngIf="product.tags.length > 2">
+              +{{ product.tags.length - 2 }}
+            </ng-container>
+          </span>
+        </div>
+        <button
+          class="btn btn-secondary"
+          type="button"
+          *ngIf="canUseCart"
+          (click)="addToCart(product, $event)"
+        >
+          <lucide-icon name="ShoppingCart" size="16"></lucide-icon>
+          {{ 'catalog.addToCart' | translate }}
+        </button>
+        <button class="btn btn-text" type="button" (click)="openDetails(product, $event)">
+          {{ 'catalog.viewDetails' | translate }}
+          <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+        </button>
       </div>
     </article>
   </div>
@@ -84,4 +62,14 @@
     </div>
   </ng-template>
 
+  <div class="product-modal" *ngIf="selectedProduct">
+    <div class="product-modal__backdrop" (click)="closeDetails()"></div>
+    <div class="product-modal__dialog">
+      <app-product-detail
+        [product]="selectedProduct"
+        displayMode="modal"
+        (close)="closeDetails()"
+      ></app-product-detail>
+    </div>
+  </div>
 </section>

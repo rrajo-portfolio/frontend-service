@@ -1,22 +1,25 @@
 ﻿<section class="home-hero" *ngIf="stats$ | async as stats">
   <div class="hero-content">
-    <span class="eyebrow">Resumen general</span>
-    <h1>Hola, {{ userName }} 👋</h1>
+    <span class="eyebrow">{{ 'home.hero.eyebrow' | translate }}</span>
+    <h1>
+      {{ 'home.hero.greeting' | translate }},
+      {{ userName }} 👋
+    </h1>
     <p>
-      Microservicios + Keycloak + Gateway listos para demostrar arquitectura enterprise de principio a fin.
+      {{ 'home.hero.description' | translate }}
     </p>
     <div class="hero-actions">
       <a class="btn btn-primary" routerLink="/catalog">
         <lucide-icon name="Plus" size="18"></lucide-icon>
-        Nuevo producto
+        {{ 'home.hero.cta.newProduct' | translate }}
       </a>
       <a class="btn btn-secondary" routerLink="/orders">
         <lucide-icon name="ShoppingCart" size="18"></lucide-icon>
-        Crear pedido
+        {{ 'home.hero.cta.createOrder' | translate }}
       </a>
       <a class="btn btn-secondary" routerLink="/admin">
         <lucide-icon name="Settings" size="18"></lucide-icon>
-        Panel admin
+        {{ 'home.hero.cta.adminPanel' | translate }}
       </a>
     </div>
   </div>
@@ -26,7 +29,7 @@
         <div class="stat-icon">
           <lucide-icon name="Package" size="24"></lucide-icon>
         </div>
-        <p>Productos activos</p>
+        <p>{{ 'home.hero.stats.products' | translate }}</p>
       </div>
       <div>
         <h3>{{ stats.totalProducts }}</h3>
@@ -38,11 +41,13 @@
         <div class="stat-icon warning">
           <lucide-icon name="Clock" size="24"></lucide-icon>
         </div>
-        <p>Pedidos pendientes</p>
+        <p>{{ 'home.hero.stats.pending' | translate }}</p>
       </div>
       <div>
         <h3>{{ stats.pendingOrders }}</h3>
-        <span class="stat-chip warning">Monitorear</span>
+        <span class="stat-chip warning">
+          {{ 'home.hero.stats.monitor' | translate }}
+        </span>
       </div>
     </article>
     <article class="stat-card">
@@ -50,7 +55,7 @@
         <div class="stat-icon success">
           <lucide-icon name="Users" size="24"></lucide-icon>
         </div>
-        <p>Usuarios activos</p>
+        <p>{{ 'home.hero.stats.users' | translate }}</p>
       </div>
       <div>
         <h3>{{ stats.activeUsers }}</h3>
@@ -62,7 +67,7 @@
         <div class="stat-icon accent">
           <lucide-icon name="TrendingUp" size="24"></lucide-icon>
         </div>
-        <p>Ingresos del mes</p>
+        <p>{{ 'home.hero.stats.revenue' | translate }}</p>
       </div>
       <div>
         <h3>{{ stats.revenue | currency: 'EUR' }}</h3>
@@ -76,8 +81,8 @@
   <div class="section-header">
     <div>
       <p class="eyebrow">{{ 'home.catalog.eyebrow' | translate }}</p>
-      <h2>Productos listos para demo</h2>
-      <p>Muestra la integración entre catalog-service, Elasticsearch y Kafka.</p>
+      <h2>{{ 'home.catalog.title' | translate }}</h2>
+      <p>{{ 'home.catalog.description' | translate }}</p>
     </div>
     <a class="btn btn-primary" routerLink="/catalog">
       <lucide-icon name="ArrowRight" size="18"></lucide-icon>
@@ -87,11 +92,13 @@
   <div class="product-showcase" *ngIf="featuredProducts$ | async as featured">
     <article class="product-card" *ngFor="let product of featured; trackBy: trackByProduct">
       <div class="product-head">
-        <span class="badge badge-status active">Activo</span>
+        <span class="badge badge-status active">
+          {{ 'home.catalog.status.active' | translate }}
+        </span>
         <lucide-icon name="Sparkles" size="18"></lucide-icon>
       </div>
       <h3>{{ product.name }}</h3>
-      <p>{{ product.description || 'Producto sin descripción detallada.' }}</p>
+      <p>{{ product.description || ('catalog.noDescription' | translate) }}</p>
       <div class="product-meta">
         <span>{{ product.price | currency: (product.currency || 'EUR') }}</span>
         <span *ngIf="product.tags?.length">
@@ -102,12 +109,12 @@
         </span>
       </div>
       <a class="product-link" routerLink="/catalog">
-        Revisar en catálogo
+        {{ 'home.catalog.card.link' | translate }}
         <lucide-icon name="ArrowRight" size="16"></lucide-icon>
       </a>
     </article>
     <div class="empty-state" *ngIf="!featured.length">
-      <p>Aún no hay productos. Agrega algunos desde catalog-service.</p>
+      <p>{{ 'home.catalog.empty' | translate }}</p>
     </div>
   </div>
 </section>
@@ -117,10 +124,10 @@
     <div class="card-icon">
       <lucide-icon [name]="card.icon" size="24"></lucide-icon>
     </div>
-    <h3>{{ card.title }}</h3>
-    <p>{{ card.description }}</p>
+    <h3>{{ card.titleKey | translate }}</h3>
+    <p>{{ card.descriptionKey | translate }}</p>
     <a class="btn btn-text" [routerLink]="card.link">
-      {{ card.linkLabel }}
+      {{ card.linkLabelKey | translate }}
       <lucide-icon name="ArrowUpRight" size="16"></lucide-icon>
     </a>
   </article>
@@ -129,8 +136,8 @@
 <section class="quick-links-grid">
   <article class="quick-link" *ngFor="let link of quickLinks">
     <div class="link-content">
-      <h4>{{ link.title }}</h4>
-      <p>{{ link.copy }}</p>
+      <h4>{{ link.titleKey | translate }}</h4>
+      <p>{{ link.copyKey | translate }}</p>
     </div>
     <a
       *ngIf="link.external"
