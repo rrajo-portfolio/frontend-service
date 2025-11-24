@@ -803,6 +803,60 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Aucun role attribue',
     de: 'Keine Rollen zugewiesen'
   }),
+  literal('users.detail.roles.addPlaceholder', {
+    es: 'Ej: catalog_read',
+    en: 'e.g. catalog_read',
+    fr: 'ex: catalog_read',
+    de: 'z.B. catalog_read'
+  }),
+  literal('users.detail.roles.addButton', {
+    es: 'Añadir',
+    en: 'Add',
+    fr: 'Ajouter',
+    de: 'Hinzufügen'
+  }),
+  literal('users.detail.roles.reset', {
+    es: 'Restablecer',
+    en: 'Reset',
+    fr: 'Réinitialiser',
+    de: 'Zurücksetzen'
+  }),
+  literal('users.detail.roles.save', {
+    es: 'Guardar roles',
+    en: 'Save roles',
+    fr: 'Enregistrer les roles',
+    de: 'Rollen speichern'
+  }),
+  literal('users.detail.roles.saving', {
+    es: 'Guardando...',
+    en: 'Saving...',
+    fr: 'Enregistrement...',
+    de: 'Speichern...'
+  }),
+  literal('users.detail.roles.helper', {
+    es: 'Los cambios se sincronizan con Keycloak y servicios federados.',
+    en: 'Changes sync with Keycloak and federated services.',
+    fr: 'Les changements sont synchronises avec Keycloak et les services federes.',
+    de: 'Änderungen werden mit Keycloak und angebundenen Services synchronisiert.'
+  }),
+  literal('users.detail.roles.remove', {
+    es: 'Quitar rol',
+    en: 'Remove role',
+    fr: 'Supprimer le role',
+    de: 'Rolle entfernen'
+  }),
+  literal('users.detail.roles.saved', {
+    es: 'Roles actualizados.',
+    en: 'Roles updated.',
+    fr: 'Roles mis à jour.',
+    de: 'Rollen aktualisiert.'
+  }),
+  literal('users.detail.roles.error', {
+    es: 'No se pudo actualizar los roles.',
+    en: 'Could not update roles.',
+    fr: 'Impossible de mettre à jour les roles.',
+    de: 'Rollen konnten nicht aktualisiert werden.'
+  }),
   literal('users.detail.realm', {
     es: 'Realm',
     en: 'Realm',

@@ -29,16 +29,6 @@ export class UserListComponent implements OnInit {
     return user.id ?? index;
   }
 
-  getInitials(user: User): string {
-    const base = `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim() || user.email;
-    return base
-      .split(/\s+/)
-      .filter(Boolean)
-      .map((segment) => segment[0]?.toUpperCase() ?? '')
-      .slice(0, 2)
-      .join('');
-  }
-
   private mapMetrics(users: User[]): UsersMetrics {
     const total = users.length;
     const active = users.filter((user) => user.active).length;

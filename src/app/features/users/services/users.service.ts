@@ -20,6 +20,10 @@ export class UsersService {
     return this.api.get<User>(`${this.baseEndpoint}/${id}`);
   }
 
+  updateUserRoles(id: string, roles: string[]): Observable<User> {
+    return this.api.put<User>(`${this.baseEndpoint}/${id}/roles`, { roles });
+  }
+
   private ensureArray<T>(items: T[] | T | undefined | null): T[] {
     return Array.isArray(items) ? items : [];
   }

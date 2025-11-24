@@ -81,20 +81,8 @@
 
 .user-card__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
-}
-
-.avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 16px;
-  background: rgba(99, 102, 241, 0.15);
-  color: #312e81;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
 }
 
 .user-meta {

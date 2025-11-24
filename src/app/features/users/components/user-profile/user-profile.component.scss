@@ -93,15 +93,54 @@
 .roles-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .role-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 6px 12px;
   border-radius: $radius-full;
   background: rgba(99, 102, 241, 0.15);
   color: $primary-700;
   font-weight: $font-medium;
+
+  .role-remove {
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+  }
+}
+
+.roles-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__input {
+    display: flex;
+    gap: 10px;
+
+    input {
+      flex: 1;
+      border: 1px solid $gray-200;
+      border-radius: $radius-md;
+      padding: 10px 12px;
+      font-family: $font-primary;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
 }
 
 .status-chip {
