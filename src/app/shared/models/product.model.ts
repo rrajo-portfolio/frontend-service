@@ -6,8 +6,21 @@ export interface Product {
   price: number;
   currency: string;
   tags: string[];
-  status?: string;
+  status?: ProductStatus;
   stockQuantity?: number;
-  createdAt: string;
+  createdAt?: string;
   updatedAt?: string;
+  lastUpdatedAt?: string;
+}
+
+export type ProductStatus = 'ACTIVE' | 'INACTIVE';
+
+export interface ProductPayload {
+  name: string;
+  description?: string;
+  sku: string;
+  price: number;
+  currency: string;
+  stockQuantity: number;
+  tags?: string[];
 }

@@ -18,6 +18,7 @@ export class ProductListComponent implements OnInit {
   products$!: Observable<Product[]>;
   selectedProduct?: Product;
   canUseCart = false;
+  isCatalogAdmin = false;
 
   constructor(
     private readonly catalogService: CatalogService,
@@ -31,6 +32,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.canUseCart = this.authService.hasRole('user');
+    this.isCatalogAdmin = this.authService.hasAnyRole(['admin', 'portfolio_admin']);
     this.loadProducts();
     this.prefetchService.warmProductDetailComponent();
   }

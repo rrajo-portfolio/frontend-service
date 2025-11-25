@@ -23,7 +23,7 @@ export class AdminComponent {
     {
       titleKey: 'admin.sections.catalog.title',
       descriptionKey: 'admin.sections.catalog.description',
-      link: '/catalog',
+      link: '/catalog/manage',
       icon: 'Package'
     },
     {

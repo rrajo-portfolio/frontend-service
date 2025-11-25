@@ -5,10 +5,20 @@
       <h2>{{ 'catalog.title' | translate }}</h2>
       <p>{{ 'catalog.description' | translate }}</p>
     </div>
-    <button class="btn btn-primary" type="button" (click)="loadProducts()">
-      <lucide-icon name="RefreshCw" size="18"></lucide-icon>
-      {{ 'catalog.refresh' | translate }}
-    </button>
+    <div class="page-header__actions">
+      <a
+        class="btn btn-secondary"
+        *ngIf="isCatalogAdmin"
+        routerLink="/catalog/manage"
+      >
+        <lucide-icon name="Settings" size="18"></lucide-icon>
+        {{ 'catalog.admin.manage' | translate }}
+      </a>
+      <button class="btn btn-primary" type="button" (click)="loadProducts()">
+        <lucide-icon name="RefreshCw" size="18"></lucide-icon>
+        {{ 'catalog.refresh' | translate }}
+      </button>
+    </div>
   </div>
 
   <app-product-search (search)="loadProducts($event)"></app-product-search>

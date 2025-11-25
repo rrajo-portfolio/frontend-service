@@ -6,12 +6,14 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
+import { ProductAdminComponent } from './components/product-admin/product-admin.component';
 
 @NgModule({
   declarations: [
     ProductListComponent,
     ProductDetailComponent,
-    ProductSearchComponent
+    ProductSearchComponent,
+    ProductAdminComponent
   ],
   imports: [
     CommonModule,

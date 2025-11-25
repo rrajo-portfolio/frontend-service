@@ -320,6 +320,186 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Retour',
     de: 'Zurück'
   }),
+  literal('catalog.admin.eyebrow', {
+    es: 'Gestión catalog-service',
+    en: 'Catalog governance',
+    fr: 'Gouvernance du catalogue',
+    de: 'Catalog Governance'
+  }),
+  literal('catalog.admin.title', {
+    es: 'Crear y mantener productos',
+    en: 'Create and maintain products',
+    fr: 'Créer et maintenir les produits',
+    de: 'Produkte erstellen und pflegen'
+  }),
+  literal('catalog.admin.description', {
+    es: 'Publica ítems, ajusta inventario y marca el estado que verán los recruiters en la demo.',
+    en: 'Publish items, adjust inventory and control what recruiters see during the demo.',
+    fr: 'Publiez des éléments, ajustez l’inventaire et contrôlez ce que voient les recruteurs.',
+    de: 'Veröffentliche Artikel, passe den Bestand an und steuere, was Recruiter sehen.'
+  }),
+  literal('catalog.admin.manage', {
+    es: 'Gestionar catálogo',
+    en: 'Manage catalog',
+    fr: 'Gérer le catalogue',
+    de: 'Katalog verwalten'
+  }),
+  literal('catalog.admin.form.createTitle', {
+    es: 'Nuevo producto',
+    en: 'New product',
+    fr: 'Nouveau produit',
+    de: 'Neues Produkt'
+  }),
+  literal('catalog.admin.form.editTitle', {
+    es: 'Editar producto',
+    en: 'Edit product',
+    fr: 'Modifier le produit',
+    de: 'Produkt bearbeiten'
+  }),
+  literal('catalog.admin.form.fields.name', {
+    es: 'Nombre',
+    en: 'Name',
+    fr: 'Nom',
+    de: 'Name'
+  }),
+  literal('catalog.admin.form.fields.sku', {
+    es: 'SKU',
+    en: 'SKU',
+    fr: 'SKU',
+    de: 'SKU'
+  }),
+  literal('catalog.admin.form.fields.price', {
+    es: 'Precio',
+    en: 'Price',
+    fr: 'Prix',
+    de: 'Preis'
+  }),
+  literal('catalog.admin.form.fields.currency', {
+    es: 'Moneda',
+    en: 'Currency',
+    fr: 'Devise',
+    de: 'Währung'
+  }),
+  literal('catalog.admin.form.fields.stock', {
+    es: 'Inventario',
+    en: 'Inventory',
+    fr: 'Inventaire',
+    de: 'Bestand'
+  }),
+  literal('catalog.admin.form.fields.tags', {
+    es: 'Etiquetas (separadas por coma)',
+    en: 'Tags (comma separated)',
+    fr: 'Étiquettes (séparées par des virgules)',
+    de: 'Tags (durch Komma getrennt)'
+  }),
+  literal('catalog.admin.form.fields.description', {
+    es: 'Descripción',
+    en: 'Description',
+    fr: 'Description',
+    de: 'Beschreibung'
+  }),
+  literal('catalog.admin.form.reset', {
+    es: 'Limpiar',
+    en: 'Reset form',
+    fr: 'Réinitialiser',
+    de: 'Zurücksetzen'
+  }),
+  literal('catalog.admin.form.create', {
+    es: 'Crear producto',
+    en: 'Create product',
+    fr: 'Créer le produit',
+    de: 'Produkt anlegen'
+  }),
+  literal('catalog.admin.form.update', {
+    es: 'Actualizar producto',
+    en: 'Update product',
+    fr: 'Mettre à jour le produit',
+    de: 'Produkt aktualisieren'
+  }),
+  literal('catalog.admin.list.title', {
+    es: 'Productos publicados',
+    en: 'Published products',
+    fr: 'Produits publiés',
+    de: 'Veröffentlichte Produkte'
+  }),
+  literal('catalog.admin.list.description', {
+    es: 'Controla inventario, estado y precios que consumen otros microservicios.',
+    en: 'Control inventory, state and pricing consumed by other microservices.',
+    fr: 'Contrôlez inventaire, état et prix utilisés par les microservices.',
+    de: 'Steuere Bestand, Status und Preise für andere Microservices.'
+  }),
+  literal('catalog.admin.list.stock', {
+    es: 'Inventario',
+    en: 'Stock',
+    fr: 'Stock',
+    de: 'Bestand'
+  }),
+  literal('catalog.admin.list.status.active', {
+    es: 'Activo',
+    en: 'Active',
+    fr: 'Actif',
+    de: 'Aktiv'
+  }),
+  literal('catalog.admin.list.status.inactive', {
+    es: 'Inactivo',
+    en: 'Inactive',
+    fr: 'Inactif',
+    de: 'Inaktiv'
+  }),
+  literal('catalog.admin.list.actions.edit', {
+    es: 'Editar',
+    en: 'Edit',
+    fr: 'Modifier',
+    de: 'Bearbeiten'
+  }),
+  literal('catalog.admin.list.actions.activate', {
+    es: 'Activar',
+    en: 'Activate',
+    fr: 'Activer',
+    de: 'Aktivieren'
+  }),
+  literal('catalog.admin.list.actions.deactivate', {
+    es: 'Desactivar',
+    en: 'Deactivate',
+    fr: 'Désactiver',
+    de: 'Deaktivieren'
+  }),
+  literal('catalog.admin.list.empty', {
+    es: 'Todavía no hay productos publicados.',
+    en: 'There are no products yet.',
+    fr: 'Aucun produit pour le moment.',
+    de: 'Noch keine Produkte vorhanden.'
+  }),
+  literal('catalog.admin.notifications.created', {
+    es: 'Producto creado correctamente.',
+    en: 'Product created successfully.',
+    fr: 'Produit créé avec succès.',
+    de: 'Produkt erfolgreich erstellt.'
+  }),
+  literal('catalog.admin.notifications.updated', {
+    es: 'Producto actualizado.',
+    en: 'Product updated.',
+    fr: 'Produit mis à jour.',
+    de: 'Produkt aktualisiert.'
+  }),
+  literal('catalog.admin.notifications.statusUpdated', {
+    es: 'Estado del producto actualizado.',
+    en: 'Product status updated.',
+    fr: 'Statut du produit mis à jour.',
+    de: 'Produktstatus aktualisiert.'
+  }),
+  literal('catalog.admin.notifications.saveError', {
+    es: 'No se pudo guardar el producto.',
+    en: 'Could not save product.',
+    fr: 'Impossible d’enregistrer le produit.',
+    de: 'Produkt konnte nicht gespeichert werden.'
+  }),
+  literal('catalog.admin.notifications.loadError', {
+    es: 'No se pudo cargar el inventario.',
+    en: 'Could not load inventory.',
+    fr: 'Impossible de charger l’inventaire.',
+    de: 'Inventar konnte nicht geladen werden.'
+  }),
 
   // Cart
   literal('cart.eyebrow', {

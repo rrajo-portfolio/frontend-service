@@ -1,0 +1,126 @@
+<section class="product-admin">
+  <div class="product-admin__toolbar">
+    <app-back-button fallbackUrl="/catalog"></app-back-button>
+  </div>
+
+  <header class="product-admin__hero">
+    <p class="eyebrow">{{ 'catalog.admin.eyebrow' | translate }}</p>
+    <h1>{{ 'catalog.admin.title' | translate }}</h1>
+    <p>{{ 'catalog.admin.description' | translate }}</p>
+  </header>
+
+  <div class="product-admin__layout">
+    <form class="product-form" [formGroup]="productForm" (ngSubmit)="submit()">
+      <h2>{{ formTitle }}</h2>
+
+      <div class="form-grid">
+        <label>
+          <span>{{ 'catalog.admin.form.fields.name' | translate }}</span>
+          <input type="text" formControlName="name" />
+        </label>
+
+        <label>
+          <span>{{ 'catalog.admin.form.fields.sku' | translate }}</span>
+          <input type="text" formControlName="sku" />
+        </label>
+
+        <label>
+          <span>{{ 'catalog.admin.form.fields.price' | translate }}</span>
+          <input type="number" min="0" step="0.01" formControlName="price" />
+        </label>
+
+        <label>
+          <span>{{ 'catalog.admin.form.fields.currency' | translate }}</span>
+          <input type="text" maxlength="3" formControlName="currency" />
+        </label>
+
+        <label>
+          <span>{{ 'catalog.admin.form.fields.stock' | translate }}</span>
+          <input type="number" min="0" formControlName="stockQuantity" />
+        </label>
+
+        <label>
+          <span>{{ 'catalog.admin.form.fields.tags' | translate }}</span>
+          <input type="text" formControlName="tags" />
+        </label>
+      </div>
+
+      <label>
+        <span>{{ 'catalog.admin.form.fields.description' | translate }}</span>
+        <textarea rows="3" formControlName="description"></textarea>
+      </label>
+
+      <div class="form-actions">
+        <button class="btn btn-secondary" type="button" (click)="clearForm()">
+          {{ 'catalog.admin.form.reset' | translate }}
+        </button>
+        <button class="btn btn-primary" type="submit">
+          {{
+            editingProduct
+              ? ('catalog.admin.form.update' | translate)
+              : ('catalog.admin.form.create' | translate)
+          }}
+        </button>
+      </div>
+    </form>
+
+    <section class="product-admin__list">
+      <header>
+        <h2>{{ 'catalog.admin.list.title' | translate }}</h2>
+        <p>{{ 'catalog.admin.list.description' | translate }}</p>
+      </header>
+
+      <div class="products-table" *ngIf="products.length; else empty">
+        <article class="product-row" *ngFor="let product of products">
+          <div class="product-row__meta">
+            <h3>{{ product.name }}</h3>
+            <p class="muted">{{ product.description || ('catalog.noDescription' | translate) }}</p>
+            <div class="tags" *ngIf="product.tags?.length">
+              <span *ngFor="let tag of product.tags">{{ tag }}</span>
+            </div>
+          </div>
+          <div class="product-row__info">
+            <span class="sku">{{ product.sku }}</span>
+            <strong>{{ product.price | currency: (product.currency || 'EUR') }}</strong>
+            <small>
+              {{ 'catalog.admin.list.stock' | translate }}:
+              {{ product.stockQuantity ?? 0 }}
+            </small>
+          </div>
+          <div class="product-row__status">
+            <span class="status-chip" [class.inactive]="product.status !== 'ACTIVE'">
+              {{
+                product.status === 'ACTIVE'
+                  ? ('catalog.admin.list.status.active' | translate)
+                  : ('catalog.admin.list.status.inactive' | translate)
+              }}
+            </span>
+          </div>
+          <div class="product-row__actions">
+            <button class="btn btn-text" type="button" (click)="editProduct(product)">
+              {{ 'catalog.admin.list.actions.edit' | translate }}
+            </button>
+            <button
+              class="btn btn-secondary"
+              type="button"
+              (click)="toggleStatus(product)"
+              [disabled]="statusUpdating[product.id]"
+            >
+              {{
+                product.status === 'ACTIVE'
+                  ? ('catalog.admin.list.actions.deactivate' | translate)
+                  : ('catalog.admin.list.actions.activate' | translate)
+              }}
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <ng-template #empty>
+    <div class="empty-state">
+      {{ 'catalog.admin.list.empty' | translate }}
+    </div>
+  </ng-template>
+</section>
