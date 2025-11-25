@@ -83,6 +83,7 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .user-meta {
@@ -100,12 +101,6 @@
   p {
     margin: 2px 0 0;
     color: #64748b;
-    font-size: 0.9rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     word-break: break-word;
   }
 }
@@ -119,10 +114,7 @@
   text-transform: uppercase;
   font-size: 0.75rem;
   line-height: 1.2;
-  max-width: 160px;
-  text-align: center;
-  word-break: break-word;
-  flex-shrink: 0;
+  white-space: normal;
 
   &.inactive {
     background: rgba(239, 68, 68, 0.15);
@@ -151,12 +143,12 @@
   align-items: center;
   font-size: 0.85rem;
   color: #94a3b8;
+  gap: 12px;
 
   .user-id {
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 }
 
