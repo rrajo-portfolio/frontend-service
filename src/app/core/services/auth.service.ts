@@ -112,12 +112,9 @@ export class AuthService {
       .createAccountUrl({ redirectUri: `${window.location.origin}${redirectPath}` });
   }
 
-  getKeycloakAccountUrl(): string {
-    return `${this.getRealmBaseUrl()}/account`;
-  }
-
   getKeycloakPasswordChangeUrl(): string {
-    return `${this.getKeycloakAccountUrl()}/#/security/signingin`;
+    const accountUrl = this.getAccountManagementUrl('/profile');
+    return `${accountUrl}#/security/signingin`;
   }
 
   private syncProfileFromToken(): KeycloakProfile | undefined {
