@@ -2,7 +2,7 @@
 set -e
 
 API_URL="${API_URL:-http://localhost:8085}"
-KEYCLOAK_URL="${KEYCLOAK_URL:-http://localhost:7080/auth}"
+KEYCLOAK_URL="${KEYCLOAK_URL:-http://localhost:8085/auth}"
 KEYCLOAK_REALM="${KEYCLOAK_REALM:-portfolio}"
 KEYCLOAK_CLIENT_ID="${KEYCLOAK_CLIENT_ID:-portfolio-frontend}"
 
@@ -18,4 +18,3 @@ cat <<EOF >/usr/share/nginx/html/runtime-config.js
 EOF
 
 exec "$@"
-
