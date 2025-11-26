@@ -113,8 +113,12 @@ export class AuthService {
   }
 
   getKeycloakPasswordChangeUrl(): string {
-    const accountUrl = this.getAccountManagementUrl('/profile');
-    return `${accountUrl}#/security/signingin`;
+    const accountUrl = this.keycloak
+      .getKeycloakInstance()
+      .createAccountUrl({ redirectUri: `${window.location.origin}/profile` });
+    const url = new URL(accountUrl);
+    url.searchParams.set('kc_action', 'UPDATE_PASSWORD');
+    return url.toString();
   }
 
   private syncProfileFromToken(): KeycloakProfile | undefined {
