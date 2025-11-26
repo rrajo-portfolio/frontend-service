@@ -117,7 +117,7 @@ export class AuthService {
   }
 
   getKeycloakPasswordChangeUrl(): string {
-    return `${this.getKeycloakAccountUrl()}/password`;
+    return `${this.getKeycloakAccountUrl()}/#/security/signingin`;
   }
 
   private syncProfileFromToken(): KeycloakProfile | undefined {
