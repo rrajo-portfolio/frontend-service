@@ -62,6 +62,7 @@ import { LogoComponent } from './components/logo/logo.component';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { BackButtonComponent } from './components/back-button/back-button.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     LogoComponent,
     TranslatePipe,
     LanguageSelectorComponent,
-    BackButtonComponent
+    BackButtonComponent,
+    ProductCardComponent
   ],
   imports: [
     CommonModule,
@@ -140,7 +142,8 @@ import { BackButtonComponent } from './components/back-button/back-button.compon
     TranslatePipe,
     LanguageSelectorComponent,
     LucideAngularModule,
-    BackButtonComponent
+    BackButtonComponent,
+    ProductCardComponent
   ]
 })
 export class SharedModule {}

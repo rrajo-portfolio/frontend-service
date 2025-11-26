@@ -1,0 +1,84 @@
+<div class="hero-compact">
+  <div class="hero-container">
+    <div class="hero-content">
+      <nav class="breadcrumb">
+        <span class="breadcrumb-item">Inicio</span>
+      </nav>
+      
+      <h1 class="hero-title">
+        Bienvenido, {{userName}} 👋
+      </h1>
+      
+      <p class="hero-description">
+        Gestiona productos, pedidos y usuarios desde un solo lugar
+      </p>
+      
+      <!-- Quick Actions -->
+      <div class="hero-actions">
+        <button class="btn btn-primary" routerLink="/catalog">
+          <lucide-icon name="Plus" size="18"></lucide-icon>
+          Nuevo producto
+        </button>
+        <button class="btn btn-secondary" routerLink="/orders">
+          <lucide-icon name="ShoppingCart" size="18"></lucide-icon>
+          Crear pedido
+        </button>
+        <button class="btn btn-secondary" routerLink="/admin">
+          <lucide-icon name="Settings" size="18"></lucide-icon>
+          Panel admin
+        </button>
+      </div>
+    </div>
+    
+    <!-- Stats Cards -->
+    <div class="hero-stats">
+      <div class="stat-card" routerLink="/catalog">
+        <div class="stat-icon">📦</div>
+        <div class="stat-info">
+          <div class="stat-value">{{stats.totalProducts}}</div>
+          <div class="stat-label">Productos activos</div>
+        </div>
+        <div class="stat-trend positive" *ngIf="stats.productsGrowth > 0">
+          <lucide-icon name="TrendingUp" size="14"></lucide-icon>
+          +{{stats.productsGrowth}}%
+        </div>
+      </div>
+      
+      <div class="stat-card" routerLink="/orders">
+        <div class="stat-icon">🛒</div>
+        <div class="stat-info">
+          <div class="stat-value">{{stats.pendingOrders}}</div>
+          <div class="stat-label">Pedidos pendientes</div>
+        </div>
+        <div class="stat-trend warning" *ngIf="stats.pendingOrders > 0">
+          <lucide-icon name="Clock" size="14"></lucide-icon>
+          Requieren atención
+        </div>
+      </div>
+      
+      <div class="stat-card" routerLink="/users">
+        <div class="stat-icon">👥</div>
+        <div class="stat-info">
+          <div class="stat-value">{{stats.activeUsers}}</div>
+          <div class="stat-label">Usuarios activos</div>
+        </div>
+        <div class="stat-trend positive" *ngIf="stats.usersGrowth > 0">
+          <lucide-icon name="TrendingUp" size="14"></lucide-icon>
+          +{{stats.usersGrowth}}%
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-info">
+          <div class="stat-value">${{stats.revenue | number:'1.0-0'}}</div>
+          <div class="stat-label">Ingresos del mes</div>
+        </div>
+        <div class="stat-trend positive" *ngIf="stats.revenueGrowth > 0">
+          <lucide-icon name="TrendingUp" size="14"></lucide-icon>
+          +{{stats.revenueGrowth}}%
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

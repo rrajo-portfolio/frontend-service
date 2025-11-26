@@ -13,12 +13,15 @@ export interface GlobalSearchResults {
   users: User[];
 }
 
+import { AuthService } from './auth.service';
+
 @Injectable({ providedIn: 'root' })
 export class SearchService {
   constructor(
     private readonly catalogService: CatalogService,
     private readonly ordersService: OrdersService,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService
   ) {}
 
   search(term: string): Observable<GlobalSearchResults> {
@@ -27,10 +30,14 @@ export class SearchService {
       return this.getDefaultResults();
     }
 
+    const users$ = this.authService.hasRole('admin')
+      ? this.usersService.getUsers()
+      : of([]);
+
     return combineLatest([
       this.catalogService.searchProducts(normalized),
       this.ordersService.getOrders(),
-      this.usersService.getUsers()
+      users$
     ]).pipe(
       map(([products, orders, users]) => ({
         products: products.slice(0, 5),
@@ -41,10 +48,14 @@ export class SearchService {
   }
 
   private getDefaultResults(): Observable<GlobalSearchResults> {
+    const users$ = this.authService.hasRole('admin')
+      ? this.usersService.getUsers()
+      : of([]);
+
     return combineLatest([
       this.catalogService.getProducts(),
       this.ordersService.getOrders(),
-      this.usersService.getUsers()
+      users$
     ]).pipe(
       map(([products, orders, users]) => ({
         products: products.slice(0, 5),

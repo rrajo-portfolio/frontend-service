@@ -6,20 +6,49 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { AccountUser } from '../../shared/models/account-user.model';
 
+import { HttpClient } from '@angular/common/http';
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private profile?: KeycloakProfile;
   private authenticated = false;
 
-  constructor(private readonly keycloak: KeycloakService) {}
+  constructor(
+    private readonly keycloak: KeycloakService,
+    private readonly http: HttpClient
+  ) {}
 
   init(): Observable<KeycloakProfile | undefined> {
     return from(Promise.resolve(this.keycloak.isLoggedIn())).pipe(
       map((loggedIn) => {
         this.authenticated = loggedIn;
-        return loggedIn ? this.syncProfileFromToken() : undefined;
+        if (loggedIn) {
+          const profile = this.syncProfileFromToken();
+          this.syncUserWithBackend(profile);
+          return profile;
+        }
+        return undefined;
       })
     );
+  }
+
+  private syncUserWithBackend(profile?: KeycloakProfile): void {
+    if (!profile) return;
+    const user = this.mapAccountUser(profile);
+    const payload = {
+      fullName: user.name,
+      email: user.email,
+      phoneNumber: user.phone,
+      status: 'ACTIVE'
+    };
+    // Fire and forget sync to users-service
+    this.http.post(`${environment.apiUrl}/api/users`, payload).subscribe({
+      error: (err) => {
+        if (err.status !== 409) { // 409 means already exists, which is fine
+          console.warn('Failed to sync user with backend', err);
+        }
+      }
+    });
   }
 
   login(): void {
@@ -116,6 +145,10 @@ export class AuthService {
       'Portfolio User';
     const parsedToken = this.keycloak.getKeycloakInstance()
       .tokenParsed as Record<string, unknown> | undefined;
+    
+    // Use 'sub' (Subject) claim as the definitive UUID for the user
+    const userId = (parsedToken?.['sub'] as string) || profile.id || 'current-user';
+
     const passwordUpdatedAt =
       typeof parsedToken?.['auth_time'] === 'number'
         ? new Date((parsedToken!['auth_time'] as number) * 1000)
@@ -132,7 +165,7 @@ export class AuthService {
         : undefined;
 
     return {
-      id: profile.id ?? profile.username ?? 'current-user',
+      id: userId,
       name: fullName,
       email: profile.email ?? 'sin-email@portfolio.local',
       username: profile.username ?? 'portfolio-user',

@@ -11,6 +11,7 @@ export interface Product {
   createdAt?: string;
   updatedAt?: string;
   lastUpdatedAt?: string;
+  imageUrl?: string;
 }
 
 export type ProductStatus = 'ACTIVE' | 'INACTIVE';
@@ -23,4 +24,5 @@ export interface ProductPayload {
   currency: string;
   stockQuantity: number;
   tags?: string[];
+  imageUrl?: string;
 }

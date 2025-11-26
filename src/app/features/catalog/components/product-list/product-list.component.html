@@ -24,43 +24,13 @@
   <app-product-search (search)="loadProducts($event)"></app-product-search>
 
   <div class="products-grid" *ngIf="products$ | async as products; else empty">
-    <article *ngFor="let product of products" class="product-card">
-      <div class="card-body">
-        <div class="card-head">
-          <div>
-            <h3>{{ getProductName(product) }}</h3>
-          </div>
-          <span class="badge badge-status" [class.active]="product.status === 'ACTIVE'">
-            {{ product.status }}
-          </span>
-        </div>
-        <p class="description">
-          {{ getProductDescription(product) }}
-        </p>
-        <div class="meta">
-          <span>{{ product.price | currency: (product.currency || 'EUR') }}</span>
-          <span *ngIf="product.tags?.length">
-            {{ product.tags.slice(0, 2).join(', ') }}
-            <ng-container *ngIf="product.tags.length > 2">
-              +{{ product.tags.length - 2 }}
-            </ng-container>
-          </span>
-        </div>
-        <button
-          class="btn btn-secondary"
-          type="button"
-          *ngIf="canUseCart"
-          (click)="addToCart(product, $event)"
-        >
-          <lucide-icon name="ShoppingCart" size="16"></lucide-icon>
-          {{ 'catalog.addToCart' | translate }}
-        </button>
-        <button class="btn btn-text" type="button" (click)="openDetails(product, $event)">
-          {{ 'catalog.viewDetails' | translate }}
-          <lucide-icon name="ArrowRight" size="16"></lucide-icon>
-        </button>
-      </div>
-    </article>
+    <app-product-card
+      *ngFor="let product of products"
+      [product]="product"
+      [canEdit]="isCatalogAdmin"
+      (addCart)="addToCart($event)"
+      (details)="openDetails($event)"
+    ></app-product-card>
   </div>
 
   <ng-template #empty>

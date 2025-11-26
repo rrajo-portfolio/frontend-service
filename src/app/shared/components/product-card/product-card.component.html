@@ -1,0 +1,70 @@
+<div class="product-card" (click)="onCardClick()">
+  <!-- Image -->
+  <div class="product-image">
+    <img *ngIf="product.imageUrl" 
+         [src]="product.imageUrl" 
+         [alt]="product.name"
+         loading="lazy">
+    <div *ngIf="!product.imageUrl" class="product-icon">
+      <lucide-icon name="Package" size="48"></lucide-icon>
+    </div>
+    
+    <!-- Status Badge -->
+    <span class="badge badge-status" 
+          [class.active]="product.status === 'ACTIVE'"
+          [class.inactive]="product.status === 'INACTIVE'">
+      {{getStatusLabel(product.status)}}
+    </span>
+  </div>
+  
+  <!-- Content -->
+  <div class="product-content">
+    <div class="product-header">
+      <h3 class="product-title">{{productName}}</h3>
+      <div class="product-price">{{product.price | currency: (product.currency || 'EUR')}}</div>
+    </div>
+    
+    <p class="product-description">{{productDescription}}</p>
+    
+    <!-- Meta Info -->
+    <div class="product-meta">
+      <div class="meta-item" *ngIf="product.stockQuantity !== undefined">
+        <lucide-icon name="Box" size="16"></lucide-icon>
+        <span>Stock: {{product.stockQuantity}}</span>
+      </div>
+    </div>
+    
+    <!-- Tags -->
+    <div class="product-tags" *ngIf="product.tags && product.tags.length > 0">
+      <span class="tag" *ngFor="let tag of product.tags | slice:0:3">
+        {{tag}}
+      </span>
+      <span class="tag tag-more" *ngIf="product.tags.length > 3">
+        +{{product.tags.length - 3}}
+      </span>
+    </div>
+    
+    <!-- Footer Actions -->
+    <div class="product-footer">
+      <button class="btn btn-text" 
+              (click)="viewDetails($event)">
+        Ver detalles
+        <lucide-icon name="ArrowRight" size="16"></lucide-icon>
+      </button>
+      
+      <div class="action-buttons">
+        <button class="btn-icon" 
+                (click)="editProduct($event)"
+                title="Editar"
+                *ngIf="canEdit">
+          <lucide-icon name="Edit" size="18"></lucide-icon>
+        </button>
+        <button class="btn-icon btn-primary" 
+                (click)="addToCart($event)"
+                title="Añadir al carrito">
+          <lucide-icon name="ShoppingCart" size="18"></lucide-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
