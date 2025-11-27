@@ -169,7 +169,7 @@ export class ProfileComponent implements OnInit {
   }
 
   setup2FA(): void {
-    this.notificationService.success(this.t('profile.notifications.2fa'));
+    window.location.href = this.authService.getKeycloakTotpSetupUrl();
   }
 
   viewActivity(): void {

@@ -3,6 +3,7 @@ type RuntimeConfig = {
   keycloakUrl?: string;
   keycloakRealm?: string;
   keycloakClientId?: string;
+  keycloakAccountClientId?: string;
 };
 
 const runtimeConfig =
@@ -14,8 +15,9 @@ export const environment = {
   production: false,
   apiUrl: runtimeConfig.apiUrl ?? 'http://localhost:8085',
   keycloak: {
-    url: runtimeConfig.keycloakUrl ?? 'http://localhost:8085/auth',
+    url: runtimeConfig.keycloakUrl ?? 'http://localhost:7080/auth',
     realm: runtimeConfig.keycloakRealm ?? 'portfolio',
-    clientId: runtimeConfig.keycloakClientId ?? 'portfolio-frontend'
+    clientId: runtimeConfig.keycloakClientId ?? 'portfolio-frontend',
+    accountConsoleClientId: runtimeConfig.keycloakAccountClientId ?? 'account-console'
   }
 };
