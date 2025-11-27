@@ -568,11 +568,29 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Quantit\u00E9',
     de: 'Menge'
   }),
+  literal('cart.quantity.aria.group', {
+    es: 'Control de cantidad en el carrito',
+    en: 'Cart quantity selector',
+    fr: 'S\u00E9lecteur de quantit\u00E9 du panier',
+    de: 'Mengenauswahl f\u00FCr den Warenkorb'
+  }),
+  literal('cart.quantity.aria.decrease', {
+    es: 'Reducir cantidad',
+    en: 'Decrease quantity',
+    fr: 'R\u00E9duire la quantit\u00E9',
+    de: 'Menge verringern'
+  }),
+  literal('cart.quantity.aria.increase', {
+    es: 'Aumentar cantidad',
+    en: 'Increase quantity',
+    fr: 'Augmenter la quantit\u00E9',
+    de: 'Menge erh\u00F6hen'
+  }),
   literal('cart.lineTotal', {
-    es: 'Total de la l\u00EDnea',
-    en: 'Line total',
-    fr: 'Total de la ligne',
-    de: 'Zeilensumme'
+    es: 'Total',
+    en: 'Total',
+    fr: 'Total',
+    de: 'Gesamtsumme'
   }),
   literal('cart.remove', {
     es: 'Eliminar del carrito',
@@ -713,6 +731,108 @@ const LITERALS: LiteralDefinition[] = [
     en: 'Go to cart',
     fr: 'Aller au panier',
     de: 'Zum Warenkorb'
+  }),
+  literal('orders.create.eyebrow', {
+    es: 'Flujo guiado',
+    en: 'Guided flow',
+    fr: 'Parcours guid\u00E9',
+    de: 'Gef\u00FChrter Ablauf'
+  }),
+  literal('orders.create.title', {
+    es: 'Crear pedido manual',
+    en: 'Create order manually',
+    fr: 'Cr\u00E9er une commande manuelle',
+    de: 'Bestellung manuell erstellen'
+  }),
+  literal('orders.create.description', {
+    es: 'Utiliza este formulario para simular una compra desde el backoffice validando usuarios, productos y cantidades.',
+    en: 'Use this form to simulate a purchase from the back office while validating users, products, and quantities.',
+    fr: 'Utilisez ce formulaire pour simuler un achat depuis le back-office en validant utilisateurs, produits et quantit\u00E9s.',
+    de: 'Mit diesem Formular simulieren Sie einen Kauf im Backoffice und validieren Benutzer, Produkte und Mengen.'
+  }),
+  literal('orders.create.customer.eyebrow', {
+    es: 'Cliente',
+    en: 'Customer',
+    fr: 'Client',
+    de: 'Kunde'
+  }),
+  literal('orders.create.customer.title', {
+    es: 'Datos del comprador',
+    en: 'Buyer information',
+    fr: 'Informations acheteur',
+    de: 'Kundendaten'
+  }),
+  literal('orders.create.customer.helper', {
+    es: 'Selecciona un usuario demo o usa tu propia sesi\u00F3n para asignar el pedido.',
+    en: 'Select a demo user or reuse your current session to assign the order.',
+    fr: 'S\u00E9lectionnez un utilisateur de d\u00E9mo ou utilisez votre session pour attribuer la commande.',
+    de: 'W\u00E4hlen Sie einen Demo-Benutzer oder verwenden Sie Ihre aktuelle Sitzung, um die Bestellung zuzuweisen.'
+  }),
+  literal('orders.create.customer.hintMatch', {
+    es: 'Pedido asociado a tu sesi\u00F3n actual.',
+    en: 'Order linked to your current session.',
+    fr: 'Commande li\u00E9e \u00E0 votre session actuelle.',
+    de: 'Bestellung mit Ihrer aktuellen Sitzung verkn\u00FCpft.'
+  }),
+  literal('orders.create.customer.hintChoose', {
+    es: 'Selecciona cualquier usuario demo para simular la compra.',
+    en: 'Select any demo user to simulate the purchase.',
+    fr: 'S\u00E9lectionnez n\u2019importe quel utilisateur de d\u00E9mo pour simuler l\u2019achat.',
+    de: 'W\u00E4hlen Sie einen Demo-Benutzer, um den Kauf zu simulieren.'
+  }),
+  literal('orders.create.fields.userLabel', {
+    es: 'Usuario del pedido',
+    en: 'Order user',
+    fr: 'Utilisateur de la commande',
+    de: 'Benutzer der Bestellung'
+  }),
+  literal('orders.create.items.title', {
+    es: 'Productos y cantidades',
+    en: 'Products and quantities',
+    fr: 'Produits et quantit\u00E9s',
+    de: 'Produkte und Mengen'
+  }),
+  literal('orders.create.items.helper', {
+    es: 'Agrega tantas l\u00EDneas como necesites; actualizamos precios y totales autom\u00E1ticamente.',
+    en: 'Add as many lines as you need\u2014prices and totals update automatically.',
+    fr: 'Ajoutez autant de lignes que n\u00E9cessaire, les prix et totaux se mettent \u00E0 jour automatiquement.',
+    de: 'F\u00FCgen Sie beliebig viele Positionen hinzu; Preise und Summen werden automatisch aktualisiert.'
+  }),
+  literal('orders.create.fields.productLabel', {
+    es: 'Producto',
+    en: 'Product',
+    fr: 'Produit',
+    de: 'Produkt'
+  }),
+  literal('orders.create.fields.quantityLabel', {
+    es: 'Cantidad',
+    en: 'Quantity',
+    fr: 'Quantit\u00E9',
+    de: 'Menge'
+  }),
+  literal('orders.create.fields.priceLabel', {
+    es: 'Precio estimado',
+    en: 'Estimated price',
+    fr: 'Prix estim\u00E9',
+    de: 'Gesch\u00E4tzter Preis'
+  }),
+  literal('orders.create.items.remove', {
+    es: 'Eliminar producto',
+    en: 'Remove product',
+    fr: 'Supprimer le produit',
+    de: 'Produkt entfernen'
+  }),
+  literal('orders.create.actions.addItem', {
+    es: 'Agregar producto',
+    en: 'Add product',
+    fr: 'Ajouter un produit',
+    de: 'Produkt hinzuf\u00FCgen'
+  }),
+  literal('orders.create.actions.submit', {
+    es: 'Guardar pedido',
+    en: 'Save order',
+    fr: 'Enregistrer la commande',
+    de: 'Bestellung speichern'
   }),
   literal('orders.search.placeholder', {
     es: 'Buscar pedido o usuario',

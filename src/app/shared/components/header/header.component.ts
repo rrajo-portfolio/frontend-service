@@ -25,6 +25,7 @@ interface NavLink {
   path: string;
   icon: string;
   roles?: string[];
+  excludeRoles?: string[];
   badge?: 'orders' | 'cart';
 }
 
@@ -51,6 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       path: '/cart',
       icon: 'ShoppingCart',
       roles: ['user'],
+      excludeRoles: ['admin', 'portfolio_admin'],
       badge: 'cart'
     },
     { labelKey: 'nav.profile', path: '/profile', icon: 'User' },
@@ -164,10 +166,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   hasAccess(link: NavLink): boolean {
-    if (!link.roles || link.roles.length === 0) {
-      return true;
-    }
-    return link.roles.some((role) => this.userRoles.includes(role));
+    const allowed =
+      !link.roles || link.roles.length === 0
+        ? true
+        : link.roles.some((role) => this.userRoles.includes(role));
+    const excluded =
+      link.excludeRoles?.some((role) => this.userRoles.includes(role)) ?? false;
+    return allowed && !excluded;
   }
 
   toggleSearch(): void {

@@ -47,16 +47,37 @@
               <strong>{{ item.price | currency : (item.currency || defaultCurrency) }}</strong>
             </div>
 
-            <mat-form-field appearance="outline" class="quantity-field">
-              <mat-label>{{ 'cart.quantity' | translate }}</mat-label>
-              <input
-                matInput
-                type="number"
-                [value]="item.quantity"
-                min="1"
-                (input)="updateQuantity(item.productId, $any($event.target).value)"
-              />
-            </mat-form-field>
+            <div class="metric quantity">
+              <span>{{ 'cart.quantity' | translate }}</span>
+              <div
+                class="quantity-control"
+                role="group"
+                [attr.aria-label]="'cart.quantity.aria.group' | translate"
+              >
+                <button
+                  type="button"
+                  class="quantity-btn"
+                  (click)="stepQuantity(item.productId, -1, item.quantity)"
+                  [attr.aria-label]="'cart.quantity.aria.decrease' | translate"
+                >
+                  <lucide-icon name="Minus" size="14"></lucide-icon>
+                </button>
+                <input
+                  type="number"
+                  [value]="item.quantity"
+                  min="1"
+                  (input)="updateQuantity(item.productId, $any($event.target).value)"
+                />
+                <button
+                  type="button"
+                  class="quantity-btn"
+                  (click)="stepQuantity(item.productId, 1, item.quantity)"
+                  [attr.aria-label]="'cart.quantity.aria.increase' | translate"
+                >
+                  <lucide-icon name="Plus" size="14"></lucide-icon>
+                </button>
+              </div>
+            </div>
 
             <div class="metric total">
               <span>{{ 'cart.lineTotal' | translate }}</span>

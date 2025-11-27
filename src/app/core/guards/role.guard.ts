@@ -16,7 +16,13 @@ export class RoleGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean | UrlTree {
     const roles = route.data['roles'] as string[] | undefined;
-    if (!roles || this.authService.hasAnyRole(roles)) {
+    const excludedRoles = route.data['excludeRoles'] as string[] | undefined;
+    const hasAllowedRole = !roles || this.authService.hasAnyRole(roles);
+    const hitsExcluded =
+      excludedRoles && excludedRoles.length
+        ? this.authService.hasAnyRole(excludedRoles)
+        : false;
+    if (hasAllowedRole && !hitsExcluded) {
       return true;
     }
 

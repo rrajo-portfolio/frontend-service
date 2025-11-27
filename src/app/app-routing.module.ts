@@ -42,7 +42,7 @@ const routes: Routes = [
   {
     path: 'cart',
     canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['user'] },
+    data: { roles: ['user'], excludeRoles: ['admin', 'portfolio_admin'] },
     loadChildren: () =>
       import('./features/cart/cart.module').then((m) => m.CartModule)
   },

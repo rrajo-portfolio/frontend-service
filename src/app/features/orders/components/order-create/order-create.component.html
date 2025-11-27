@@ -1,65 +1,98 @@
-﻿<form class="order-form" [formGroup]="orderForm" (ngSubmit)="submit()">
-  <mat-card>
-    <mat-card-title>Nuevo pedido</mat-card-title>
-    <mat-card-content>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Usuario del pedido</mat-label>
-        <mat-select formControlName="userId">
-          <mat-option *ngFor="let user of users" [value]="user.id">
-            {{ displayUserLabel(user) }} Â· {{ user.email }}
-          </mat-option>
-        </mat-select>
-        <mat-hint *ngIf="matchedUserEmail">
-          Pedido asociado a tu sesión ({{ authService.getProfile()?.email }})
-        </mat-hint>
-        <mat-hint *ngIf="!matchedUserEmail">
-          Selecciona cualquier usuario demo para simular la compra
-        </mat-hint>
-      </mat-form-field>
+<section class="create-shell">
+  <header class="create-hero">
+    <p class="eyebrow">{{ 'orders.create.eyebrow' | translate }}</p>
+    <h1>{{ 'orders.create.title' | translate }}</h1>
+    <p>{{ 'orders.create.description' | translate }}</p>
+  </header>
 
-      <div formArrayName="items">
-        <div
-          class="item-row"
-          *ngFor="let item of items.controls; let i = index"
-          [formGroupName]="i"
-        >
-          <mat-form-field appearance="outline">
-            <mat-label>Producto</mat-label>
-            <mat-select formControlName="productId">
-              <mat-option
-                *ngFor="let product of products$ | async"
-                [value]="product.id"
-              >
-                {{ product.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+  <form class="order-form" [formGroup]="orderForm" (ngSubmit)="submit()">
+    <mat-card>
+      <div class="form-section">
+        <div class="section-heading">
+          <p class="eyebrow">{{ 'orders.create.customer.eyebrow' | translate }}</p>
+          <h2>{{ 'orders.create.customer.title' | translate }}</h2>
+          <p class="section-helper">
+            {{ 'orders.create.customer.helper' | translate }}
+          </p>
+        </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Cantidad</mat-label>
-            <input matInput type="number" formControlName="quantity" />
-          </mat-form-field>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'orders.create.fields.userLabel' | translate }}</mat-label>
+          <mat-select formControlName="userId">
+            <mat-option *ngFor="let user of users" [value]="user.id">
+              {{ displayUserLabel(user) }} - {{ user.email }}
+            </mat-option>
+          </mat-select>
+          <mat-hint *ngIf="matchedUserEmail">
+            {{ 'orders.create.customer.hintMatch' | translate }}
+            ({{ authService.getProfile()?.email }})
+          </mat-hint>
+          <mat-hint *ngIf="!matchedUserEmail">
+            {{ 'orders.create.customer.hintChoose' | translate }}
+          </mat-hint>
+        </mat-form-field>
+      </div>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Precio estimado</mat-label>
-            <input matInput formControlName="price" readonly />
-          </mat-form-field>
-
-          <button mat-icon-button type="button" (click)="removeItem(i)">
-            <mat-icon>delete</mat-icon>
+      <div class="form-section">
+        <div class="section-heading section-heading--items">
+          <div>
+            <p class="eyebrow">{{ 'orders.create.items.title' | translate }}</p>
+            <p class="section-helper">
+              {{ 'orders.create.items.helper' | translate }}
+            </p>
+          </div>
+          <button mat-stroked-button type="button" (click)="addItem()">
+            <lucide-icon name="Plus" size="16"></lucide-icon>
+            {{ 'orders.create.actions.addItem' | translate }}
           </button>
+        </div>
+
+        <div class="items-list" formArrayName="items">
+          <div
+            class="item-row"
+            *ngFor="let item of items.controls; let i = index"
+            [formGroupName]="i"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'orders.create.fields.productLabel' | translate }}</mat-label>
+              <mat-select formControlName="productId">
+                <mat-option
+                  *ngFor="let product of products$ | async"
+                  [value]="product.id"
+                >
+                  {{ product.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'orders.create.fields.quantityLabel' | translate }}</mat-label>
+              <input matInput type="number" formControlName="quantity" min="1" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'orders.create.fields.priceLabel' | translate }}</mat-label>
+              <input matInput formControlName="price" readonly />
+            </mat-form-field>
+
+            <button
+              mat-icon-button
+              type="button"
+              (click)="removeItem(i)"
+              [attr.aria-label]="'orders.create.items.remove' | translate"
+            >
+              <lucide-icon name="Trash2" size="18"></lucide-icon>
+            </button>
+          </div>
         </div>
       </div>
 
-      <button mat-button type="button" (click)="addItem()">
-        AÃ±adir producto
-      </button>
-    </mat-card-content>
-
-    <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">
-        Guardar pedido
-      </button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">
+          <lucide-icon name="Save" size="18"></lucide-icon>
+          {{ 'orders.create.actions.submit' | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</section>

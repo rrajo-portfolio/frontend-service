@@ -50,11 +50,15 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.remove(productId);
   }
 
-  updateQuantity(productId: string, quantity: number): void {
-    if (!Number.isFinite(quantity) || quantity < 1) {
-      return;
-    }
-    this.cartService.updateQuantity(productId, Math.floor(quantity));
+  updateQuantity(productId: string, quantity: number | string): void {
+    const parsed = Math.floor(Number(quantity) || 1);
+    const safeValue = Math.max(1, parsed);
+    this.cartService.updateQuantity(productId, safeValue);
+  }
+
+  stepQuantity(productId: string, delta: number, current: number): void {
+    const nextValue = Math.max(1, current + delta);
+    this.updateQuantity(productId, nextValue);
   }
 
   checkout(items: CartItem[]): void {
