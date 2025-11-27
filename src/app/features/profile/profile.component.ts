@@ -134,7 +134,7 @@ export class ProfileComponent implements OnInit {
   }
 
   changePassword(): void {
-    window.location.href = this.authService.getKeycloakPasswordChangeUrl();
+    this.authService.startKeycloakAccountAction('UPDATE_PASSWORD');
   }
 
   downloadData(): void {
@@ -169,7 +169,7 @@ export class ProfileComponent implements OnInit {
   }
 
   setup2FA(): void {
-    window.location.href = this.authService.getKeycloakTotpSetupUrl();
+    this.authService.startKeycloakAccountAction('CONFIGURE_TOTP');
   }
 
   viewActivity(): void {

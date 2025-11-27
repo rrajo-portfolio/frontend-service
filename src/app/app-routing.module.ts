@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { RoleGuard } from './core/guards/role.guard';
+import { CartAccessGuard } from './core/guards/cart-access.guard';
 
 const routes: Routes = [
   {
@@ -41,7 +42,7 @@ const routes: Routes = [
   },
   {
     path: 'cart',
-    canActivate: [AuthGuard, RoleGuard],
+    canActivate: [AuthGuard, RoleGuard, CartAccessGuard],
     data: { roles: ['user'], excludeRoles: ['admin', 'portfolio_admin'] },
     loadChildren: () =>
       import('./features/cart/cart.module').then((m) => m.CartModule)

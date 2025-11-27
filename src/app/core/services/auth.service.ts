@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-import { KeycloakProfile } from 'keycloak-js';
+import { KeycloakProfile, KeycloakLoginOptions } from 'keycloak-js';
 import { from, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
@@ -112,12 +112,12 @@ export class AuthService {
       .createAccountUrl({ redirectUri: `${window.location.origin}${redirectPath}` });
   }
 
-  getKeycloakPasswordChangeUrl(): string {
-    return this.buildAccountUrl('UPDATE_PASSWORD');
-  }
-
-  getKeycloakTotpSetupUrl(): string {
-    return this.buildAccountUrl('CONFIGURE_TOTP');
+  startKeycloakAccountAction(action: 'UPDATE_PASSWORD' | 'CONFIGURE_TOTP'): void {
+    const options: KeycloakLoginOptions = {
+      redirectUri: `${window.location.origin}/profile`
+    };
+    (options as KeycloakLoginOptions & { action: string }).action = action;
+    this.keycloak.login(options);
   }
 
   private syncProfileFromToken(): KeycloakProfile | undefined {
@@ -175,17 +175,6 @@ export class AuthService {
       passwordUpdatedAt,
       twoFactorEnabled: false
     };
-  }
-
-  private buildAccountUrl(action?: 'UPDATE_PASSWORD' | 'CONFIGURE_TOTP'): string {
-    const accountUrl = this.keycloak
-      .getKeycloakInstance()
-      .createAccountUrl({ redirectUri: `${window.location.origin}/profile` });
-    const url = new URL(accountUrl);
-    if (action) {
-      url.searchParams.set('kc_action', action);
-    }
-    return url.toString();
   }
 
   private getRealmBaseUrl(): string {
