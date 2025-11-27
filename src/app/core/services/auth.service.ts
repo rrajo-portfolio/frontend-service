@@ -113,11 +113,11 @@ export class AuthService {
   }
 
   getKeycloakPasswordChangeUrl(): string {
-    return this.getRequiredActionUrl('UPDATE_PASSWORD');
+    return this.buildAccountUrl('UPDATE_PASSWORD');
   }
 
   getKeycloakTotpSetupUrl(): string {
-    return this.getRequiredActionUrl('CONFIGURE_TOTP');
+    return this.buildAccountUrl('CONFIGURE_TOTP');
   }
 
   private syncProfileFromToken(): KeycloakProfile | undefined {
@@ -177,23 +177,20 @@ export class AuthService {
     };
   }
 
+  private buildAccountUrl(action?: 'UPDATE_PASSWORD' | 'CONFIGURE_TOTP'): string {
+    const accountUrl = this.keycloak
+      .getKeycloakInstance()
+      .createAccountUrl({ redirectUri: `${window.location.origin}/profile` });
+    const url = new URL(accountUrl);
+    if (action) {
+      url.searchParams.set('kc_action', action);
+    }
+    return url.toString();
+  }
+
   private getRealmBaseUrl(): string {
     const baseUrl = environment.keycloak.url.replace(/\/$/, '');
     return `${baseUrl}/realms/${environment.keycloak.realm}`;
-  }
-
-  private getRequiredActionUrl(
-    action: 'UPDATE_PASSWORD' | 'CONFIGURE_TOTP'
-  ): string {
-    const realmBase = this.getRealmBaseUrl();
-    const url = new URL(`${realmBase}/login-actions/required-action`);
-    url.searchParams.set('execution', action);
-    url.searchParams.set('client_id', environment.keycloak.accountConsoleClientId);
-    const tabId = (this.keycloak.getKeycloakInstance() as { tabId?: string }).tabId;
-    if (tabId) {
-      url.searchParams.set('tab_id', tabId);
-    }
-    return url.toString();
   }
 
   private mapFallbackAccountUser(): AccountUser {

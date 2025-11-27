@@ -3,7 +3,6 @@ type RuntimeConfig = {
   keycloakUrl?: string;
   keycloakRealm?: string;
   keycloakClientId?: string;
-  keycloakAccountClientId?: string;
 };
 
 const runtimeConfig =
@@ -17,7 +16,6 @@ export const environment = {
   keycloak: {
     url: runtimeConfig.keycloakUrl ?? 'https://auth.portfolio.com/auth',
     realm: runtimeConfig.keycloakRealm ?? 'portfolio',
-    clientId: runtimeConfig.keycloakClientId ?? 'portfolio-frontend',
-    accountConsoleClientId: runtimeConfig.keycloakAccountClientId ?? 'account-console'
+    clientId: runtimeConfig.keycloakClientId ?? 'portfolio-frontend'
   }
 };
