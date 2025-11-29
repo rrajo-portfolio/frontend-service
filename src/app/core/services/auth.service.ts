@@ -42,7 +42,7 @@ export class AuthService {
       status: 'ACTIVE'
     };
     // Fire and forget sync to users-service
-    this.http.post(`${environment.apiUrl}/api/users`, payload).subscribe({
+    this.http.post(`${environment.apiUrl}/users`, payload).subscribe({
       error: (err) => {
         if (err.status !== 409) { // 409 means already exists, which is fine
           console.warn('Failed to sync user with backend', err);

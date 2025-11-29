@@ -12,7 +12,7 @@ const runtimeConfig =
 
 export const environment = {
   production: true,
-  apiUrl: runtimeConfig.apiUrl ?? 'https://api.portfolio.com',
+  apiUrl: runtimeConfig.apiUrl ?? 'https://api.portfolio.com/api',
   keycloak: {
     url: runtimeConfig.keycloakUrl ?? 'https://auth.portfolio.com/auth',
     realm: runtimeConfig.keycloakRealm ?? 'portfolio',
