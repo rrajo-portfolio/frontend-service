@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 set -e
 
-API_URL="${API_URL:-http://localhost:8085/api}"
-KEYCLOAK_URL="${KEYCLOAK_URL:-http://localhost:7080/auth}"
+API_URL="${API_URL:-http://localhost:8085}"
+KEYCLOAK_URL="${KEYCLOAK_URL:-http://localhost:8085/auth}"
 KEYCLOAK_REALM="${KEYCLOAK_REALM:-portfolio}"
 KEYCLOAK_CLIENT_ID="${KEYCLOAK_CLIENT_ID:-portfolio-frontend}"
 

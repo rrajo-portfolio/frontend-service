@@ -6,7 +6,7 @@ import { PageResponse } from '../../../shared/models/page.model';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
-  private readonly baseEndpoint = '/users';
+  private readonly baseEndpoint = '/api/users';
 
   constructor(private readonly api: ApiService) {}
 

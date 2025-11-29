@@ -10,7 +10,7 @@ import { PageResponse } from '../../../shared/models/page.model';
 
 @Injectable({ providedIn: 'root' })
 export class CatalogService {
-  private readonly baseEndpoint = '/catalog/products';
+  private readonly baseEndpoint = '/api/catalog/products';
 
   constructor(private readonly api: ApiService) {}
 
