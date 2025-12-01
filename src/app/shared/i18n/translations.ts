@@ -1936,7 +1936,75 @@ const LITERALS: LiteralDefinition[] = [
     en: 'Last updated',
     fr: 'Dernière mise à jour',
     de: 'Zuletzt aktualisiert'
-  })
+  }),
+
+  literal('catalog.admin.form.requiredHint', {
+    es: 'Solo necesitas completar estos campos obligatorios.',
+    en: 'Only these required fields are needed.',
+    fr: 'Seuls ces champs requis sont necessaires.',
+    de: 'Es genuegen die Pflichtfelder.'
+  }),
+  literal('catalog.admin.form.showAdvanced', {
+    es: 'Mostrar campos opcionales',
+    en: 'Show optional fields',
+    fr: 'Afficher les champs optionnels',
+    de: 'Optionale Felder anzeigen'
+  }),
+  literal('catalog.admin.form.hideAdvanced', {
+    es: 'Ocultar campos opcionales',
+    en: 'Hide optional fields',
+    fr: 'Masquer les champs optionnels',
+    de: 'Optionale Felder ausblenden'
+  }),
+  literal('catalog.admin.form.advancedHint', {
+    es: 'Los siguientes datos son opcionales y enriquecen la ficha.',
+    en: 'The following data is optional and enriches the card.',
+    fr: 'Les informations suivantes sont optionnelles et enrichissent la fiche.',
+    de: 'Die folgenden Angaben sind optional und erweitern den Eintrag.'
+  }),
+  literal('catalog.admin.form.placeholders.name', {
+    es: 'Ej. Portfolio Cloud Expert',
+    en: 'e.g. Portfolio Cloud Expert',
+    fr: 'Ex. Portfolio Cloud Expert',
+    de: 'z. B. Portfolio Cloud Expert'
+  }),
+  literal('catalog.admin.form.placeholders.sku', {
+    es: 'Ej. PORT-0001',
+    en: 'e.g. PORT-0001',
+    fr: 'Ex. PORT-0001',
+    de: 'z. B. PORT-0001'
+  }),
+  literal('catalog.admin.form.placeholders.price', {
+    es: 'Ej. 99.90',
+    en: 'e.g. 99.90',
+    fr: 'Ex. 99.90',
+    de: 'z. B. 99,90'
+  }),
+  literal('catalog.admin.form.placeholders.currency', {
+    es: 'Ej. EUR',
+    en: 'e.g. EUR',
+    fr: 'Ex. EUR',
+    de: 'z. B. EUR'
+  }),
+  literal('catalog.admin.form.placeholders.stock', {
+    es: 'Ej. 25',
+    en: 'e.g. 25',
+    fr: 'Ex. 25',
+    de: 'z. B. 25'
+  }),
+  literal('catalog.admin.form.placeholders.tags', {
+    es: 'mentor, spring, kubernetes',
+    en: 'mentor, spring, kubernetes',
+    fr: 'mentor, spring, kubernetes',
+    de: 'mentor, spring, kubernetes'
+  }),
+  literal('catalog.admin.form.placeholders.description', {
+    es: 'Detalle opcional del servicio',
+    en: 'Optional service details',
+    fr: 'Details optionnels du service',
+    de: 'Optionale Servicedetails'
+  }),
+
 ];
 
 export const TRANSLATIONS: TranslationMap = buildTranslationMap(LITERALS);
@@ -1954,3 +2022,4 @@ function buildTranslationMap(entries: LiteralDefinition[]): TranslationMap {
   }
   return map;
 }
+

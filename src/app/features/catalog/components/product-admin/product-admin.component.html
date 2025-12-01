@@ -12,43 +12,93 @@
   <div class="product-admin__layout">
     <form class="product-form" [formGroup]="productForm" (ngSubmit)="submit()">
       <h2>{{ formTitle }}</h2>
+      <p class="form-hint">{{ 'catalog.admin.form.requiredHint' | translate }}</p>
 
       <div class="form-grid">
         <label>
           <span>{{ 'catalog.admin.form.fields.name' | translate }}</span>
-          <input type="text" formControlName="name" />
+          <input
+            type="text"
+            formControlName="name"
+            [placeholder]="'catalog.admin.form.placeholders.name' | translate"
+          />
         </label>
 
         <label>
           <span>{{ 'catalog.admin.form.fields.sku' | translate }}</span>
-          <input type="text" formControlName="sku" />
+          <input
+            type="text"
+            formControlName="sku"
+            [placeholder]="'catalog.admin.form.placeholders.sku' | translate"
+          />
         </label>
 
         <label>
           <span>{{ 'catalog.admin.form.fields.price' | translate }}</span>
-          <input type="number" min="0" step="0.01" formControlName="price" />
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            formControlName="price"
+            [placeholder]="'catalog.admin.form.placeholders.price' | translate"
+          />
         </label>
 
         <label>
           <span>{{ 'catalog.admin.form.fields.currency' | translate }}</span>
-          <input type="text" maxlength="3" formControlName="currency" />
+          <input
+            type="text"
+            maxlength="3"
+            formControlName="currency"
+            [placeholder]="'catalog.admin.form.placeholders.currency' | translate"
+          />
         </label>
 
         <label>
           <span>{{ 'catalog.admin.form.fields.stock' | translate }}</span>
-          <input type="number" min="0" formControlName="stockQuantity" />
-        </label>
-
-        <label>
-          <span>{{ 'catalog.admin.form.fields.tags' | translate }}</span>
-          <input type="text" formControlName="tags" />
+          <input
+            type="number"
+            min="0"
+            formControlName="stockQuantity"
+            [placeholder]="'catalog.admin.form.placeholders.stock' | translate"
+          />
         </label>
       </div>
 
-      <label>
-        <span>{{ 'catalog.admin.form.fields.description' | translate }}</span>
-        <textarea rows="3" formControlName="description"></textarea>
-      </label>
+      <div class="advanced-toggle">
+        <button class="btn btn-text" type="button" (click)="showAdvanced = !showAdvanced">
+          {{
+            showAdvanced
+              ? ('catalog.admin.form.hideAdvanced' | translate)
+              : ('catalog.admin.form.showAdvanced' | translate)
+          }}
+        </button>
+      </div>
+
+      <div class="advanced-fields" *ngIf="showAdvanced">
+        <p class="muted">{{ 'catalog.admin.form.advancedHint' | translate }}</p>
+        <label>
+          <span>{{ 'catalog.admin.form.fields.tags' | translate }}</span>
+          <input
+            type="text"
+            formControlName="tags"
+            [placeholder]="'catalog.admin.form.placeholders.tags' | translate"
+          />
+        </label>
+
+        <label>
+          <span>{{ 'catalog.admin.form.fields.description' | translate }}</span>
+          <textarea
+            rows="3"
+            formControlName="description"
+            [placeholder]="'catalog.admin.form.placeholders.description' | translate"
+          ></textarea>
+        </label>
+      </div>
+
+      <div class="form-error" *ngIf="submissionError">
+        {{ submissionError }}
+      </div>
 
       <div class="form-actions">
         <button class="btn btn-secondary" type="button" (click)="clearForm()">

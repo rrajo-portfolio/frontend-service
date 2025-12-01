@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogService } from '../../services/catalog.service';
 import {
@@ -18,12 +18,15 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./product-admin.component.scss']
 })
 export class ProductAdminComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
   productForm: FormGroup;
   products: Product[] = [];
   loading = false;
   editingProduct?: Product;
   statusUpdating: Record<string, boolean> = {};
   isSaving = false;
+  showAdvanced = false;
+  submissionError?: string;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -75,12 +78,13 @@ export class ProductAdminComponent implements OnInit {
   submit(): void {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
-      this.notificationService.error(
-        this.translationService.translate('catalog.admin.notifications.invalidForm')
+      this.submissionError = this.translationService.translate(
+        'catalog.admin.notifications.invalidForm'
       );
       return;
     }
 
+    this.submissionError = undefined;
     this.isSaving = true;
     const payload = this.buildPayload();
     const request$ = this.editingProduct
@@ -91,6 +95,7 @@ export class ProductAdminComponent implements OnInit {
       .pipe(finalize(() => (this.isSaving = false)))
       .subscribe({
         next: () => {
+          this.submissionError = undefined;
           this.notificationService.success(
             this.translationService.translate(
               this.editingProduct
@@ -101,7 +106,10 @@ export class ProductAdminComponent implements OnInit {
           this.clearForm();
           this.loadProducts();
         },
-        error: () => {
+        error: (err) => {
+          this.submissionError =
+            (err?.error?.message as string | undefined) ??
+            this.translationService.translate('catalog.admin.notifications.saveError');
           this.notificationService.error(
             this.translationService.translate('catalog.admin.notifications.saveError')
           );
@@ -144,6 +152,7 @@ export class ProductAdminComponent implements OnInit {
 
   clearForm(resetQueryParams: boolean = true): void {
     this.editingProduct = undefined;
+    this.submissionError = undefined;
     this.productForm.reset({
       name: '',
       description: '',
@@ -196,7 +205,7 @@ export class ProductAdminComponent implements OnInit {
 
   private handlePrefillFromRoute(): void {
     this.route.queryParamMap
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((params) => {
         const productId = params.get('productId');
         if (productId && this.editingProduct?.id !== productId) {
