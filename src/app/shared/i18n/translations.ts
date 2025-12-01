@@ -2004,6 +2004,72 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Details optionnels du service',
     de: 'Optionale Servicedetails'
   }),
+  literal('catalog.admin.form.invalidFormSummary', {
+    es: 'Revisa los campos marcados. Estos son los problemas detectados:',
+    en: 'Review the highlighted fields. These issues were detected:',
+    fr: 'Vérifiez les champs signalés. Problèmes détectés :',
+    de: 'Prüfe die markierten Felder. Folgende Probleme wurden erkannt:'
+  }),
+  literal('catalog.admin.form.backendErrorSummary', {
+    es: 'El servicio rechazó la operación. Detalles devueltos:',
+    en: 'The service rejected the operation. Details returned:',
+    fr: "Le service a refusé l'opération. Détails fournis :",
+    de: 'Der Dienst hat die Operation abgelehnt. Details:'
+  }),
+  literal('catalog.admin.form.error.nameRequired', {
+    es: 'Nombre obligatorio: introduce al menos 3 caracteres.',
+    en: 'Name required: provide at least 3 characters.',
+    fr: 'Nom obligatoire : indiquez au moins 3 caractères.',
+    de: 'Name erforderlich: mindestens 3 Zeichen eingeben.'
+  }),
+  literal('catalog.admin.form.error.nameLength', {
+    es: 'El nombre debe tener al menos 3 caracteres.',
+    en: 'Name must contain at least 3 characters.',
+    fr: 'Le nom doit contenir au moins 3 caractères.',
+    de: 'Der Name muss mindestens 3 Zeichen haben.'
+  }),
+  literal('catalog.admin.form.error.skuRequired', {
+    es: 'SKU obligatorio: identifica el producto con un código único.',
+    en: 'SKU required: identify the product with a unique code.',
+    fr: 'SKU obligatoire : identifiez le produit avec un code unique.',
+    de: 'SKU erforderlich: Vergib einen eindeutigen Code.'
+  }),
+  literal('catalog.admin.form.error.skuLength', {
+    es: 'El SKU debe tener al menos 6 caracteres.',
+    en: 'SKU must be at least 6 characters long.',
+    fr: 'Le SKU doit contenir au moins 6 caractères.',
+    de: 'Die SKU muss mindestens 6 Zeichen lang sein.'
+  }),
+  literal('catalog.admin.form.error.priceRequired', {
+    es: 'Precio obligatorio: indica el valor del producto.',
+    en: 'Price required: specify the product value.',
+    fr: 'Prix obligatoire : indiquez la valeur du produit.',
+    de: 'Preis erforderlich: gib den Produktwert an.'
+  }),
+  literal('catalog.admin.form.error.priceMin', {
+    es: 'El precio debe ser un número positivo.',
+    en: 'Price must be a positive number.',
+    fr: 'Le prix doit être un nombre positif.',
+    de: 'Der Preis muss positiv sein.'
+  }),
+  literal('catalog.admin.form.error.currencyRequired', {
+    es: 'Moneda obligatoria (formato ISO de 3 letras, ej. EUR).',
+    en: 'Currency required (3-letter ISO format, e.g. EUR).',
+    fr: 'Devise obligatoire (format ISO à 3 lettres, ex. EUR).',
+    de: 'Währung erforderlich (3-stelliger ISO-Code, z. B. EUR).'
+  }),
+  literal('catalog.admin.form.error.currencyLength', {
+    es: 'La moneda debe tener exactamente 3 letras (ej. EUR).',
+    en: 'Currency must contain exactly 3 letters (e.g. EUR).',
+    fr: 'La devise doit contenir exactement 3 lettres (ex. EUR).',
+    de: 'Die Währung muss genau 3 Buchstaben haben (z. B. EUR).'
+  }),
+  literal('catalog.admin.form.error.stockMin', {
+    es: 'El inventario no puede ser negativo.',
+    en: 'Inventory cannot be negative.',
+    fr: "L'inventaire ne peut pas être négatif.",
+    de: 'Der Bestand darf nicht negativ sein.'
+  }),
 
 ];
 

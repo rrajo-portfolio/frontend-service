@@ -96,8 +96,11 @@
         </label>
       </div>
 
-      <div class="form-error" *ngIf="submissionError">
-        {{ submissionError }}
+      <div class="form-error" *ngIf="submissionError || submissionErrorList.length">
+        <p *ngIf="submissionError">{{ submissionError }}</p>
+        <ul *ngIf="submissionErrorList.length">
+          <li *ngFor="let msg of submissionErrorList">{{ msg }}</li>
+        </ul>
       </div>
 
       <div class="form-actions">

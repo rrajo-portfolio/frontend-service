@@ -27,6 +27,7 @@ export class ProductAdminComponent implements OnInit {
   isSaving = false;
   showAdvanced = false;
   submissionError?: string;
+  submissionErrorList: string[] = [];
 
   constructor(
     private readonly fb: FormBuilder,
@@ -79,12 +80,15 @@ export class ProductAdminComponent implements OnInit {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
       this.submissionError = this.translationService.translate(
-        'catalog.admin.notifications.invalidForm'
+        'catalog.admin.form.invalidFormSummary'
       );
+      this.submissionErrorList = this.collectFormErrors();
+      console.warn('[catalog-admin] invalid form submission', this.submissionErrorList);
       return;
     }
 
     this.submissionError = undefined;
+    this.submissionErrorList = [];
     this.isSaving = true;
     const payload = this.buildPayload();
     const request$ = this.editingProduct
@@ -96,6 +100,7 @@ export class ProductAdminComponent implements OnInit {
       .subscribe({
         next: () => {
           this.submissionError = undefined;
+          this.submissionErrorList = [];
           this.notificationService.success(
             this.translationService.translate(
               this.editingProduct
@@ -103,13 +108,23 @@ export class ProductAdminComponent implements OnInit {
                 : 'catalog.admin.notifications.created'
             )
           );
+          console.info('[catalog-admin] product saved', {
+            mode: this.editingProduct ? 'update' : 'create',
+            sku: payload.sku
+          });
           this.clearForm();
           this.loadProducts();
         },
         error: (err) => {
-          this.submissionError =
-            (err?.error?.message as string | undefined) ??
-            this.translationService.translate('catalog.admin.notifications.saveError');
+          const backendErrors = this.extractBackendErrors(err);
+          this.submissionError = this.translationService.translate(
+            'catalog.admin.form.backendErrorSummary'
+          );
+          this.submissionErrorList =
+            backendErrors.length > 0
+              ? backendErrors
+              : [this.translationService.translate('catalog.admin.notifications.saveError')];
+          console.error('[catalog-admin] failed to save product', err);
           this.notificationService.error(
             this.translationService.translate('catalog.admin.notifications.saveError')
           );
@@ -153,6 +168,7 @@ export class ProductAdminComponent implements OnInit {
   clearForm(resetQueryParams: boolean = true): void {
     this.editingProduct = undefined;
     this.submissionError = undefined;
+    this.submissionErrorList = [];
     this.productForm.reset({
       name: '',
       description: '',
@@ -249,5 +265,60 @@ export class ProductAdminComponent implements OnInit {
       tags: (product.tags || []).join(', ')
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  private collectFormErrors(): string[] {
+    const errors: string[] = [];
+    const controls = this.productForm.controls;
+
+    if (controls['name'].hasError('required')) {
+      errors.push(this.translationService.translate('catalog.admin.form.error.nameRequired'));
+    } else if (controls['name'].hasError('minlength')) {
+      errors.push(this.translationService.translate('catalog.admin.form.error.nameLength'));
+    }
+
+    if (controls['sku'].hasError('required')) {
+      errors.push(this.translationService.translate('catalog.admin.form.error.skuRequired'));
+    } else if (controls['sku'].hasError('minlength')) {
+      errors.push(this.translationService.translate('catalog.admin.form.error.skuLength'));
+    }
+
+    if (controls['price'].hasError('required')) {
+      errors.push(this.translationService.translate('catalog.admin.form.error.priceRequired'));
+    } else if (controls['price'].hasError('min')) {
+      errors.push(this.translationService.translate('catalog.admin.form.error.priceMin'));
+    }
+
+    if (controls['currency'].hasError('required')) {
+      errors.push(
+        this.translationService.translate('catalog.admin.form.error.currencyRequired')
+      );
+    } else if (
+      controls['currency'].hasError('minlength') ||
+      controls['currency'].hasError('maxlength')
+    ) {
+      errors.push(
+        this.translationService.translate('catalog.admin.form.error.currencyLength')
+      );
+    }
+
+    if (controls['stockQuantity'].hasError('min')) {
+      errors.push(this.translationService.translate('catalog.admin.form.error.stockMin'));
+    }
+
+    return errors;
+  }
+
+  private extractBackendErrors(error: unknown): string[] {
+    const detail = (error as { error?: unknown })?.error as
+      | { errors?: string[]; detail?: string }
+      | undefined;
+    if (detail?.errors && Array.isArray(detail.errors)) {
+      return detail.errors;
+    }
+    if (detail?.detail) {
+      return [detail.detail];
+    }
+    return [];
   }
 }
