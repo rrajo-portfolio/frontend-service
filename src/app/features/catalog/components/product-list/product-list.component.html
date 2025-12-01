@@ -28,6 +28,7 @@
       *ngFor="let product of products"
       [product]="product"
       [canEdit]="isCatalogAdmin"
+      (edit)="editProduct($event)"
       (addCart)="addToCart($event)"
       (details)="openDetails($event)"
     ></app-product-card>

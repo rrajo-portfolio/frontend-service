@@ -54,7 +54,7 @@
         <button class="btn btn-secondary" type="button" (click)="clearForm()">
           {{ 'catalog.admin.form.reset' | translate }}
         </button>
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary" type="submit" [disabled]="isSaving">
           {{
             editingProduct
               ? ('catalog.admin.form.update' | translate)

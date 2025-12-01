@@ -8,6 +8,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { TranslationService } from '../../../../core/services/translation.service';
 import { ProductLocalizationService } from '../../../../shared/services/product-localization.service';
 import { PrefetchService } from '../../../../core/services/prefetch.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -27,7 +28,8 @@ export class ProductListComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly translationService: TranslationService,
     private readonly prefetchService: PrefetchService,
-    private readonly productLocalization: ProductLocalizationService
+    private readonly productLocalization: ProductLocalizationService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,5 +72,16 @@ export class ProductListComponent implements OnInit {
       this.productLocalization.getDescription(product) ||
       this.translationService.translate('catalog.noDescription')
     );
+  }
+
+  editProduct(product: Product): void {
+    if (!this.isCatalogAdmin || !product?.id) {
+      return;
+    }
+
+    this.router.navigate(['/catalog/manage'], {
+      queryParams: { productId: product.id },
+      state: { product }
+    });
   }
 }

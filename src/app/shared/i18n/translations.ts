@@ -500,6 +500,12 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Impossible de charger l’inventaire.',
     de: 'Inventar konnte nicht geladen werden.'
   }),
+  literal('catalog.admin.notifications.invalidForm', {
+    es: 'Completa los campos obligatorios antes de guardar.',
+    en: 'Please fill out the required fields before saving.',
+    fr: 'Veuillez remplir les champs obligatoires avant d’enregistrer.',
+    de: 'Bitte fülle vor dem Speichern alle Pflichtfelder aus.'
+  }),
 
   // Cart
   literal('cart.eyebrow', {

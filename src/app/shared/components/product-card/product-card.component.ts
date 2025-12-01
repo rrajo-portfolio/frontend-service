@@ -11,7 +11,7 @@ export class ProductCardComponent {
   @Input() product!: Product;
   @Input() canEdit = false;
   
-  @Output() edit = new EventEmitter<string>();
+  @Output() edit = new EventEmitter<Product>();
   @Output() addCart = new EventEmitter<Product>();
   @Output() details = new EventEmitter<Product>();
 
@@ -36,7 +36,7 @@ export class ProductCardComponent {
   
   editProduct(event: Event): void {
     event.stopPropagation();
-    this.edit.emit(this.product.id);
+    this.edit.emit(this.product);
   }
   
   addToCart(event: Event): void {
