@@ -61,7 +61,8 @@
         </button>
         <button class="btn-icon btn-primary" 
                 (click)="addToCart($event)"
-                title="Añadir al carrito">
+                title="Añadir al carrito"
+                *ngIf="canAddToCart">
           <lucide-icon name="ShoppingCart" size="18"></lucide-icon>
         </button>
       </div>

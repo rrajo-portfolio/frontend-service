@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   private profile?: KeycloakProfile;
   private authenticated = false;
+  private readonly administrativeRoles = ['admin', 'portfolio_admin', 'catalog_admin'];
 
   constructor(
     private readonly keycloak: KeycloakService,
@@ -87,6 +88,14 @@ export class AuthService {
 
   hasAnyRole(roles: string[]): boolean {
     return roles.some((role) => this.hasRole(role));
+  }
+
+  isAdministrativeUser(): boolean {
+    return this.hasAnyRole(this.administrativeRoles);
+  }
+
+  canUseCartFeatures(): boolean {
+    return this.hasRole('user') && !this.isAdministrativeUser();
   }
 
   getRoles(): string[] {

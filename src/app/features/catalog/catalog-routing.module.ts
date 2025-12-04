@@ -10,7 +10,7 @@ const routes: Routes = [
     path: 'manage',
     component: ProductAdminComponent,
     canActivate: [RoleGuard],
-    data: { roles: ['admin', 'portfolio_admin'] }
+    data: { roles: ['admin', 'portfolio_admin', 'catalog_admin'] }
   },
   { path: '', component: ProductListComponent },
   { path: ':id', component: ProductDetailComponent }

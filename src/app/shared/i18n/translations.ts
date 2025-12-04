@@ -804,11 +804,77 @@ const LITERALS: LiteralDefinition[] = [
     fr: 'Ajoutez autant de lignes que n\u00E9cessaire, les prix et totaux se mettent \u00E0 jour automatiquement.',
     de: 'F\u00FCgen Sie beliebig viele Positionen hinzu; Preise und Summen werden automatisch aktualisiert.'
   }),
+  literal('orders.create.summary.eyebrow', {
+    es: 'Resumen',
+    en: 'Summary',
+    fr: 'R\u00E9sum\u00E9',
+    de: 'Zusammenfassung'
+  }),
+  literal('orders.create.summary.title', {
+    es: 'Validaci\u00F3n del pedido',
+    en: 'Order validation',
+    fr: 'Validation de la commande',
+    de: 'Bestellung pr\u00FCfen'
+  }),
+  literal('orders.create.summary.description', {
+    es: 'Confirma que el total y las l\u00EDneas son correctas antes de guardar.',
+    en: 'Confirm totals and lines before saving the order.',
+    fr: 'Confirmez les totaux et les lignes avant d\u2019enregistrer.',
+    de: 'Pr\u00FCfen Sie Gesamtbetrag und Positionen vor dem Speichern.'
+  }),
+  literal('orders.create.summary.totalLabel', {
+    es: 'Total estimado',
+    en: 'Estimated total',
+    fr: 'Total estim\u00E9',
+    de: 'Gesch\u00E4tzter Gesamtbetrag'
+  }),
+  literal('orders.create.summary.linesLabel', {
+    es: 'L\u00EDneas activas',
+    en: 'Active lines',
+    fr: 'Lignes actives',
+    de: 'Aktive Positionen'
+  }),
+  literal('orders.create.summary.emptyHint', {
+    es: 'A\u00F1ade un producto y cantidad para calcular el total.',
+    en: 'Add at least one product and quantity to calculate the total.',
+    fr: 'Ajoutez au moins un produit et une quantit\u00E9 pour calculer le total.',
+    de: 'F\u00FCgen Sie mindestens ein Produkt mit Menge hinzu, um den Gesamtbetrag zu berechnen.'
+  }),
   literal('orders.create.fields.productLabel', {
     es: 'Producto',
     en: 'Product',
     fr: 'Produit',
     de: 'Produkt'
+  }),
+  literal('orders.create.fields.userPlaceholder', {
+    es: 'Selecciona un usuario',
+    en: 'Select a user',
+    fr: 'S\u00E9lectionnez un utilisateur',
+    de: 'W\u00E4hle einen Benutzer'
+  }),
+  literal('orders.create.fields.productPlaceholder', {
+    es: 'Selecciona un producto',
+    en: 'Choose a product',
+    fr: 'Choisissez un produit',
+    de: 'W\u00E4hle ein Produkt'
+  }),
+  literal('orders.create.fields.currencyLabel', {
+    es: 'Moneda',
+    en: 'Currency',
+    fr: 'Devise',
+    de: 'W\u00E4hrung'
+  }),
+  literal('orders.create.fields.currencyPlaceholder', {
+    es: 'Selecciona una moneda',
+    en: 'Choose a currency',
+    fr: 'Choisissez une devise',
+    de: 'W\u00E4hle eine W\u00E4hrung'
+  }),
+  literal('orders.create.fields.currencyHint', {
+    es: 'Usamos ISO-4217 en may\u00FAsculas (ej. EUR).',
+    en: 'Use ISO-4217 in uppercase (e.g. EUR).',
+    fr: 'Utilisez le code ISO-4217 en majuscules (ex. EUR).',
+    de: 'Verwende den ISO-4217-Code in Gro\u00DFbuchstaben (z. B. EUR).'
   }),
   literal('orders.create.fields.quantityLabel', {
     es: 'Cantidad',
@@ -821,6 +887,12 @@ const LITERALS: LiteralDefinition[] = [
     en: 'Estimated price',
     fr: 'Prix estim\u00E9',
     de: 'Gesch\u00E4tzter Preis'
+  }),
+  literal('orders.create.fields.priceReadonly', {
+    es: 'Valor estimado generado autom\u00E1ticamente',
+    en: 'Auto-generated estimated value',
+    fr: 'Valeur estim\u00E9e g\u00E9n\u00E9r\u00E9e automatiquement',
+    de: 'Automatisch berechneter Sch\u00E4tzwert'
   }),
   literal('orders.create.items.remove', {
     es: 'Eliminar producto',
@@ -839,6 +911,84 @@ const LITERALS: LiteralDefinition[] = [
     en: 'Save order',
     fr: 'Enregistrer la commande',
     de: 'Bestellung speichern'
+  }),
+  literal('orders.create.actions.submitting', {
+    es: 'Guardando\u2026',
+    en: 'Saving\u2026',
+    fr: 'Enregistrement\u2026',
+    de: 'Speichern\u2026'
+  }),
+  literal('orders.create.error.summaryTitle', {
+    es: 'No pudimos validar el formulario',
+    en: 'We could not validate the form',
+    fr: 'Impossible de valider le formulaire',
+    de: 'Formular konnte nicht validiert werden'
+  }),
+  literal('orders.create.error.summaryDescription', {
+    es: 'Corrige los puntos listados a continuaci\u00F3n y vuelve a intentarlo.',
+    en: 'Fix the issues listed below and try again.',
+    fr: 'Corrigez les points list\u00E9s ci-dessous puis r\u00E9essayez.',
+    de: 'Beheben Sie die folgenden Punkte und versuchen Sie es erneut.'
+  }),
+  literal('orders.create.errors.userRequired', {
+    es: 'Selecciona un usuario para asociar el pedido.',
+    en: 'Select a user to associate the order with.',
+    fr: 'S\u00E9lectionnez un utilisateur auquel associer la commande.',
+    de: 'W\u00E4hlen Sie einen Benutzer f\u00FCr die Bestellung aus.'
+  }),
+  literal('orders.create.errors.itemsRequired', {
+    es: 'A\u00F1ade al menos una l\u00EDnea de producto al pedido.',
+    en: 'Add at least one product line to the order.',
+    fr: 'Ajoutez au moins une ligne de produit \u00E0 la commande.',
+    de: 'F\u00FCgen Sie mindestens eine Produktzeile zur Bestellung hinzu.'
+  }),
+  literal('orders.create.errors.productRequired', {
+    es: 'Elige un producto v\u00E1lido.',
+    en: 'Choose a valid product.',
+    fr: 'Choisissez un produit valide.',
+    de: 'W\u00E4hlen Sie ein g\u00FCltiges Produkt.'
+  }),
+  literal('orders.create.errors.currencyRequired', {
+    es: 'Selecciona la moneda del pedido.',
+    en: 'Select the currency for the order.',
+    fr: 'S\u00E9lectionnez la devise de la commande.',
+    de: 'W\u00E4hle die W\u00E4hrung f\u00FCr die Bestellung.'
+  }),
+  literal('orders.create.errors.currencyLength', {
+    es: 'La moneda debe tener exactamente 3 letras (ISO-4217).',
+    en: 'Currency must contain exactly 3 letters (ISO-4217).',
+    fr: 'La devise doit comporter exactement 3 lettres (ISO-4217).',
+    de: 'Die W\u00E4hrung muss genau 3 Buchstaben haben (ISO-4217).'
+  }),
+  literal('orders.create.errors.quantityRequired', {
+    es: 'Indica la cantidad.',
+    en: 'Provide a quantity.',
+    fr: 'Indiquez la quantit\u00E9.',
+    de: 'Geben Sie eine Menge an.'
+  }),
+  literal('orders.create.errors.quantityMin', {
+    es: 'La cantidad debe ser al menos 1.',
+    en: 'Quantity must be at least 1.',
+    fr: 'La quantit\u00E9 doit \u00EAtre au minimum 1.',
+    de: 'Die Menge muss mindestens 1 sein.'
+  }),
+  literal('orders.create.errors.itemReference', {
+    es: 'L\u00EDnea #{index}',
+    en: 'Line #{index}',
+    fr: 'Ligne n\u00B0{index}',
+    de: 'Position #{index}'
+  }),
+  literal('orders.create.notifications.success', {
+    es: 'Pedido creado correctamente.',
+    en: 'Order created successfully.',
+    fr: 'Commande cr\u00E9\u00E9e avec succ\u00E8s.',
+    de: 'Bestellung erfolgreich erstellt.'
+  }),
+  literal('orders.create.notifications.error', {
+    es: 'No pudimos guardar el pedido. Int\u00E9ntalo m\u00E1s tarde.',
+    en: 'We could not save the order. Please try again later.',
+    fr: 'Impossible d\u2019enregistrer la commande. R\u00E9essayez plus tard.',
+    de: 'Bestellung konnte nicht gespeichert werden. Bitte sp\u00E4ter erneut versuchen.'
   }),
   literal('orders.search.placeholder', {
     es: 'Buscar pedido o usuario',

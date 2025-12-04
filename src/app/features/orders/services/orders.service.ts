@@ -15,7 +15,7 @@ export class OrdersService {
   ) {}
 
   getOrders(): Observable<Order[]> {
-    if (this.authService.hasRole('admin') || this.authService.hasRole('portfolio_admin')) {
+    if (this.authService.isAdministrativeUser()) {
       return this.api
         .get<PageResponse<Order>>(this.baseEndpoint)
         .pipe(map((page) => this.ensureArray(page.content)));

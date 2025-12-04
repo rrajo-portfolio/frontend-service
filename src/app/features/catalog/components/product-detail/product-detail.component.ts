@@ -21,7 +21,7 @@ export class ProductDetailComponent {
   ) {}
 
   get canUseCart(): boolean {
-    return this.authService.hasAnyRole(['user', 'admin', 'portfolio_admin']);
+    return this.authService.canUseCartFeatures();
   }
 
   closeModal(): void {

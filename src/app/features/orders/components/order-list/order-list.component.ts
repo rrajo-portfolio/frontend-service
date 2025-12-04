@@ -27,8 +27,8 @@ export class OrderListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.isAdmin = this.authService.hasAnyRole(['admin', 'portfolio_admin']);
-    this.isStandardUser = this.authService.hasRole('user') && !this.isAdmin;
+    this.isAdmin = this.authService.isAdministrativeUser();
+    this.isStandardUser = this.authService.canUseCartFeatures();
     this.ordersService
       .getOrders()
       .pipe(takeUntil(this.destroy$))

@@ -10,6 +10,7 @@ import { ProductLocalizationService } from '../../services/product-localization.
 export class ProductCardComponent {
   @Input() product!: Product;
   @Input() canEdit = false;
+  @Input() canAddToCart = true;
   
   @Output() edit = new EventEmitter<Product>();
   @Output() addCart = new EventEmitter<Product>();
@@ -41,6 +42,9 @@ export class ProductCardComponent {
   
   addToCart(event: Event): void {
     event.stopPropagation();
+    if (!this.canAddToCart) {
+      return;
+    }
     this.addCart.emit(this.product);
   }
   

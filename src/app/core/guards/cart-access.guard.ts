@@ -7,13 +7,9 @@ export class CartAccessGuard implements CanActivate {
   constructor(private readonly authService: AuthService, private readonly router: Router) {}
 
   canActivate(): boolean | UrlTree {
-    if (this.isAdministrativeUser()) {
+    if (this.authService.isAdministrativeUser()) {
       return this.router.parseUrl('/orders');
     }
     return true;
-  }
-
-  private isAdministrativeUser(): boolean {
-    return this.authService.hasRole('admin') || this.authService.hasRole('portfolio_admin');
   }
 }

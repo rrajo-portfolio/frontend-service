@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: 'home',
     canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['admin', 'portfolio_admin'] },
+    data: { roles: ['admin', 'portfolio_admin', 'catalog_admin'] },
     loadChildren: () =>
       import('./features/home/home.module').then((m) => m.HomeModule)
   },
@@ -36,14 +36,14 @@ const routes: Routes = [
   {
     path: 'orders',
     canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['user', 'admin', 'portfolio_admin'] },
+    data: { roles: ['user', 'admin', 'portfolio_admin', 'catalog_admin'] },
     loadChildren: () =>
       import('./features/orders/orders.module').then((m) => m.OrdersModule)
   },
   {
     path: 'cart',
     canActivate: [AuthGuard, RoleGuard, CartAccessGuard],
-    data: { roles: ['user'], excludeRoles: ['admin', 'portfolio_admin'] },
+    data: { roles: ['user'], excludeRoles: ['admin', 'portfolio_admin', 'catalog_admin'] },
     loadChildren: () =>
       import('./features/cart/cart.module').then((m) => m.CartModule)
   },
@@ -56,14 +56,14 @@ const routes: Routes = [
   {
     path: 'users',
     canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['admin', 'portfolio_admin'] },
+    data: { roles: ['admin', 'portfolio_admin', 'catalog_admin'] },
     loadChildren: () =>
       import('./features/users/users.module').then((m) => m.UsersModule)
   },
   {
     path: 'admin',
     canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['admin', 'portfolio_admin'] },
+    data: { roles: ['admin', 'portfolio_admin', 'catalog_admin'] },
     loadChildren: () =>
       import('./features/admin/admin.module').then((m) => m.AdminModule)
   },

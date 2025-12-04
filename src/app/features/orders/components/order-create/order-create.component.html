@@ -1,98 +1,279 @@
-<section class="create-shell">
+<section class="create-shell" aria-labelledby="orderCreateTitle">
   <header class="create-hero">
     <p class="eyebrow">{{ 'orders.create.eyebrow' | translate }}</p>
-    <h1>{{ 'orders.create.title' | translate }}</h1>
+    <h1 id="orderCreateTitle">{{ 'orders.create.title' | translate }}</h1>
     <p>{{ 'orders.create.description' | translate }}</p>
   </header>
 
   <form class="order-form" [formGroup]="orderForm" (ngSubmit)="submit()">
-    <mat-card>
-      <div class="form-section">
-        <div class="section-heading">
-          <p class="eyebrow">{{ 'orders.create.customer.eyebrow' | translate }}</p>
-          <h2>{{ 'orders.create.customer.title' | translate }}</h2>
-          <p class="section-helper">
-            {{ 'orders.create.customer.helper' | translate }}
-          </p>
-        </div>
+    <mat-card class="form-card">
+      <div class="form-grid">
+        <div class="form-main">
+          <section class="section-card" aria-labelledby="orderCreateCustomer">
+            <div class="section-heading">
+              <p class="eyebrow">{{ 'orders.create.customer.eyebrow' | translate }}</p>
+              <h2 id="orderCreateCustomer">{{ 'orders.create.customer.title' | translate }}</h2>
+              <p class="section-helper">
+                {{ 'orders.create.customer.helper' | translate }}
+              </p>
+            </div>
 
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>{{ 'orders.create.fields.userLabel' | translate }}</mat-label>
-          <mat-select formControlName="userId">
-            <mat-option *ngFor="let user of users" [value]="user.id">
-              {{ displayUserLabel(user) }} - {{ user.email }}
-            </mat-option>
-          </mat-select>
-          <mat-hint *ngIf="matchedUserEmail">
-            {{ 'orders.create.customer.hintMatch' | translate }}
-            ({{ authService.getProfile()?.email }})
-          </mat-hint>
-          <mat-hint *ngIf="!matchedUserEmail">
-            {{ 'orders.create.customer.hintChoose' | translate }}
-          </mat-hint>
-        </mat-form-field>
-      </div>
-
-      <div class="form-section">
-        <div class="section-heading section-heading--items">
-          <div>
-            <p class="eyebrow">{{ 'orders.create.items.title' | translate }}</p>
-            <p class="section-helper">
-              {{ 'orders.create.items.helper' | translate }}
-            </p>
-          </div>
-          <button mat-stroked-button type="button" (click)="addItem()">
-            <lucide-icon name="Plus" size="16"></lucide-icon>
-            {{ 'orders.create.actions.addItem' | translate }}
-          </button>
-        </div>
-
-        <div class="items-list" formArrayName="items">
-          <div
-            class="item-row"
-            *ngFor="let item of items.controls; let i = index"
-            [formGroupName]="i"
-          >
-            <mat-form-field appearance="outline">
-              <mat-label>{{ 'orders.create.fields.productLabel' | translate }}</mat-label>
-              <mat-select formControlName="productId">
-                <mat-option
-                  *ngFor="let product of products$ | async"
-                  [value]="product.id"
-                >
-                  {{ product.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>{{ 'orders.create.fields.quantityLabel' | translate }}</mat-label>
-              <input matInput type="number" formControlName="quantity" min="1" />
-            </mat-form-field>
-
-            <mat-form-field appearance="outline">
-              <mat-label>{{ 'orders.create.fields.priceLabel' | translate }}</mat-label>
-              <input matInput formControlName="price" readonly />
-            </mat-form-field>
-
-            <button
-              mat-icon-button
-              type="button"
-              (click)="removeItem(i)"
-              [attr.aria-label]="'orders.create.items.remove' | translate"
+            <div
+              class="form-group"
+              [class.has-error]="
+                orderForm.get('userId')?.invalid && orderForm.get('userId')?.touched
+              "
             >
-              <lucide-icon name="Trash2" size="18"></lucide-icon>
-            </button>
-          </div>
+              <label for="orderUser">{{ 'orders.create.fields.userLabel' | translate }}</label>
+              <select
+                id="orderUser"
+                class="form-control"
+                formControlName="userId"
+                required
+              >
+                <option value="" disabled>
+                  {{ 'orders.create.fields.userPlaceholder' | translate }}
+                </option>
+                <option *ngFor="let user of users; trackBy: trackUser" [value]="user.id">
+                  {{ displayUserLabel(user) }} - {{ user.email }}
+                </option>
+              </select>
+              <small class="form-hint" *ngIf="matchedUserEmail">
+                {{ 'orders.create.customer.hintMatch' | translate }}
+                ({{ authService.getProfile()?.email }})
+              </small>
+              <small class="form-hint" *ngIf="!matchedUserEmail">
+                {{ 'orders.create.customer.hintChoose' | translate }}
+              </small>
+              <small
+                class="field-error"
+                *ngIf="
+                  orderForm.get('userId')?.hasError('required') &&
+                  orderForm.get('userId')?.touched
+                "
+              >
+                {{ 'orders.create.errors.userRequired' | translate }}
+              </small>
+            </div>
+
+            <div
+              class="form-group"
+              [class.has-error]="
+                orderForm.get('currency')?.invalid && orderForm.get('currency')?.touched
+              "
+            >
+              <label for="orderCurrency">
+                {{ 'orders.create.fields.currencyLabel' | translate }}
+              </label>
+              <select
+                id="orderCurrency"
+                class="form-control"
+                formControlName="currency"
+                required
+              >
+                <option value="" disabled>
+                  {{ 'orders.create.fields.currencyPlaceholder' | translate }}
+                </option>
+                <option *ngFor="let option of currencyOptions" [value]="option">
+                  {{ option }}
+                </option>
+              </select>
+              <small class="form-hint">
+                {{ 'orders.create.fields.currencyHint' | translate }}
+              </small>
+              <small
+                class="field-error"
+                *ngIf="
+                  orderForm.get('currency')?.hasError('required') &&
+                  orderForm.get('currency')?.touched
+                "
+              >
+                {{ 'orders.create.errors.currencyRequired' | translate }}
+              </small>
+              <small
+                class="field-error"
+                *ngIf="
+                  (orderForm.get('currency')?.hasError('minlength') ||
+                    orderForm.get('currency')?.hasError('maxlength')) &&
+                  orderForm.get('currency')?.touched
+                "
+              >
+                {{ 'orders.create.errors.currencyLength' | translate }}
+              </small>
+            </div>
+          </section>
+
+          <section class="section-card" aria-labelledby="orderCreateItems">
+            <div class="section-heading section-heading--items">
+              <div>
+                <p class="eyebrow">{{ 'orders.create.items.title' | translate }}</p>
+                <p class="section-helper">
+                  {{ 'orders.create.items.helper' | translate }}
+                </p>
+              </div>
+              <button class="btn btn-secondary" type="button" (click)="addItem()">
+                <lucide-icon name="Plus" size="16"></lucide-icon>
+                <span>{{ 'orders.create.actions.addItem' | translate }}</span>
+              </button>
+            </div>
+
+            <div class="items-list" formArrayName="items">
+              <div
+                class="item-card"
+                *ngFor="let item of items.controls; let i = index; trackBy: trackOrderItem"
+                [formGroupName]="i"
+              >
+                <div class="item-card__grid">
+                  <div
+                    class="form-group"
+                    [class.has-error]="
+                      item.get('productId')?.invalid && item.get('productId')?.touched
+                    "
+                  >
+                    <label [attr.for]="'product-' + i">
+                      {{ 'orders.create.fields.productLabel' | translate }}
+                    </label>
+                    <select
+                      class="form-control"
+                      formControlName="productId"
+                      [id]="'product-' + i"
+                      required
+                    >
+                      <option value="" disabled>
+                        {{ 'orders.create.fields.productPlaceholder' | translate }}
+                      </option>
+                      <option
+                        *ngFor="let product of products$ | async; trackBy: trackProduct"
+                        [value]="product.id"
+                      >
+                        {{ product.name }}
+                      </option>
+                    </select>
+                    <small
+                      class="field-error"
+                      *ngIf="
+                        item.get('productId')?.hasError('required') &&
+                        item.get('productId')?.touched
+                      "
+                    >
+                      {{ 'orders.create.errors.productRequired' | translate }}
+                    </small>
+                  </div>
+
+                  <div
+                    class="form-group"
+                    [class.has-error]="
+                      item.get('quantity')?.invalid && item.get('quantity')?.touched
+                    "
+                  >
+                    <label [attr.for]="'quantity-' + i">
+                      {{ 'orders.create.fields.quantityLabel' | translate }}
+                    </label>
+                    <input
+                      class="form-control"
+                      type="number"
+                      min="1"
+                      formControlName="quantity"
+                      [id]="'quantity-' + i"
+                      required
+                    />
+                    <small
+                      class="field-error"
+                      *ngIf="
+                        item.get('quantity')?.hasError('required') &&
+                        item.get('quantity')?.touched
+                      "
+                    >
+                      {{ 'orders.create.errors.quantityRequired' | translate }}
+                    </small>
+                    <small
+                      class="field-error"
+                      *ngIf="
+                        item.get('quantity')?.hasError('min') && item.get('quantity')?.touched
+                      "
+                    >
+                      {{ 'orders.create.errors.quantityMin' | translate }}
+                    </small>
+                  </div>
+
+                  <div class="form-group">
+                    <label [attr.for]="'price-' + i">
+                      {{ 'orders.create.fields.priceLabel' | translate }}
+                    </label>
+                    <input
+                      class="form-control form-control--readonly"
+                      formControlName="price"
+                      [id]="'price-' + i"
+                      readonly
+                    />
+                    <small class="form-hint">
+                      {{ 'orders.create.fields.priceReadonly' | translate }}
+                    </small>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="item-card__remove"
+                  (click)="removeItem(i)"
+                  [disabled]="items.length === 1"
+                  [attr.aria-label]="'orders.create.items.remove' | translate"
+                  [attr.title]="'orders.create.items.remove' | translate"
+                >
+                  <lucide-icon name="Trash2" size="18"></lucide-icon>
+                </button>
+              </div>
+            </div>
+          </section>
         </div>
+
+        <aside class="create-summary" aria-live="polite">
+          <p class="eyebrow">{{ 'orders.create.summary.eyebrow' | translate }}</p>
+          <h3>{{ 'orders.create.summary.title' | translate }}</h3>
+          <p class="section-helper">{{ 'orders.create.summary.description' | translate }}</p>
+
+          <dl class="summary-metrics">
+            <div>
+              <dt>{{ 'orders.create.summary.totalLabel' | translate }}</dt>
+              <dd>{{ orderTotal | currency: orderCurrency:'symbol':'1.2-2' }}</dd>
+            </div>
+            <div>
+              <dt>{{ 'orders.create.summary.linesLabel' | translate }}</dt>
+              <dd>{{ items.length }}</dd>
+            </div>
+          </dl>
+
+          <p class="summary-empty" *ngIf="orderTotal === 0">
+            {{ 'orders.create.summary.emptyHint' | translate }}
+          </p>
+        </aside>
       </div>
 
-      <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit">
+      <div *ngIf="submissionErrorSummary" class="alert alert-error" aria-live="assertive">
+        <div class="alert-header">
+          <lucide-icon name="AlertCircle" size="18"></lucide-icon>
+          <div>
+            <h3>{{ submissionErrorSummary }}</h3>
+            <p *ngIf="submissionErrorDescription">{{ submissionErrorDescription }}</p>
+          </div>
+        </div>
+        <ul>
+          <li *ngFor="let err of submissionErrorList">{{ err }}</li>
+        </ul>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" type="submit" [disabled]="isSubmitting">
           <lucide-icon name="Save" size="18"></lucide-icon>
-          {{ 'orders.create.actions.submit' | translate }}
+          <span>
+            {{
+              isSubmitting
+                ? ('orders.create.actions.submitting' | translate)
+                : ('orders.create.actions.submit' | translate)
+            }}
+          </span>
         </button>
-      </mat-card-actions>
+      </div>
     </mat-card>
   </form>
 </section>

@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
   }
 
   get hasAdminRole(): boolean {
-    return this.authService.hasRole('portfolio_admin') || this.authService.hasRole('admin');
+    return this.authService.isAdministrativeUser();
   }
 
   private readonly roleLabelMap: Record<string, string> = {
@@ -246,7 +246,6 @@ export class ProfileComponent implements OnInit {
     return this.translationService.translate(key);
   }
 }
-
 
 
 

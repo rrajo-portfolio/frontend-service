@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       labelKey: 'nav.home',
       path: '/home',
       icon: 'Home',
-      roles: ['admin', 'portfolio_admin']
+      roles: ['admin', 'portfolio_admin', 'catalog_admin']
     },
     { labelKey: 'nav.catalog', path: '/catalog', icon: 'Package' },
     { labelKey: 'nav.orders', path: '/orders', icon: 'ShoppingBag', badge: 'orders' },
@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       path: '/cart',
       icon: 'ShoppingCart',
       roles: ['user'],
-      excludeRoles: ['admin', 'portfolio_admin'],
+      excludeRoles: ['admin', 'portfolio_admin', 'catalog_admin'],
       badge: 'cart'
     },
     { labelKey: 'nav.profile', path: '/profile', icon: 'User' },
@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       labelKey: 'nav.admin',
       path: '/admin',
       icon: 'Shield',
-      roles: ['admin', 'portfolio_admin']
+      roles: ['admin', 'portfolio_admin', 'catalog_admin']
     }
   ];
 
@@ -296,7 +296,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 }
-
 
 
 

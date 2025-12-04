@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './core/services/auth.service';
 import { LoadingService } from './core/services/loading.service';
 import { PrefetchService } from './core/services/prefetch.service';
+import { NotificationService } from './core/services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +19,12 @@ export class AppComponent implements OnInit {
     private readonly authService: AuthService,
     loadingService: LoadingService,
     private readonly titleService: Title,
-    private readonly prefetchService: PrefetchService
+    private readonly prefetchService: PrefetchService,
+    private readonly notificationService: NotificationService
   ) {
     this.loading$ = loadingService.loading$;
     this.authService.init().subscribe();
+    this.notificationService.initializeFeed();
   }
 
   ngOnInit(): void {

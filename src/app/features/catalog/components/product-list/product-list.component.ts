@@ -33,8 +33,8 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.canUseCart = this.authService.hasRole('user');
-    this.isCatalogAdmin = this.authService.hasAnyRole(['admin', 'portfolio_admin']);
+    this.canUseCart = this.authService.canUseCartFeatures();
+    this.isCatalogAdmin = this.authService.isAdministrativeUser();
     this.loadProducts();
     this.prefetchService.warmProductDetailComponent();
   }
@@ -56,6 +56,9 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product, event?: Event): void {
+    if (!this.canUseCart) {
+      return;
+    }
     event?.stopPropagation();
     this.cartService.addProduct(product);
     this.notificationService.success(

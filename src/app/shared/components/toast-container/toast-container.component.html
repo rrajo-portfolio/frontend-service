@@ -1,0 +1,15 @@
+<div class="toast-container" *ngIf="toasts$ | async as toasts">
+  <div
+    class="toast"
+    *ngFor="let toast of toasts; trackBy: trackById"
+    [ngClass]="['toast--' + toast.type]"
+  >
+    <div class="toast__content">
+      <strong>{{ toast.type | titlecase }}</strong>
+      <p>{{ toast.message }}</p>
+    </div>
+    <button class="toast__close" type="button" (click)="dismissToast(toast.id)">
+      ×
+    </button>
+  </div>
+</div>
